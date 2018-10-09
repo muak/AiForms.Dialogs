@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <style name="NoDimDialogFragmentStyle" parent="@style/Base.Theme.AppCompat.Light.Dialog">
+        <item name="android:backgroundDimAmount">0.0</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowAnimationStyle">@style/ExtraDialogAnimSet</item>
+    </style>
+    <style name="ExtraDialogAnimSet">
+        <item name="android:windowEnterAnimation">@anim/extra_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/extra_dialog_exit</item>
+    </style>
+</resources>

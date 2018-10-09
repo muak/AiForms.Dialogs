@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Sample.Views.MyIndicatorView">
+    <StackLayout WidthRequest="50" HeightRequest="50" Spacing="0">
+        <Image x:Name="image" WidthRequest="36" HeightRequest="36" />
+        <Label Text="hogehoge" FontSize="Micro" TextColor="Black" 
+               VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+    </StackLayout>
+</ContentView>

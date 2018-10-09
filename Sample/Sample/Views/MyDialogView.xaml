@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extra:DialogView
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:extra="clr-namespace:AiForms.Extras.Abstractions;assembly=AiForms.Extras.Abstractions"
+    x:Class="Sample.Views.MyDialogView"
+    CornerRadius="10"
+    >
+
+    <ContentView BackgroundColor="#CC9900" x:Name="container" Padding="20">
+        <FlexLayout Direction="Column" AlignItems="Stretch" WidthRequest="200" HeightRequest="300"
+                    JustifyContent="SpaceBetween" BackgroundColor="White" 
+                    >
+            <Label Text="{Binding Title}" TextColor="#FFBF00" HorizontalTextAlignment="Center" Margin="6" x:Name="title" />
+            <FlexLayout Direction="Row" AlignItems="Stretch" JustifyContent="Center" 
+                        FlexLayout.Grow="1" >
+                <Label Text="{Binding Description}" LineBreakMode="WordWrap" x:Name="desc"
+                       TextColor="#666666" Margin="6" VerticalTextAlignment="Center" FlexLayout.Grow="1"  />
+            </FlexLayout>
+            <Button Text="OK" Clicked="Handle_Clicked" />
+         </FlexLayout>
+    </ContentView>
+</extra:DialogView>
