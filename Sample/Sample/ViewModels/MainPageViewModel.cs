@@ -22,24 +22,25 @@ namespace Sample.ViewModels
 
         public MainPageViewModel(MyIndicatorView myIndicatorView)
 		{
-           
+
+            var loadingFlg = false;
             LoadingCommand.Subscribe(async _ =>
             {
-                
-                using(Loading.Instance.Start(out var progress,"Loading...")){
+
+                await Loading.Instance.StartAsync(async progress => {
                     progress.Report(0d);
-                    for (var i = 0; i < 100;i++){
-                        if(i == 50){
+                    for (var i = 0; i < 100; i++)
+                    {
+                        if (i == 50)
+                        {
                             Loading.Instance.SetMessage("Soon...");
                         }
-                        await Task.Delay(100);
+                        await Task.Delay(50);
                         progress.Report((i + 1) * 0.01d);
                     }
-                }
-                //using (AiForms.Extras.Loading.Instance.Start("Loading..."))
-                //{
-                //    await Task.Delay(10000);
-                //}
+                },null,loadingFlg);
+
+                loadingFlg = !loadingFlg;
             });
 
             var dlgPage = new MyDialogView();

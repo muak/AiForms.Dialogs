@@ -11,12 +11,10 @@ namespace Sample.Views
         public MyToastView()
         {
             InitializeComponent();
-            ToastWidth = 0.8;
-            ToastHeight = 0.5;
             OffsetY = 0;
             OffsetX = 0;
-            Duration = 5000;
-            LayoutAlignment = LayoutAlignment.Start;
+            Duration = 3000;
+            VerticalLayoutAlignment = LayoutAlignment.Start;
             BackgroundColor = Color.FromRgb(0, 150, 0);
             Opacity = 1;
             CornerRadius = 20;
@@ -35,5 +33,11 @@ namespace Sample.Views
             );
         }
 
+        public override void RunDismissalAnimation()
+        {
+            Task.WhenAll(
+                image.ScaleTo(3.0, 250)
+            );
+        }
     }
 }

@@ -18,6 +18,8 @@ namespace AiForms.Extras
             Context = context;
         }
 
+        internal static FragmentManager FragmentManager => (Extras.Context as Activity)?.FragmentManager;
+
         public static IVisualElementRenderer CreateNativeView(XF.View view)
         {
             IVisualElementRenderer renderer = Platform.GetRenderer(view);
@@ -69,22 +71,6 @@ namespace AiForms.Extras
             }
 
             return new XF.Size(fWidth, fHeight);
-        }
-
-        public static (int width,int height) CalcViewSize(double width,double height)
-        {
-            var display = (Context as Activity)?.WindowManager.DefaultDisplay;
-
-            Point size = new Point();
-            display.GetRealSize(size);
-
-            var dWidth = Context.FromPixels(size.X);
-            var dHeight = Context.FromPixels(size.Y);
-
-            var fWidth = width <= 1 ? dWidth * width : width;
-            var fHeight = height <= 1 ? dHeight * height : height;
-
-            return ((int)fWidth, (int)fHeight);
         }
     }
 }

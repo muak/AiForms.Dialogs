@@ -1,15 +1,12 @@
 ﻿using System;
 using AiForms.Extras.Abstractions;
-using CoreGraphics;
 using UIKit;
-using Foundation;
 using Xamarin.Forms;
-using System.Threading.Tasks;
-using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.Platform.iOS;
 
 namespace AiForms.Extras
 {
+    [Foundation.Preserve(AllMembers = true)]
     public class ToastImplementation:IToast
     {
         public ToastImplementation()
@@ -25,11 +22,12 @@ namespace AiForms.Extras
         public void Show(ToastView view, object viewModel = null)
         {
             view.BindingContext = viewModel;
-
             view.Parent = Application.Current.MainPage;
 
             var renderer = Extras.CreateNativeView(view);
 
+            var measure = Extras.Measure(view);
+            renderer.SetElementSize(measure);
           
             renderer.NativeView.Alpha = 0;
             if (view.CornerRadius > 0)
@@ -50,13 +48,16 @@ namespace AiForms.Extras
 
             Device.StartTimer(TimeSpan.FromMilliseconds(view.Duration), () =>
             {
+                view.RunDismissalAnimation();
                 UIView.Animate(
                     0.5,
                     () => renderer.NativeView.Alpha = 0,
                     () =>{
-                        renderer.NativeView.RemoveFromSuperview();
-                        renderer.Dispose();
+                        view.Parent = null;
+                        Extras.DisposeModelAndChildrenRenderers(view);
+                        renderer = null;
                         view.Destroy();
+                        view = null;
                     }
                 );
 
@@ -72,35 +73,20 @@ namespace AiForms.Extras
 
             window.AddSubview(nativeView);
 
-            var width = view.ToastWidth;
-            var height = view.ToastHeight;
+            var width = view.ViewWidth;
+            var height = view.ViewHeight;
 
             var parentRect = window.Frame;
 
             var fWidth = width <= 1 ? parentRect.Width * width : width;
             var fHeight = height <= 1 ? parentRect.Height * height : height;
 
-            var size = view.Measure(double.PositiveInfinity,double.PositiveInfinity);
-            renderer.SetElementSize(new Size(size.Request.Width, size.Request.Height));
-            view.Layout(new Xamarin.Forms.Rectangle(0, 0, fWidth, fHeight));
-
-            if(width <= 1){
-                nativeView.WidthAnchor.ConstraintEqualTo(window.WidthAnchor, (System.nfloat)width).Active = true;
-            }
-            else{
-                nativeView.WidthAnchor.ConstraintEqualTo((System.nfloat)width).Active = true;
-            }
-
-            if(height <= 1){
-                nativeView.HeightAnchor.ConstraintEqualTo(window.HeightAnchor, (System.nfloat)height).Active = true;
-            }
-            else{
-                nativeView.HeightAnchor.ConstraintEqualTo((System.nfloat)height).Active = true;
-            }
+            nativeView.WidthAnchor.ConstraintEqualTo((System.nfloat)view.Bounds.Width).Active = true;
+            nativeView.HeightAnchor.ConstraintEqualTo((System.nfloat)view.Bounds.Height).Active = true;
 
             nativeView.CenterXAnchor.ConstraintEqualTo(window.CenterXAnchor, view.OffsetX).Active = true;
 
-            switch(view.LayoutAlignment){
+            switch(view.VerticalLayoutAlignment){
                 case Xamarin.Forms.LayoutAlignment.Start:
                     nativeView.TopAnchor.ConstraintEqualTo(window.TopAnchor, view.OffsetY).Active = true;
                     break;

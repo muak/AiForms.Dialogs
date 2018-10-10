@@ -137,6 +137,8 @@
     <Compile Include="ReusableDialog.cs" />
     <Compile Include="ExtraPlatformDialog.cs" />
     <Compile Include="JavaObjectExtensions.cs" />
+    <Compile Include="ReusableLoading.cs" />
+    <Compile Include="LoadingPlatformDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

@@ -10,14 +10,12 @@ namespace AiForms.Extras
     public class DialogImplementation : IDialog
     {
         public static readonly string ExtraDialogTag = "ExtraDialog";
-        internal FragmentManager FragmentManager;
         internal ExtraPlatformDialog ExtraDialog;
-        DialogConfig _config => Configurations.DialogConfig;
+        FragmentManager FragmentManager => Extras.FragmentManager;
 
         public DialogImplementation()
         {
             ExtraDialog = new ExtraPlatformDialog();
-            FragmentManager = (Extras.Context as Activity)?.FragmentManager;
         }
 
         public IReusableDialog Create<TView>(object viewModel = null) where TView : DialogView, new()

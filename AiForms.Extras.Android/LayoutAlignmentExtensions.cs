@@ -4,6 +4,7 @@ using Xamarin.Forms;
 
 namespace AiForms.Extras
 {
+    [Android.Runtime.Preserve(AllMembers = true)]
     public static class LayoutAlignmentExtensions
     {
         /// <summary>

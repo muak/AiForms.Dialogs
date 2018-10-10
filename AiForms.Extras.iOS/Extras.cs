@@ -5,12 +5,19 @@ using Xamarin.Forms.Platform.iOS;
 using CoreGraphics;
 using System.Threading.Tasks;
 using AiForms.Extras.Abstractions;
+using System.Reflection;
 
 namespace AiForms.Extras
 {
     [Foundation.Preserve(AllMembers = true)]
     public static class Extras
     {
+        // Get internal members
+        static BindableProperty RendererProperty = (BindableProperty)typeof(Platform).GetField("RendererProperty", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic).GetValue(null);
+        static Type DefaultRenderer = typeof(Platform).Assembly.GetType("Xamarin.Forms.Platform.iOS.Platform+DefaultRenderer");
+        static Type ModalWrapper = typeof(Platform).Assembly.GetType("Xamarin.Forms.Platform.iOS.ModalWrapper");
+        static MethodInfo ModalWapperDispose = ModalWrapper.GetMethod("Dispose");
+
         internal static UIViewController RootViewController{
             get{
                 var vc = UIApplication.SharedApplication.KeyWindow.RootViewController;
@@ -59,6 +66,39 @@ namespace AiForms.Extras
             return new Size(fWidth, fHeight);
         }
 
+        // From internal Platform class
+        public static void DisposeModelAndChildrenRenderers(Element view)
+        {
+            IVisualElementRenderer renderer;
+            foreach (VisualElement child in view.Descendants())
+            {
+                renderer = Platform.GetRenderer(child);
+                child.ClearValue(RendererProperty);
 
+                if (renderer != null)
+                {
+                    renderer.NativeView.RemoveFromSuperview();
+                    renderer.Dispose();
+                }
+            }
+
+            renderer = Platform.GetRenderer((VisualElement)view);
+            if (renderer != null)
+            {
+                if (renderer.ViewController != null)
+                {
+                    if (renderer.ViewController.ParentViewController.GetType() == ModalWrapper)
+                    {
+                        var modalWrapper = Convert.ChangeType(renderer.ViewController.ParentViewController, ModalWrapper);
+                        ModalWapperDispose.Invoke(modalWrapper, new object[] { });
+                    }
+                }
+
+                renderer.NativeView.RemoveFromSuperview();
+                renderer.Dispose();
+            }
+
+            view.ClearValue(RendererProperty);
+        }
     }
 }

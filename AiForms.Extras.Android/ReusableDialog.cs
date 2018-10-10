@@ -18,7 +18,7 @@ namespace AiForms.Extras
     {
         DialogImplementation _extraDialog;
         ExtraPlatformDialog _platformDialog => _extraDialog.ExtraDialog;
-        FragmentManager FragmentManager => _extraDialog.FragmentManager;
+        FragmentManager FragmentManager => Extras.FragmentManager;
         DialogView _dlgView;
         IVisualElementRenderer _renderer;
         ViewGroup _contentView;
@@ -85,7 +85,7 @@ namespace AiForms.Extras
 
         public async Task<bool> ShowAsync()
         {
-            var dialog = _extraDialog.FragmentManager.FindFragmentByTag<ExtraPlatformDialog>(DialogImplementation.ExtraDialogTag);
+            var dialog = FragmentManager.FindFragmentByTag<ExtraPlatformDialog>(DialogImplementation.ExtraDialogTag);
             if (dialog != null)
             {
                 return false;
@@ -157,6 +157,8 @@ namespace AiForms.Extras
                 _renderer = null;
 
                 _extraDialog = null;
+
+                OnceInitializeAction = null;
             }
             base.Dispose(disposing);           
         }

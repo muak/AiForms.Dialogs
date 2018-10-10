@@ -1,15 +1,14 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace AiForms.Extras.Abstractions
 {
     public interface ILoading
     {
-        IDisposable Start(string message = null,bool isCurrentScope = false);
-        IDisposable Start(out IProgress<double> progress,string message = null,bool isCurrentScope = false);
         void Show(string message = null,bool isCurrentScope = false);
-        void Show(out IProgress<double> progress, string message = null,bool isCurrentScope = false);
         void Hide();
         void SetMessage(string message);
+        Task StartAsync(Func<IProgress<double>,Task> action, string message = null, bool isCurrentScope = false);
     }
 
     public interface IIndicatorView

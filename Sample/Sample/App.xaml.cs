@@ -15,15 +15,15 @@ namespace Sample
 		{
 			InitializeComponent();
 
-            Configurations.LoadingConfig.IndicatorView = new MyIndicatorView();
             Configurations.LoadingConfig.IndicatorColor = Color.Accent;
             Configurations.LoadingConfig.OverlayColor = Color.FromRgba(255,255,255,0.7);
             Configurations.LoadingConfig.Opacity = 0.8f;
             Configurations.LoadingConfig.FontColor = Color.Black;
             Configurations.LoadingConfig.OffsetY = 0;
             Configurations.LoadingConfig.OffsetX = 0;
-
-            Configurations.DialogConfig.OverlayColor = Color.FromRgba(0, 0, 0, 0.3);
+            Configurations.LoadingConfig.IsReusable = true;
+            Configurations.LoadingConfig.DefaultMessage = "Loading...";
+            //Configurations.LoadingConfig.RegisterView<MyIndicatorView>(new {Message="Loading..."});
 
 			NavigationService.NavigateAsync("NavigationPage/MainPage?title=Hello%20from%20Xamarin.Forms");
 		}

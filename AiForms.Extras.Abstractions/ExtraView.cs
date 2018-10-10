@@ -38,6 +38,7 @@ namespace AiForms.Extras.Abstractions
         public int OffsetY { get; set; }
         public float CornerRadius { get; set; }
         public LayoutAlignment VerticalLayoutAlignment { get; set; } = LayoutAlignment.Center;
+        public LayoutAlignment HorizontalLayoutAlignment { get; set; } = LayoutAlignment.Center;
 
 
         public virtual void RunPresentationAnimation() {}

@@ -73,17 +73,16 @@
     </Compile>
     <Compile Include="DialogImplementation.cs" />
     <Compile Include="Extras.cs" />
-    <Compile Include="CustomPresentationController.cs" />
     <Compile Include="..\AiForms.Extras\CrossDialog.cs">
       <Link>CrossDialog.cs</Link>
     </Compile>
-    <Compile Include="ContentWrapper.cs" />
     <Compile Include="..\AiForms.Extras\CrossToast.cs">
       <Link>CrossToast.cs</Link>
     </Compile>
     <Compile Include="ToastImplementation.cs" />
     <Compile Include="ReusableDialog.cs" />
     <Compile Include="DialogPresentationController.cs" />
+    <Compile Include="ReusableLoading.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AiForms.Extras.Abstractions\AiForms.Extras.Abstractions.csproj">
