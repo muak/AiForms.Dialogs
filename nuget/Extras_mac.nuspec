@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
-        <id>AiForms.Extras</id>
-        <version>0.1.0-pre1</version>
-        <title>AiForms.Extras for Xamarin.Forms</title>
+        <id>AiForms.Dialogs</id>
+        <version>0.2.0-pre</version>
+        <title>AiForms.Dialogs for Xamarin.Forms</title>
         <authors>kamu</authors>
         <owners>kamu</owners>
-        <projectUrl>https://github.com/muak/AiForms.Extras</projectUrl>
-        <licenseUrl>https://github.com/muak/AiForms.Extras/blob/master/LICENSE.txt</licenseUrl>
+        <projectUrl>https://github.com/muak/AiForms.Dialogs</projectUrl>
+        <licenseUrl>https://github.com/muak/AiForms.Dialogs/blob/master/LICENSE.txt</licenseUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>This is the extra features for Xamarin.Forms
+        <description>This is a collection of flexible dialogs (Loading, Toast, CustomDialog) which can be written by XAML for Xamarin.Forms.
         </description>
         <summary></summary>
         <releaseNotes>
 First Release.
         </releaseNotes>
-        <tags>Xamarin.Forms</tags>
+        <tags>Xamarin.Forms dialog toast loading popup xaml netstandard ios android</tags>
         <language>en-US</language>
         <dependencies>
             <group targetFramework="netstandard2.0">
@@ -31,36 +31,36 @@ First Release.
     </metadata>
     <files>
         <!-- .net standard 2.0 -->
-        <file src="../AiForms.Extras/bin/Release/netstandard2.0/AiForms.Extras.dll" target="lib/netstandard2.0" />
-        <file src="../AiForms.Extras/bin/Release/netstandard2.0/AiForms.Extras.xml" target="lib/netstandard2.0" />
-        <file src="../AiForms.Extras/bin/Release/netstandard2.0/AiForms.Extras.pdb" target="lib/netstandard2.0" />
+        <file src="../AiForms.Dialogs/bin/Release/netstandard2.0/AiForms.Dialogs.dll" target="lib/netstandard2.0" />
+        <file src="../AiForms.Dialogs/bin/Release/netstandard2.0/AiForms.Dialogs.xml" target="lib/netstandard2.0" />
+        <file src="../AiForms.Dialogs/bin/Release/netstandard2.0/AiForms.Dialogs.pdb" target="lib/netstandard2.0" />
 		
-		<file src="../AiForms.Extras.Abstractions/bin/Release/netstandard2.0/AiForms.Extras.Abstractions.dll" target="lib/netstandard2.0" />
-        <file src="../AiForms.Extras.Abstractions/bin/Release/netstandard2.0/AiForms.Extras.Abstractions.xml" target="lib/netstandard2.0" />
-        <file src="../AiForms.Extras.Abstractions/bin/Release/netstandard2.0/AiForms.Extras.Abstractions.pdb" target="lib/netstandard2.0" />
+		<file src="../AiForms.Dialogs.Abstractions/bin/Release/netstandard2.0/AiForms.Dialogs.Abstractions.dll" target="lib/netstandard2.0" />
+        <file src="../AiForms.Dialogs.Abstractions/bin/Release/netstandard2.0/AiForms.Dialogs.Abstractions.xml" target="lib/netstandard2.0" />
+        <file src="../AiForms.Dialogs.Abstractions/bin/Release/netstandard2.0/AiForms.Dialogs.Abstractions.pdb" target="lib/netstandard2.0" />
 
         <!-- Mono.Android -->
-        <file src="../AiForms.Extras.Abstractions/bin/Release/netstandard2.0/AiForms.Extras.Abstractions.dll" target="lib/MonoAndroid" />
-        <file src="../AiForms.Extras.Abstractions/bin/Release/netstandard2.0/AiForms.Extras.Abstractions.xml" target="lib/MonoAndroid" />
-        <file src="../AiForms.Extras.Abstractions/bin/Release/netstandard2.0/AiForms.Extras.Abstractions.pdb" target="lib/MonoAndroid" />
-        <file src="../AiForms.Extras.Android/bin/Release/AiForms.Extras.dll" target="lib/MonoAndroid" />
-        <file src="../AiForms.Extras.Android/bin/Release/AiForms.Extras.xml" target="lib/MonoAndroid" />
-        <file src="../AiForms.Extras.Android/bin/Release/AiForms.Extras.pdb" target="lib/MonoAndroid" />
+        <file src="../AiForms.Dialogs.Abstractions/bin/Release/netstandard2.0/AiForms.Dialogs.Abstractions.dll" target="lib/MonoAndroid" />
+        <file src="../AiForms.Dialogs.Abstractions/bin/Release/netstandard2.0/AiForms.Dialogs.Abstractions.xml" target="lib/MonoAndroid" />
+        <file src="../AiForms.Dialogs.Abstractions/bin/Release/netstandard2.0/AiForms.Dialogs.Abstractions.pdb" target="lib/MonoAndroid" />
+        <file src="../AiForms.Dialogs.Android/bin/Release/AiForms.Dialogs.dll" target="lib/MonoAndroid" />
+        <file src="../AiForms.Dialogs.Android/bin/Release/AiForms.Dialogs.xml" target="lib/MonoAndroid" />
+        <file src="../AiForms.Dialogs.Android/bin/Release/AiForms.Dialogs.pdb" target="lib/MonoAndroid" />
 
         <!-- Mono.Touch -->
-        <file src="../AiForms.Extras.Abstractions/bin/Release/netstandard2.0/AiForms.Extras.Abstractions.dll" target="lib/MonoTouch" />
-        <file src="../AiForms.Extras.Abstractions/bin/Release/netstandard2.0/AiForms.Extras.Abstractions.xml" target="lib/MonoTouch" />
-        <file src="../AiForms.Extras.Abstractions/bin/Release/netstandard2.0/AiForms.Extras.Abstractions.pdb" target="lib/MonoTouch" />
-        <file src="../AiForms.Extras.iOS/bin/Release/AiForms.Extras.dll" target="lib/MonoTouch" />
-        <file src="../AiForms.Extras.iOS/bin/Release/AiForms.Extras.xml" target="lib/MonoTouch" />
-        <file src="../AiForms.Extras.iOS/bin/Release/AiForms.Extras.pdb" target="lib/MonoTouch" />
+        <file src="../AiForms.Dialogs.Abstractions/bin/Release/netstandard2.0/AiForms.Dialogs.Abstractions.dll" target="lib/MonoTouch" />
+        <file src="../AiForms.Dialogs.Abstractions/bin/Release/netstandard2.0/AiForms.Dialogs.Abstractions.xml" target="lib/MonoTouch" />
+        <file src="../AiForms.Dialogs.Abstractions/bin/Release/netstandard2.0/AiForms.Dialogs.Abstractions.pdb" target="lib/MonoTouch" />
+        <file src="../AiForms.Dialogs.iOS/bin/Release/AiForms.Dialogs.dll" target="lib/MonoTouch" />
+        <file src="../AiForms.Dialogs.iOS/bin/Release/AiForms.Dialogs.xml" target="lib/MonoTouch" />
+        <file src="../AiForms.Dialogs.iOS/bin/Release/AiForms.Dialogs.pdb" target="lib/MonoTouch" />
 
         <!-- Xamarin.iOS10 -->
-        <file src="../AiForms.Extras.Abstractions/bin/Release/netstandard2.0/AiForms.Extras.Abstractions.dll" target="lib/Xamarin.iOS10" />
-        <file src="../AiForms.Extras.Abstractions/bin/Release/netstandard2.0/AiForms.Extras.Abstractions.xml" target="lib/Xamarin.iOS10" />
-        <file src="../AiForms.Extras.Abstractions/bin/Release/netstandard2.0/AiForms.Extras.Abstractions.pdb" target="lib/Xamarin.iOS10" />
-        <file src="../AiForms.Extras.iOS/bin/Release/AiForms.Extras.dll" target="lib/Xamarin.iOS10" />
-        <file src="../AiForms.Extras.iOS/bin/Release/AiForms.Extras.xml" target="lib/Xamarin.iOS10" />
-        <file src="../AiForms.Extras.iOS/bin/Release/AiForms.Extras.pdb" target="lib/Xamarin.iOS10" />
+        <file src="../AiForms.Dialogs.Abstractions/bin/Release/netstandard2.0/AiForms.Dialogs.Abstractions.dll" target="lib/Xamarin.iOS10" />
+        <file src="../AiForms.Dialogs.Abstractions/bin/Release/netstandard2.0/AiForms.Dialogs.Abstractions.xml" target="lib/Xamarin.iOS10" />
+        <file src="../AiForms.Dialogs.Abstractions/bin/Release/netstandard2.0/AiForms.Dialogs.Abstractions.pdb" target="lib/Xamarin.iOS10" />
+        <file src="../AiForms.Dialogs.iOS/bin/Release/AiForms.Dialogs.dll" target="lib/Xamarin.iOS10" />
+        <file src="../AiForms.Dialogs.iOS/bin/Release/AiForms.Dialogs.xml" target="lib/Xamarin.iOS10" />
+        <file src="../AiForms.Dialogs.iOS/bin/Release/AiForms.Dialogs.pdb" target="lib/Xamarin.iOS10" />
     </files>
 </package>

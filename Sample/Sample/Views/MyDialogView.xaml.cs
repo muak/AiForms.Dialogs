@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
-using AiForms.Extras.Abstractions;
+using AiForms.Dialogs;
 using System.Threading.Tasks;
+using AiForms.Dialogs.Abstractions;
 
 namespace Sample.Views
 {

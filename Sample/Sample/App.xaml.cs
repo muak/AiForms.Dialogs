@@ -1,4 +1,4 @@
-﻿using AiForms.Extras.Abstractions;
+﻿using AiForms.Dialogs.Abstractions;
 using Prism;
 using Prism.Ioc;
 using Prism.Unity;
