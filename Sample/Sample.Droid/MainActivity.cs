@@ -20,7 +20,7 @@ namespace Sample.Droid
 
             global::Xamarin.Forms.Forms.SetFlags("FastRenderers_Experimental");
 			global::Xamarin.Forms.Forms.Init(this, bundle);
-            AiForms.Extras.Extras.Init(this);
+            AiForms.Dialogs.Dialogs.Init(this);
 
 
             //var fragment = new MainPage().CreateFragment(this);

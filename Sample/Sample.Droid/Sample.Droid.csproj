@@ -18,6 +18,7 @@
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
+    <JavaMaximumHeapSize>3G</JavaMaximumHeapSize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -177,13 +178,13 @@
       <Project>{2DB58246-77D5-4190-B0A0-F125B538309B}</Project>
       <Name>Sample</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\AiForms.Extras.Abstractions\AiForms.Extras.Abstractions.csproj">
-      <Project>{7071BDCB-2923-4B47-A630-9FEED476DB4F}</Project>
-      <Name>AiForms.Extras.Abstractions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\AiForms.Extras.Android\AiForms.Extras.Android.csproj">
+    <ProjectReference Include="..\..\AiForms.Dialogs.Android\AiForms.Dialogs.Android.csproj">
       <Project>{3E6C5F16-98AD-45F8-B2F3-06876EB939CD}</Project>
-      <Name>AiForms.Extras.Android</Name>
+      <Name>AiForms.Dialogs.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AiForms.Dialogs.Abstractions\AiForms.Dialogs.Abstractions.csproj">
+      <Project>{0BDF7090-FE73-49E6-B554-B2DA240768BB}</Project>
+      <Name>AiForms.Dialogs.Abstractions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

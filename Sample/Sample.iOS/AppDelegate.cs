@@ -2,7 +2,6 @@
 using Prism;
 using Prism.Ioc;
 using UIKit;
-using AiForms.Extras;
 
 namespace Sample.iOS
 {

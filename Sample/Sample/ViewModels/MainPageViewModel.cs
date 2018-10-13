@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Reactive.Bindings;
 using System.Threading.Tasks;
-using AiForms.Extras;
 using Sample.Views;
 using System.ComponentModel;
 using Xamarin.Forms;
-using AiForms.Extras.Abstractions;
+using AiForms.Dialogs;
+using AiForms.Dialogs.Abstractions;
 
 namespace Sample.ViewModels
 {

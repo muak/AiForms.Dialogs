@@ -9,16 +9,22 @@
     <PackageReference Include="ReactiveProperty" Version="5.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AiForms.Extras.Abstractions\AiForms.Extras.Abstractions.csproj" />
-    <ProjectReference Include="..\..\AiForms.Extras\AiForms.Extras.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\ios7-paw-outline.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Remove="Views\DialogSample.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Resources\ios7-paw-outline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Views\DialogSample.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AiForms.Dialogs\AiForms.Dialogs.csproj" />
+    <ProjectReference Include="..\..\AiForms.Dialogs.Abstractions\AiForms.Dialogs.Abstractions.csproj" />
   </ItemGroup>
 </Project>
