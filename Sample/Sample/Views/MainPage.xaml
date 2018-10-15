@@ -5,9 +5,12 @@
 	xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms" 
 	prism:ViewModelLocator.AutowireViewModel="True"
 	x:Class="Sample.Views.MainPage" Title="MainPage" BackgroundColor="White">
-    
 	<StackLayout HorizontalOptions="Center">
         <ContentView VerticalOptions="FillAndExpand" />
+        <Entry Text="{Binding OffsetX.Value,Mode=TwoWay}" Placeholder="OffsetX" />
+        <Entry Text="{Binding OffsetY.Value,Mode=TwoWay}" Placeholder="OffsetY" />
+        <Picker ItemsSource="{Binding VAligns}" SelectedIndex="0" SelectedItem="{Binding VAlign.Value}" Title="Vertical" />
+        <Picker ItemsSource="{Binding HAligns}" SelectedIndex="0" SelectedItem="{Binding HAlign.Value}" Title="Horizontal" />
 		<Button Text="LoadingStart" Command="{Binding LoadingCommand}" VerticalOptions="End" />
         <Button Text="DialogStart" Command="{Binding DialogCommand}" VerticalOptions="End" />
         <Button Text="ToastStart" Command="{Binding ToastCommand}" VerticalOptions="End" />

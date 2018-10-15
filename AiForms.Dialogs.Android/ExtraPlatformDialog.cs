@@ -39,7 +39,6 @@ namespace AiForms.Dialogs
         {
             base.OnDestroyView();
 
-            _contentView.RemoveFromParent();
             _contentView = null;
             _dialogView = null;
             Dialog?.Dispose();

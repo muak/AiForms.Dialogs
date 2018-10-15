@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AiForms.Dialogs.Abstractions;
 using CoreGraphics;
 using Foundation;
@@ -78,12 +79,43 @@ namespace AiForms.Dialogs
                 var containerViewBounds = ContainerView.Bounds;
 
                 presentedViewFrame.Size = GetSizeForChildContentContainer(PresentedViewController, containerViewBounds.Size);
-                presentedViewFrame.X = containerViewBounds.Size.Width / 2f - presentedViewFrame.Size.Width / 2f;
-                presentedViewFrame.Y = containerViewBounds.Size.Height / 2f - presentedViewFrame.Size.Height / 2f;
+                presentedViewFrame.X = GetHorizontalPosition(presentedViewFrame) + (float)_dlgView.OffsetX;
+                presentedViewFrame.Y = GetVerticalPosition(presentedViewFrame) + (float)_dlgView.OffsetY;
 
                 return presentedViewFrame;
             }
         }
+
+        nfloat GetHorizontalPosition(CGRect presentedViewFrame)
+        {
+            switch (_dlgView.HorizontalLayoutAlignment)
+            {
+                case Xamarin.Forms.LayoutAlignment.Start:
+                    return 0f;
+                case Xamarin.Forms.LayoutAlignment.End:
+                    return (nfloat)(ContainerView.Bounds.Right - _dlgView.Bounds.Width);
+                default:
+                    return ContainerView.Bounds.Size.Width / 2f - presentedViewFrame.Size.Width / 2f;
+            }
+        }
+
+        nfloat GetVerticalPosition(CGRect presentedViewFrame)
+        {
+            var containerFrame = ContainerView.Bounds;
+            if (_dlgView.UseCurrentPageLocation)
+            {
+                containerFrame = Dialogs.GetCurrentPageRect(ContainerView);
+            }
+            switch (_dlgView.VerticalLayoutAlignment){
+                case Xamarin.Forms.LayoutAlignment.Start:
+                    return containerFrame.Top;
+                case Xamarin.Forms.LayoutAlignment.End:
+                    return (nfloat)(containerFrame.Bottom - _dlgView.Bounds.Height);
+                default:
+                    return containerFrame.Size.Height / 2f - presentedViewFrame.Size.Height / 2f + containerFrame.Top;
+            }
+        }
+
 
         public override void ContainerViewWillLayoutSubviews()
         {

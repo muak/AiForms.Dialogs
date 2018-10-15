@@ -57,8 +57,22 @@ namespace AiForms.Dialogs
                 nativeView.SetBackground(border);
             }
 
-            _contentView = (Dialogs.Context as Activity).LayoutInflater.Inflate(Resource.Layout.ExtraDialogLayout, null) as RelativeLayout;
+
+            _contentView = new FrameLayout(Dialogs.Context);
+            using (var param = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent))
+            {
+                _contentView.LayoutParameters = param;
+            }
+
+            if (_dlgView.UseCurrentPageLocation)
+            {
+                var padding = Dialogs.CalcWindowPadding();
+                _contentView.SetPadding(0, padding.top, 0, padding.bottom);
+            }
+
             _contentView.SetBackgroundColor(_dlgView.OverlayColor.ToAndroid());
+            _contentView.SetClipChildren(false);
+            _contentView.SetClipToPadding(false);
 
             _contentView.SetOnKeyListener(this);
             _contentView.FocusableInTouchMode = true;
@@ -67,17 +81,16 @@ namespace AiForms.Dialogs
             var width = Dialogs.Context.ToPixels(_dlgView.Bounds.Width);
             var height = Dialogs.Context.ToPixels(_dlgView.Bounds.Height);
 
-            var innerView = _contentView.FindViewById<RelativeLayout>(Resource.Id.extra_dialog_container);
-
-            using (var param = new RelativeLayout.LayoutParams(
+            using (var param = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent)
             {
                 Width = (int)width,
-                Height = (int)height
+                Height = (int)height,
+                Gravity = Dialogs.GetGravity(_dlgView),
             })
             {
-                param.AddRule(LayoutRules.CenterInParent);
-                innerView.AddView(_renderer.View, 0, param);
+                Dialogs.SetOffsetMargin(param, _dlgView);
+                _contentView.AddView(_renderer.View, 0, param);
             };
 
             OnceInitializeAction = null;
@@ -216,6 +229,7 @@ namespace AiForms.Dialogs
 
             var dialog = FragmentManager.FindFragmentByTag<ExtraPlatformDialog>(DialogImplementation.ExtraDialogTag);
             dialog.Dismiss();
+            _contentView.RemoveFromParent();
         }
     }
 }

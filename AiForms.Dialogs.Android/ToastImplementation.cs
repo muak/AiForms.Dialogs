@@ -30,7 +30,20 @@ namespace AiForms.Dialogs
 
             var toast = new Android.Widget.Toast(Dialogs.Context);
 
-            toast.SetGravity(view.VerticalLayoutAlignment.ToNativeVertical(),view.OffsetX,view.OffsetY);
+            var offsetX = (int)Dialogs.Context.ToPixels(view.OffsetX);
+            var offsetY = (int)Dialogs.Context.ToPixels(view.OffsetY);
+
+            // HACK: For some reason, the offset direction is reversed when GravityFlags contains Left or Bottom.
+            if(view.HorizontalLayoutAlignment == XF.LayoutAlignment.End)
+            {
+                offsetX *= -1;
+            }
+            if(view.VerticalLayoutAlignment == XF.LayoutAlignment.End)
+            {
+                offsetY *= -1;
+            }
+
+            toast.SetGravity(Dialogs.GetGravity(view), offsetX, offsetY);
             toast.Duration = Android.Widget.ToastLength.Long;
 
             var renderer = Dialogs.CreateNativeView(view);
@@ -69,11 +82,8 @@ namespace AiForms.Dialogs
                 layout.ClipToOutline = true;
                 layout.SetBackground(border);
             }
-
+            
             toast.View = layout;
-
-            renderer.UpdateLayout();
-            renderer.View.Invalidate();
 
             view.RunPresentationAnimation();
 

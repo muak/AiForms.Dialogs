@@ -54,6 +54,7 @@ namespace AiForms.Dialogs
                     () => renderer.NativeView.Alpha = 0,
                     () =>{
                         view.Parent = null;
+                        renderer.NativeView.RemoveConstraints(renderer.NativeView.Constraints);
                         Dialogs.DisposeModelAndChildrenRenderers(view);
                         renderer = null;
                         view.Destroy();
@@ -84,18 +85,28 @@ namespace AiForms.Dialogs
             nativeView.WidthAnchor.ConstraintEqualTo((System.nfloat)view.Bounds.Width).Active = true;
             nativeView.HeightAnchor.ConstraintEqualTo((System.nfloat)view.Bounds.Height).Active = true;
 
-            nativeView.CenterXAnchor.ConstraintEqualTo(window.CenterXAnchor, view.OffsetX).Active = true;
-
             switch(view.VerticalLayoutAlignment){
                 case Xamarin.Forms.LayoutAlignment.Start:
                     nativeView.TopAnchor.ConstraintEqualTo(window.TopAnchor, view.OffsetY).Active = true;
                     break;
-                case Xamarin.Forms.LayoutAlignment.Center:
-                    nativeView.CenterYAnchor.ConstraintEqualTo(window.CenterYAnchor, view.OffsetY).Active = true;
-                    break;
                 case Xamarin.Forms.LayoutAlignment.End:
                     nativeView.BottomAnchor.ConstraintEqualTo(window.BottomAnchor, view.OffsetY).Active = true;
-                    break;               
+                    break;
+                default:
+                    nativeView.CenterYAnchor.ConstraintEqualTo(window.CenterYAnchor, view.OffsetY).Active = true;
+                    break;
+            }
+
+            switch(view.HorizontalLayoutAlignment){
+                case Xamarin.Forms.LayoutAlignment.Start:
+                    nativeView.LeftAnchor.ConstraintEqualTo(window.LeftAnchor, view.OffsetX).Active = true;
+                    break;
+                case Xamarin.Forms.LayoutAlignment.End:
+                    nativeView.RightAnchor.ConstraintEqualTo(window.RightAnchor, view.OffsetX).Active = true;
+                    break;
+                default:
+                    nativeView.CenterXAnchor.ConstraintEqualTo(window.CenterXAnchor, view.OffsetX).Active = true;
+                    break;
             }
         }
 

@@ -1,9 +1,11 @@
-﻿using AiForms.Dialogs.Abstractions;
+﻿using System;
+using AiForms.Dialogs.Abstractions;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Views;
+using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using XF = Xamarin.Forms;
 
@@ -18,7 +20,7 @@ namespace AiForms.Dialogs
             Context = context;
         }
 
-        internal static FragmentManager FragmentManager => (Dialogs.Context as Activity)?.FragmentManager;
+        internal static FragmentManager FragmentManager => (Context as Activity)?.FragmentManager;
 
         internal static IVisualElementRenderer CreateNativeView(XF.View view)
         {
@@ -47,15 +49,13 @@ namespace AiForms.Dialogs
 
         internal static Xamarin.Forms.Size Measure(ExtraView view)
         {
-            var display = (Dialogs.Context as Activity)?.WindowManager.DefaultDisplay;
-
+            var display = (Context as Activity)?.WindowManager.DefaultDisplay;
 
             Point size = new Point();
             display.GetSize(size);
 
-
             var dWidth = Context.FromPixels(size.X);
-            var dHeight = Context.FromPixels(size.Y) - 24d; // 24 is statusbar height.
+            var dHeight = Context.FromPixels(size.Y);
 
             var fWidth = view.ViewWidth <= 1 ? dWidth * view.ViewWidth : view.ViewWidth;
             var fHeight = view.ViewHeight <= 1 ? dHeight * view.ViewHeight : view.ViewHeight;
@@ -71,6 +71,71 @@ namespace AiForms.Dialogs
             }
 
             return new XF.Size(fWidth, fHeight);
+        }
+
+        internal static void SetOffsetMargin(FrameLayout.LayoutParams layoutParams, ExtraView view)
+        {
+            var offsetX = (int)Context.ToPixels(view.OffsetX);
+            var offsetY = (int)Context.ToPixels(view.OffsetY);
+
+            layoutParams.LeftMargin = offsetX;
+            layoutParams.TopMargin = offsetY;
+        }
+
+        internal static void SetOffsetMargin(FrameLayout.LayoutParams layoutParams, int offsetX,int offsetY)
+        {
+            layoutParams.LeftMargin = (int)Context.ToPixels(offsetX);
+            layoutParams.TopMargin = (int)Context.ToPixels(offsetY);
+        }
+
+        internal static GravityFlags GetGravity(ExtraView view)
+        {
+            GravityFlags gravity = GravityFlags.NoGravity;
+            switch (view.VerticalLayoutAlignment)
+            {
+                case XF.LayoutAlignment.Start:
+                    gravity |= GravityFlags.Top;
+                    break;
+                case XF.LayoutAlignment.End:
+                    gravity |= GravityFlags.Bottom;
+                    break;
+                default:
+                    gravity |= GravityFlags.CenterVertical;
+                    break;
+            }
+
+            switch (view.HorizontalLayoutAlignment)
+            {
+                case XF.LayoutAlignment.Start:
+                    gravity |= GravityFlags.Left;
+                    break;
+                case XF.LayoutAlignment.End:
+                    gravity |= GravityFlags.Right;
+                    break;
+                default:
+                    gravity |= GravityFlags.CenterHorizontal;
+                    break;
+            }
+
+            return gravity;
+        }
+
+        internal static (int top, int bottom) CalcWindowPadding()
+        {
+            var display = (Context as Activity)?.WindowManager.DefaultDisplay;
+
+            Point size = new Point();
+            display.GetSize(size);
+
+            var activePage = XF.Application.Current.MainPage.GetActivePage();
+            var activeRenderer = Platform.GetRenderer(activePage);
+
+            var rect = new Rect();
+            activeRenderer.View.GetGlobalVisibleRect(rect);
+
+            activeRenderer = null;
+
+            return (rect.Top, size.Y - rect.Bottom);
         }
     }
 }

@@ -30,10 +30,10 @@ namespace AiForms.Dialogs
                 Opaque = false,
                 Alpha = 0f
             };
-
-            var tapGesture = new UITapGestureRecognizer();
-            tapGesture.AddTarget(() => DimmingViewTapped(tapGesture));
-            _overlayView.AddGestureRecognizer(tapGesture);
+            
+            var touchGesture = new TouchBeginGestureRecognizer();
+            touchGesture.AddTarget(() => DimmingViewTapped(touchGesture));
+            _overlayView.AddGestureRecognizer(touchGesture);
 
 
             // Because the process can't be executed until application completely loads,
@@ -44,6 +44,7 @@ namespace AiForms.Dialogs
         void Initialize()
         {
             _dlgView.Parent = Application.Current.MainPage;
+
 
             _renderer = Dialogs.CreateNativeView(_dlgView);
 
@@ -133,7 +134,7 @@ namespace AiForms.Dialogs
             }
         }
 
-        void DimmingViewTapped(UITapGestureRecognizer sender)
+        void DimmingViewTapped(TouchBeginGestureRecognizer sender)
         {
             if (_dlgView.IsCanceledOnTouchOutside)
             {

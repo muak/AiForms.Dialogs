@@ -8,6 +8,7 @@ namespace AiForms.Dialogs.Abstractions
         public bool IsCanceledOnTouchOutside { get; set; } = true;
         public DialogNotifier DialogNotifier { get; } = new DialogNotifier();
         public Color OverlayColor { get; set; }
+        public bool UseCurrentPageLocation { get; set; }
 
         public virtual void SetUp() {}
         public virtual void TearDwon() {}

@@ -104,7 +104,10 @@ namespace AiForms.Dialogs
             _loadingDialog.Arguments = bundle;
 
             _message = message ?? _config.DefaultMessage;
-            _messageLabel.Text = _message;
+            if(_messageLabel != null)
+            {
+                _messageLabel.Text = _message;
+            }
 
             _loadingDialog.Show(FragmentManager, LoadingImplementation.LoadingDialogTag);
         }
@@ -174,21 +177,38 @@ namespace AiForms.Dialogs
         {
             OnceInitializeAction = null;
 
-            _contentView = (Dialogs.Context as Activity).LayoutInflater.Inflate(Resource.Layout.LoadingDialogLayout, null) as RelativeLayout;
+            _contentView = new FrameLayout(Dialogs.Context);
+            using (var param = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent))
+            {
+                _contentView.LayoutParameters = param;
+            }
+
             _contentView.SetBackgroundColor(_overlayColor);
+            _contentView.SetClipChildren(false);
+            _contentView.SetClipToPadding(false);
             _contentView.Alpha = (float)_config.Opacity;
-
-            var progress = _contentView.FindViewById<ProgressBar>(Resource.Id.progress);
-            _messageLabel = _contentView.FindViewById<TextView>(Resource.Id.loading_message);
-
-            var padding = CalcOffsetToPadding();
-            _contentView.SetPadding(padding.left, padding.top, padding.right, padding.bottom);
 
             if (!_config.IsRegisteredView)
             {
+                var innerView = (Dialogs.Context as Activity).LayoutInflater.Inflate(Resource.Layout.LoadingDialogLayout, null);
+
+                var progress = innerView.FindViewById<ProgressBar>(Resource.Id.progress);
+                _messageLabel = innerView.FindViewById<TextView>(Resource.Id.loading_message);
+
                 progress.IndeterminateDrawable.SetColorFilter(_config.IndicatorColor.ToAndroid(), PorterDuff.Mode.SrcIn);
                 _messageLabel.SetTextSize(Android.Util.ComplexUnitType.Sp, (float)_config.FontSize);
                 _messageLabel.SetTextColor(_config.FontColor.ToAndroid());
+
+                using (var param = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent)
+                {
+                    Gravity = GravityFlags.Center,
+                })
+                {
+                    Dialogs.SetOffsetMargin(param, _config.OffsetX,_config.OffsetY);
+                    _contentView.AddView(innerView, 0, param);
+                };
+
                 return;
             }
 
@@ -214,59 +234,22 @@ namespace AiForms.Dialogs
             _loadingView.Layout(new XF.Rectangle(0, 0, measure.Width, measure.Height));
 
 
-            progress.RemoveFromParent();
-            _messageLabel.RemoveFromParent();
-
-            var inner = _contentView.FindViewById<RelativeLayout>(Resource.Id.loading_inner_container);
-
             var width = (int)Dialogs.Context.ToPixels(_loadingView.Bounds.Width);
             var height = (int)Dialogs.Context.ToPixels(_loadingView.Bounds.Height);
 
-            using (var param = new RelativeLayout.LayoutParams(
+            using (var param = new FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.WrapContent,
                     ViewGroup.LayoutParams.WrapContent
                 )
             {
                 Width = width,
-                Height = height
+                Height = height,
+                Gravity = Dialogs.GetGravity(_loadingView)
             })
             {
-                param.AddRule(LayoutRules.CenterInParent);
-                inner.AddView(_renderer.View, 0, param);
+                Dialogs.SetOffsetMargin(param, _loadingView);
+                _contentView.AddView(_renderer.View, 0, param);
             }
-        }
-
-        (int left, int top, int right, int bottom) CalcOffsetToPadding()
-        {
-            var offsetX = _config.IsRegisteredView ? _loadingView.OffsetX : _config.OffsetX;
-            var offsetY = _config.IsRegisteredView ? _loadingView.OffsetY : _config.OffsetY;
-
-            int left = 0;
-            int right = 0;
-            int top = 0;
-            int bottom = 0;
-            var padLR = (int)Math.Abs(Dialogs.Context.ToPixels(offsetX * 2));
-            var padTB = (int)Math.Abs(Dialogs.Context.ToPixels(offsetY * 2));
-
-            if (_config.OffsetX < 0)
-            {
-                right = padLR;
-            }
-            else
-            {
-                left = padLR;
-            }
-
-            if (_config.OffsetY < 0)
-            {
-                bottom = padTB;
-            }
-            else
-            {
-                top = padTB;
-            }
-
-            return (left, top, right, bottom);
         }
     }
 

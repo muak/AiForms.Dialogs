@@ -34,12 +34,67 @@ namespace AiForms.Dialogs.Abstractions
             set { SetValue(ViewHeightProperty, value); }
         }
 
-        public int OffsetX { get; set; }
-        public int OffsetY { get; set; }
-        public float CornerRadius { get; set; }
-        public LayoutAlignment VerticalLayoutAlignment { get; set; } = LayoutAlignment.Center;
-        public LayoutAlignment HorizontalLayoutAlignment { get; set; } = LayoutAlignment.Center;
+        public static BindableProperty VerticalLayoutAlignmentProperty =
+            BindableProperty.Create(
+                nameof(VerticalLayoutAlignment),
+                typeof(LayoutAlignment),
+                typeof(ExtraView),
+                LayoutAlignment.Center,
+                defaultBindingMode: BindingMode.OneWay
+            );
 
+        public LayoutAlignment VerticalLayoutAlignment
+        {
+            get { return (LayoutAlignment)GetValue(VerticalLayoutAlignmentProperty); }
+            set { SetValue(VerticalLayoutAlignmentProperty, value); }
+        }
+
+        public static BindableProperty HorizontalLayoutAlignmentProperty =
+            BindableProperty.Create(
+                nameof(HorizontalLayoutAlignment),
+                typeof(LayoutAlignment),
+                typeof(ExtraView),
+                LayoutAlignment.Center,
+                defaultBindingMode: BindingMode.OneWay
+            );
+
+        public LayoutAlignment HorizontalLayoutAlignment
+        {
+            get { return (LayoutAlignment)GetValue(HorizontalLayoutAlignmentProperty); }
+            set { SetValue(HorizontalLayoutAlignmentProperty, value); }
+        }
+
+        public static BindableProperty OffsetXProperty =
+            BindableProperty.Create(
+                nameof(OffsetX),
+                typeof(int),
+                typeof(ExtraView),
+                default(int),
+                defaultBindingMode: BindingMode.OneWay
+            );
+
+        public int OffsetX
+        {
+            get { return (int)GetValue(OffsetXProperty); }
+            set { SetValue(OffsetXProperty, value); }
+        }
+
+        public static BindableProperty OffsetYProperty =
+            BindableProperty.Create(
+                nameof(OffsetY),
+                typeof(int),
+                typeof(ExtraView),
+                default(int),
+                defaultBindingMode: BindingMode.OneWay
+            );
+
+        public int OffsetY
+        {
+            get { return (int)GetValue(OffsetYProperty); }
+            set { SetValue(OffsetYProperty, value); }
+        }
+
+        public float CornerRadius { get; set; }
 
         public virtual void RunPresentationAnimation() {}
         public virtual void RunDismissalAnimation() {}

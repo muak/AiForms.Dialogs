@@ -34,7 +34,7 @@
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\AiForms.Extras.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\AiForms.Dialogs.xml</DocumentationFile>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <JavaMaximumHeapSize></JavaMaximumHeapSize>
@@ -148,7 +148,6 @@
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\layout\LoadingDialogLayout.axml" />
     <AndroidResource Include="Resources\values\styles.xml" />
-    <AndroidResource Include="Resources\layout\ExtraDialogLayout.axml" />
     <AndroidResource Include="Resources\anim\extra_dialog_enter.xml" />
     <AndroidResource Include="Resources\anim\extra_dialog_exit.xml" />
   </ItemGroup>
@@ -159,7 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AiForms.Dialogs.Abstractions\AiForms.Dialogs.Abstractions.csproj">
-      <Project>{7FAEA2AA-1832-4CAF-B0BA-4501F377269D}</Project>
+      <Project>{0BDF7090-FE73-49E6-B554-B2DA240768BB}</Project>
       <Name>AiForms.Dialogs.Abstractions</Name>
     </ProjectReference>
   </ItemGroup>

@@ -10,10 +10,4 @@ namespace AiForms.Dialogs.Abstractions
         void SetMessage(string message);
         Task StartAsync(Func<IProgress<double>,Task> action, string message = null, bool isCurrentScope = false);
     }
-
-    public interface IIndicatorView
-    {
-        void StartAnimating();
-        void StopAnimating();
-    }
 }

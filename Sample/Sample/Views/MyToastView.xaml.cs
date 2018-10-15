@@ -12,16 +12,14 @@ namespace Sample.Views
         public MyToastView()
         {
             InitializeComponent();
-            OffsetY = 0;
-            OffsetX = 0;
             Duration = 3000;
-            VerticalLayoutAlignment = LayoutAlignment.Start;
+            //VerticalLayoutAlignment = LayoutAlignment.End;
+            //HorizontalLayoutAlignment = LayoutAlignment.Start;
             BackgroundColor = Color.FromRgb(0, 150, 0);
             Opacity = 1;
             CornerRadius = 20;
 
             image.Source = ImageSource.FromResource("Sample.Resources.ios7-paw-outline.png");
-
 
         }
 

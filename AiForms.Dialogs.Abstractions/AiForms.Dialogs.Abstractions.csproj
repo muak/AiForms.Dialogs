@@ -9,7 +9,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
-    <DocumentationFile>bin\Release\netstandard2.0\AiForms.Extras.Abstractions.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\AiForms.Dialogs.Abstractions.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Class1.cs" />

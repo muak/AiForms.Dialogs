@@ -4,6 +4,7 @@ using AiForms.Dialogs.Abstractions;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
+using CoreGraphics;
 
 namespace AiForms.Dialogs
 {
@@ -64,6 +65,30 @@ namespace AiForms.Dialogs
             }
 
             return new Size(fWidth, fHeight);
+        }
+
+        internal static CGRect GetCurrentPageRect(UIView parentView)
+        {
+            var activePage = Application.Current.MainPage.GetActivePage();
+            var activeRenderer = Platform.GetRenderer(activePage);
+
+            var rect = activeRenderer.NativeView.ConvertRectToView(activeRenderer.NativeView.Bounds, parentView);
+
+            activeRenderer = null;
+
+            return rect;
+        }
+
+        internal static UIView GetCurrentPageView()
+        {
+            var activePage = Application.Current.MainPage.GetActivePage();
+            var activeRenderer = Platform.GetRenderer(activePage);
+
+            var view = activeRenderer.NativeView;
+
+            activeRenderer = null;
+
+            return view;
         }
 
         // From internal Platform class

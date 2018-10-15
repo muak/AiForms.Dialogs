@@ -20,13 +20,36 @@ namespace Sample.ViewModels
         public ReactiveCommand DialogCommand { get; } = new ReactiveCommand();
         public ReactiveCommand ToastCommand { get; } = new ReactiveCommand();
 
+        public List<LayoutAlignment> VAligns { get; set; } = new List<LayoutAlignment>();
+        public List<LayoutAlignment> HAligns { get; set; } = new List<LayoutAlignment>();
+
+        public ReactivePropertySlim<int> OffsetX { get; } = new ReactivePropertySlim<int>();
+        public ReactivePropertySlim<int> OffsetY { get; } = new ReactivePropertySlim<int>();
+        public ReactivePropertySlim<LayoutAlignment> VAlign { get; } = new ReactivePropertySlim<LayoutAlignment>();
+        public ReactivePropertySlim<LayoutAlignment> HAlign { get; } = new ReactivePropertySlim<LayoutAlignment>();
+
         public MainPageViewModel(MyIndicatorView myIndicatorView)
 		{
+
+            VAligns.Add(LayoutAlignment.Start);
+            VAligns.Add(LayoutAlignment.Center);
+            VAligns.Add(LayoutAlignment.End);
+
+            HAligns.Add(LayoutAlignment.Start);
+            HAligns.Add(LayoutAlignment.Center);
+            HAligns.Add(LayoutAlignment.End);
 
             var loadingFlg = false;
             LoadingCommand.Subscribe(async _ =>
             {
-
+                //Configurations.LoadingConfig.RegisterView<MyIndicatorView>(new
+                //{
+                //    Message = "Loading...",
+                //    VAlign = VAlign.Value,
+                //    HAlign = HAlign.Value,
+                //    OffsetX = OffsetX.Value,
+                //    OffsetY = OffsetY.Value,
+                //});
                 await Loading.Instance.StartAsync(async progress => {
                     progress.Report(0d);
                     for (var i = 0; i < 100; i++)
@@ -50,17 +73,20 @@ namespace Sample.ViewModels
             {
 
 
-                var ret = await redlg.ShowAsync();
+                //var ret = await redlg.ShowAsync();
 
                 //dlg.Dispose();
+                var vmm = new { Title = "Title", Description = "Some description write here." };
 
-                //var ret = await Dialog.Instance.ShowAsync<MyDialogView>(vm);
+                var ret = await Dialog.Instance.ShowAsync<MyDialogView>(vmm);
                 //var ret = await Dialog.Instance.ShowAsync(page, vm);
             });
 
             ToastCommand.Subscribe(_ =>
             {
-                Toast.Instance.Show<MyToastView>();
+                Toast.Instance.Show<MyToastView>(new {
+                    VAlign = VAlign.Value, HAlign = HAlign.Value,OffsetX = OffsetX.Value, OffsetY = OffsetY.Value 
+                });
             });
 		}
 
