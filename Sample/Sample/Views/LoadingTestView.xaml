@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extra:LoadingView 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:extra="clr-namespace:AiForms.Dialogs.Abstractions;assembly=AiForms.Dialogs.Abstractions"
+    x:Class="Sample.Views.LoadingTestView">
+    
+    
+    <Label Text="Loading..."  WidthRequest="100"/>
+</extra:LoadingView >

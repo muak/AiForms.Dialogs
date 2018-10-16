@@ -2,71 +2,37 @@
 using System.Threading.Tasks;
 using AiForms.Dialogs.Abstractions;
 using Android.App;
-using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
-using Java.IO;
 using Xamarin.Forms.Platform.Android;
 using XF = Xamarin.Forms;
 
 namespace AiForms.Dialogs
 {
     [Android.Runtime.Preserve(AllMembers = true)]
-    public class ReusableLoading: IDisposable
+    public class ReusableLoading: LoadingBase,IReusableLoading
     {
-        FragmentManager FragmentManager => Dialogs.FragmentManager;
-        LoadingImplementation _loadingImpl;
-        LoadingPlatformDialog _loadingDialog => _loadingImpl.LoadingDialog;
-        LoadingConfig _config => Configurations.LoadingConfig;
-
         IVisualElementRenderer _renderer;
-        ViewGroup _contentView;
-
-        Action OnceInitializeAction;
         LoadingView _loadingView;
-        bool _isCustom => _loadingView != null;
-        string _message;
 
-        Progress<double> _progress;
-        TextView _messageLabel;
-
-        Color _overlayColor {
-            get {
-                if (!_config.IsRegisteredView) return _config.OverlayColor.ToAndroid();
-
-                return _loadingView.OverlayColor.IsDefault ?
-                                   _config.OverlayColor.ToAndroid() :
-                                   _loadingView.OverlayColor.ToAndroid();
-            }
-        }
-
-        public ReusableLoading()
+        public ReusableLoading(LoadingView loadingView,LoadingPlatformDialog loadingDialog):base(loadingDialog)
         {
-            _loadingImpl = Loading.Instance as LoadingImplementation;
-
-            if(_config.IsRegisteredView)
-            {
-                _loadingView = _loadingView ?? _config.ViewResolver();
-            }
+            _loadingView = loadingView;
 
             OnceInitializeAction = Initialize;
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
-            _loadingImpl = null;
+            _loadingView.Destroy();
+            _loadingView.Parent = null;
+            _loadingView = null;
 
-            if(_loadingView != null)
-            {
-                _loadingView.Destroy();
-                _loadingView.Parent = null;
-                _loadingView = null;
-            }
 
-            if(_renderer != null)
+            if (_renderer != null)
             {
                 if (!_renderer.View.IsDisposed())
                 {
@@ -76,141 +42,72 @@ namespace AiForms.Dialogs
                 _renderer = null;
             }
 
-            _contentView.Dispose();
-            _contentView = null;
-
-           
-            OnceInitializeAction = null;
-            _messageLabel?.Dispose();
-            _messageLabel = null;
+            base.Dispose();
         }
 
-        public async Task StartAsync(Func<IProgress<double>, Task> action, string message = null, bool isCurrentScope = false)
+        public void Show(bool isCurrentScope = false)
         {
-            Show(message, isCurrentScope);
-            _progress = new Progress<double>();
-            _progress.ProgressChanged += ProgressAction;
-            await action(_progress);
+            if (IsRunning()) return;
+
+            ShowInner();
         }
 
-        public void Show(string message = null, bool isCurrentScope = false)
+        public async Task StartAsync(Func<IProgress<double>, Task> action, bool isCurrentScope = false)
+        {
+            await WaitDialogDestroy();
+
+            ShowInner();
+            Progress = new Progress<double>();
+            Progress.ProgressChanged += ProgressAction;
+            await action(Progress);
+            Hide();
+        }
+
+        void ShowInner()
         {
             OnceInitializeAction?.Invoke();
 
-            var payload = new LoadingDialogPayload(_loadingView, _contentView);
+            var payload = new LoadingDialogPayload(ContentView, _loadingView);
 
             var bundle = new Bundle();
-            bundle.PutSerializable("loadingDialogPayload", payload);
-            _loadingDialog.Arguments = bundle;
+            bundle.PutSerializable(LoadingDialogPayload.PayloadKey, payload);
+            PlatformDialog.Arguments = bundle;
 
-            _message = message ?? _config.DefaultMessage;
-            if(_messageLabel != null)
-            {
-                _messageLabel.Text = _message;
-            }
-
-            _loadingDialog.Show(FragmentManager, LoadingImplementation.LoadingDialogTag);
+            PlatformDialog.Show(FragmentManager, LoadingImplementation.LoadingDialogTag);
         }
 
         public void Hide()
         {
-            if (_progress != null)
+            if (Progress != null)
             {
-                _progress.ProgressChanged -= ProgressAction;
-                _progress = null;
-                if (_loadingView != null)
-                {
-                    _loadingView.Progress = 0d;
-                }
+                Progress.ProgressChanged -= ProgressAction;
+                Progress = null;
+                _loadingView.Progress = 0d;
             }
 
-            var anim = new AlphaAnimation(_contentView.Alpha, 0.0f);
-            anim.Duration = 500;
+            var anim = new AlphaAnimation(ContentView.Alpha, 0.0f);
+            anim.Duration = 250;
             anim.FillAfter = true;
-            _contentView.StartAnimation(anim);
+            ContentView.StartAnimation(anim);
 
             _loadingView?.RunDismissalAnimation();
 
             var dialog = FragmentManager.FindFragmentByTag<LoadingPlatformDialog>(LoadingImplementation.LoadingDialogTag);
             dialog?.Dismiss();
-            _contentView.RemoveFromParent();
+            ContentView.RemoveFromParent();
         }
 
         void ProgressAction(object sender, double progress)
         {
-            SetMessageInner(_message, progress);
-            if(_loadingView != null)
-            {
-                _loadingView.Progress = progress;
-            }
-        }
-
-        public void SetMessage(string message)
-        {
-            SetMessageInner(message);
-        }
-
-        void SetMessageInner(string message ,double progress = -1)
-        {
-            _message = message ?? _config.DefaultMessage;
-
-            XF.Device.BeginInvokeOnMainThread(() =>
-            {
-                if (_messageLabel == null)
-                {
-                    return;
-                }
-
-
-                if (progress >= 0)
-                {
-                    _messageLabel.Text = string.Format(_config.ProgressMessageFormat, _message, progress);
-                }
-                else
-                {
-                    _messageLabel.Text = _message;
-                }
-            });
+            _loadingView.Progress = progress;
         }
 
         void Initialize()
         {
             OnceInitializeAction = null;
 
-            _contentView = new FrameLayout(Dialogs.Context);
-            using (var param = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent))
-            {
-                _contentView.LayoutParameters = param;
-            }
-
-            _contentView.SetBackgroundColor(_overlayColor);
-            _contentView.SetClipChildren(false);
-            _contentView.SetClipToPadding(false);
-            _contentView.Alpha = (float)_config.Opacity;
-
-            if (!_config.IsRegisteredView)
-            {
-                var innerView = (Dialogs.Context as Activity).LayoutInflater.Inflate(Resource.Layout.LoadingDialogLayout, null);
-
-                var progress = innerView.FindViewById<ProgressBar>(Resource.Id.progress);
-                _messageLabel = innerView.FindViewById<TextView>(Resource.Id.loading_message);
-
-                progress.IndeterminateDrawable.SetColorFilter(_config.IndicatorColor.ToAndroid(), PorterDuff.Mode.SrcIn);
-                _messageLabel.SetTextSize(Android.Util.ComplexUnitType.Sp, (float)_config.FontSize);
-                _messageLabel.SetTextColor(_config.FontColor.ToAndroid());
-
-                using (var param = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent)
-                {
-                    Gravity = GravityFlags.Center,
-                })
-                {
-                    Dialogs.SetOffsetMargin(param, _config.OffsetX,_config.OffsetY);
-                    _contentView.AddView(innerView, 0, param);
-                };
-
-                return;
-            }
+            ContentView.SetBackgroundColor(_loadingView.OverlayColor.ToAndroid());
+            ContentView.Alpha = 1f;
 
             _loadingView.Parent = XF.Application.Current.MainPage;
 
@@ -248,31 +145,8 @@ namespace AiForms.Dialogs
             })
             {
                 Dialogs.SetOffsetMargin(param, _loadingView);
-                _contentView.AddView(_renderer.View, 0, param);
+                ContentView.AddView(_renderer.View, 0, param);
             }
-        }
-    }
-
-    [Android.Runtime.Preserve(AllMembers = true)]
-    public class LoadingDialogPayload : Java.Lang.Object, ISerializable
-    {
-        public LoadingView LoadingView { get; set; }
-        public ViewGroup ContentView { get; set; }
-
-        public LoadingDialogPayload(LoadingView loadingView, ViewGroup contentView)
-        {
-            LoadingView = loadingView;
-            ContentView = contentView;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                LoadingView = null;
-                ContentView = null;
-            }
-            base.Dispose(disposing);
         }
     }
 }

@@ -3,6 +3,7 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Xamarin.Forms.Platform.Android;
+using System.Threading.Tasks;
 
 namespace AiForms.Dialogs
 {
@@ -11,12 +12,13 @@ namespace AiForms.Dialogs
     {
         LoadingView _loadingView;
         ViewGroup _contentView;
+        public TaskCompletionSource<bool> DestroyTcs { get; private set; }
 
         public override Android.App.Dialog OnCreateDialog(Bundle savedInstanceState)
         {
             base.OnCreateDialog(savedInstanceState);
 
-            var payload = Arguments.GetSerializable("loadingDialogPayload") as LoadingDialogPayload;
+            var payload = Arguments.GetSerializable(LoadingDialogPayload.PayloadKey) as LoadingDialogPayload;
 
             _loadingView = payload.LoadingView;
             _contentView = payload.ContentView;
@@ -28,6 +30,8 @@ namespace AiForms.Dialogs
             Cancelable = false;
             dialog.SetCancelable(false);
             dialog.SetCanceledOnTouchOutside(false);
+
+            DestroyTcs = new TaskCompletionSource<bool>();
 
             return dialog;
         }
@@ -46,6 +50,8 @@ namespace AiForms.Dialogs
             _loadingView = null;
             _contentView = null;
             Dialog?.Dispose();
+            DestroyTcs.SetResult(true);
+            DestroyTcs = null;
         }
     }
 }

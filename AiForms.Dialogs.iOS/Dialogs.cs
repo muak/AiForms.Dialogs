@@ -51,19 +51,16 @@ namespace AiForms.Dialogs
             var dWidth = window.Bounds.Width;
             var dHeight = window.Bounds.Height;
 
-            var fWidth = view.ViewWidth <= 1 ? dWidth * view.ViewWidth : view.ViewWidth;
-            var fHeight = view.ViewHeight <= 1 ? dHeight * view.ViewHeight : view.ViewHeight;
+            var fWidth = view.ProportionalWidth >= 0 ? dWidth * view.ProportionalWidth : dWidth;
+            var fHeight = view.ProportionalHeight >= 0 ? dHeight * view.ProportionalHeight : dHeight;
 
-            if (view.ViewWidth < 0 || view.ViewHeight < 0)
+            if (view.ProportionalWidth < 0 || view.ProportionalHeight < 0)
             {
-                var requestWidth = view.ViewWidth < 0 ? dWidth : fWidth;
-                var requestHeight = view.ViewHeight < 0 ? dHeight : fHeight;
-
-                var sizeRequest = view.Measure(requestWidth, requestHeight);
-
+                var sizeRequest = view.Measure(fWidth, fHeight);
                 return new Size(sizeRequest.Request.Width, sizeRequest.Request.Height);
             }
 
+            // If both width and height are proportional, Measure is not called.
             return new Size(fWidth, fHeight);
         }
 
@@ -89,6 +86,35 @@ namespace AiForms.Dialogs
             activeRenderer = null;
 
             return view;
+        }
+
+        internal static void SetLayoutAlignment(UIView targetView,UIView parentView,ExtraView dialog)
+        {
+            switch (dialog.VerticalLayoutAlignment)
+            {
+                case Xamarin.Forms.LayoutAlignment.Start:
+                    targetView.TopAnchor.ConstraintEqualTo(parentView.TopAnchor, dialog.OffsetY).Active = true;
+                    break;
+                case Xamarin.Forms.LayoutAlignment.End:
+                    targetView.BottomAnchor.ConstraintEqualTo(parentView.BottomAnchor, dialog.OffsetY).Active = true;
+                    break;
+                default:
+                    targetView.CenterYAnchor.ConstraintEqualTo(parentView.CenterYAnchor, dialog.OffsetY).Active = true;
+                    break;
+            }
+
+            switch (dialog.HorizontalLayoutAlignment)
+            {
+                case Xamarin.Forms.LayoutAlignment.Start:
+                    targetView.LeftAnchor.ConstraintEqualTo(parentView.LeftAnchor, dialog.OffsetX).Active = true;
+                    break;
+                case Xamarin.Forms.LayoutAlignment.End:
+                    targetView.RightAnchor.ConstraintEqualTo(parentView.RightAnchor, dialog.OffsetX).Active = true;
+                    break;
+                default:
+                    targetView.CenterXAnchor.ConstraintEqualTo(parentView.CenterXAnchor, dialog.OffsetX).Active = true;
+                    break;
+            }
         }
 
         // From internal Platform class

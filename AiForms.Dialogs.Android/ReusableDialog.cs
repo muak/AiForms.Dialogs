@@ -230,6 +230,8 @@ namespace AiForms.Dialogs
             var dialog = FragmentManager.FindFragmentByTag<ExtraPlatformDialog>(DialogImplementation.ExtraDialogTag);
             dialog.Dismiss();
             _contentView.RemoveFromParent();
+
+            await Task.Delay(250); // wait for a bit time until the dialog is completely released.
         }
     }
 }

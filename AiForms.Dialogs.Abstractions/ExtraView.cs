@@ -4,34 +4,34 @@ namespace AiForms.Dialogs.Abstractions
 {
     public class ExtraView:ContentView
     {
-        public static BindableProperty ViewWidthProperty =
+        public static BindableProperty ProportionalWidthProperty =
             BindableProperty.Create(
-                nameof(ViewWidth),
+                nameof(ProportionalWidth),
                 typeof(double),
                 typeof(ExtraView),
                 -1d,
                 defaultBindingMode: BindingMode.OneWay
             );
 
-        public double ViewWidth
+        public double ProportionalWidth
         {
-            get { return (double)GetValue(ViewWidthProperty); }
-            set { SetValue(ViewWidthProperty, value); }
+            get { return (double)GetValue(ProportionalWidthProperty); }
+            set { SetValue(ProportionalWidthProperty, value); }
         }
 
-        public static BindableProperty ViewHeightProperty =
+        public static BindableProperty ProportionalHeightProperty =
             BindableProperty.Create(
-                nameof(ViewHeight),
+                nameof(ProportionalHeight),
                 typeof(double),
                 typeof(ExtraView),
                 -1d,
                 defaultBindingMode: BindingMode.OneWay
             );
 
-        public double ViewHeight
+        public double ProportionalHeight
         {
-            get { return (double)GetValue(ViewHeightProperty); }
-            set { SetValue(ViewHeightProperty, value); }
+            get { return (double)GetValue(ProportionalHeightProperty); }
+            set { SetValue(ProportionalHeightProperty, value); }
         }
 
         public static BindableProperty VerticalLayoutAlignmentProperty =
@@ -94,7 +94,20 @@ namespace AiForms.Dialogs.Abstractions
             set { SetValue(OffsetYProperty, value); }
         }
 
-        public float CornerRadius { get; set; }
+        public static BindableProperty CornerRadiusProperty =
+            BindableProperty.Create(
+                nameof(CornerRadius),
+                typeof(float),
+                typeof(ExtraView),
+                default(float),
+                defaultBindingMode: BindingMode.OneWay
+            );
+
+        public float CornerRadius
+        {
+            get { return (float)GetValue(CornerRadiusProperty); }
+            set { SetValue(CornerRadiusProperty, value); }
+        }
 
         public virtual void RunPresentationAnimation() {}
         public virtual void RunDismissalAnimation() {}

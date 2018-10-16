@@ -7,6 +7,7 @@
     <PackageReference Include="Prism.Unity.Forms" Version="7.0.0.396" />
     <PackageReference Include="Xamarin.Forms" Version="3.2.0.839982" />
     <PackageReference Include="ReactiveProperty" Version="5.1.1" />
+    <PackageReference Include="AiForms.SettingsView" Version="0.4.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AiForms.Dialogs.Abstractions;
 using Android.App;
-using Android.Views;
-using Java.IO;
 
 namespace AiForms.Dialogs
 {
@@ -32,7 +30,9 @@ namespace AiForms.Dialogs
 
         public async Task<bool> ShowAsync<TView>(object viewModel = null) where TView : DialogView, new()
         {
-            using(var dlg = Create<TView>(viewModel))
+            if (IsRunning()) return false;
+
+            using (var dlg = Create<TView>(viewModel))
             {
                 return await dlg.ShowAsync();
             }
@@ -40,33 +40,19 @@ namespace AiForms.Dialogs
 
         public async Task<bool> ShowAsync(DialogView view, object viewModel = null)
         {
+            if (IsRunning()) return false;
+
             using (var dlg = Create(view, viewModel))
             {
                 return await dlg.ShowAsync();
             }
         }
 
-    }
-
-    [Android.Runtime.Preserve(AllMembers = true)]
-    public class ExtraDialogPayload : Java.Lang.Object, ISerializable
-    {
-        public DialogView DialogView { get; set; }
-        public ViewGroup ContentView { get; set; }
-
-        public ExtraDialogPayload(DialogView dialogView, ViewGroup contentView)
+        bool IsRunning()
         {
-            DialogView = dialogView;
-            ContentView = contentView;
+            var dialog = Dialogs.FragmentManager.FindFragmentByTag<ExtraPlatformDialog>(DialogImplementation.ExtraDialogTag);
+            return dialog != null;
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if(disposing){
-                DialogView = null;
-                ContentView = null;
-            }
-            base.Dispose(disposing);
-        }
     }
 }

@@ -150,6 +150,12 @@
       <HintPath>..\packages\Xamarin.Forms.3.2.0.839982\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SettingsView">
+      <HintPath>..\packages\AiForms.SettingsView.0.4.0\lib\Xamarin.iOS10\SettingsView.dll</HintPath>
+    </Reference>
+    <Reference Include="SettingsView.iOS">
+      <HintPath>..\packages\AiForms.SettingsView.0.4.0\lib\Xamarin.iOS10\SettingsView.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sample\Sample.csproj">

@@ -46,11 +46,11 @@ namespace AiForms.Dialogs
                 () => renderer.NativeView.Alpha = (System.nfloat)view.Opacity
             );
 
-            Device.StartTimer(TimeSpan.FromMilliseconds(view.Duration), () =>
+            Device.StartTimer(TimeSpan.FromMilliseconds(Math.Max(view.Duration - 250, 0)), () =>
             {
                 view.RunDismissalAnimation();
                 UIView.Animate(
-                    0.5,
+                    0.25,
                     () => renderer.NativeView.Alpha = 0,
                     () =>{
                         view.Parent = null;
@@ -74,40 +74,10 @@ namespace AiForms.Dialogs
 
             window.AddSubview(nativeView);
 
-            var width = view.ViewWidth;
-            var height = view.ViewHeight;
-
-            var parentRect = window.Frame;
-
-            var fWidth = width <= 1 ? parentRect.Width * width : width;
-            var fHeight = height <= 1 ? parentRect.Height * height : height;
-
             nativeView.WidthAnchor.ConstraintEqualTo((System.nfloat)view.Bounds.Width).Active = true;
             nativeView.HeightAnchor.ConstraintEqualTo((System.nfloat)view.Bounds.Height).Active = true;
 
-            switch(view.VerticalLayoutAlignment){
-                case Xamarin.Forms.LayoutAlignment.Start:
-                    nativeView.TopAnchor.ConstraintEqualTo(window.TopAnchor, view.OffsetY).Active = true;
-                    break;
-                case Xamarin.Forms.LayoutAlignment.End:
-                    nativeView.BottomAnchor.ConstraintEqualTo(window.BottomAnchor, view.OffsetY).Active = true;
-                    break;
-                default:
-                    nativeView.CenterYAnchor.ConstraintEqualTo(window.CenterYAnchor, view.OffsetY).Active = true;
-                    break;
-            }
-
-            switch(view.HorizontalLayoutAlignment){
-                case Xamarin.Forms.LayoutAlignment.Start:
-                    nativeView.LeftAnchor.ConstraintEqualTo(window.LeftAnchor, view.OffsetX).Active = true;
-                    break;
-                case Xamarin.Forms.LayoutAlignment.End:
-                    nativeView.RightAnchor.ConstraintEqualTo(window.RightAnchor, view.OffsetX).Active = true;
-                    break;
-                default:
-                    nativeView.CenterXAnchor.ConstraintEqualTo(window.CenterXAnchor, view.OffsetX).Active = true;
-                    break;
-            }
+            Dialogs.SetLayoutAlignment(nativeView, window, view);
         }
 
     }

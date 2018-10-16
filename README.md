@@ -10,4 +10,12 @@ This is
 
 ## Dialog
 
+## ToastView
+
+### Properties
+
+* 
+
+
+
 

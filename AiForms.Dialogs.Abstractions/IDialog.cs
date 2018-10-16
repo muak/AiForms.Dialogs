@@ -10,5 +10,6 @@ namespace AiForms.Dialogs.Abstractions
         Task<bool> ShowAsync(DialogView view, object viewModel = null);
         IReusableDialog Create<TView>(object viewModel = null) where TView : DialogView, new();
         IReusableDialog Create(DialogView view, object viewModel = null);
+
     }
 }

@@ -84,6 +84,8 @@
       <Link>CrossToast.cs</Link>
     </Compile>
     <Compile Include="TouchBeginGestureRecognizer.cs" />
+    <Compile Include="LoadingBase.cs" />
+    <Compile Include="DefaultLoading.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

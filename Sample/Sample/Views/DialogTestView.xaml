@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extra:DialogView 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:extra="clr-namespace:AiForms.Dialogs.Abstractions;assembly=AiForms.Dialogs.Abstractions"
+    x:Class="Sample.Views.DialogTestView">
+    
+    <Label Text="Dialog" BackgroundColor="Blue" WidthRequest="100" />
+</extra:DialogView>

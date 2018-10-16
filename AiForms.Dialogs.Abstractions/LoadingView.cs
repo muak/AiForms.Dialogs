@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AiForms.Dialogs.Abstractions
 {
@@ -20,11 +21,19 @@ namespace AiForms.Dialogs.Abstractions
             set { SetValue(ProgressProperty, value); }
         }
 
-        public Color OverlayColor { get; set; }
+        public static BindableProperty OverlayColorProperty =
+            BindableProperty.Create(
+                nameof(OverlayColor),
+                typeof(Color),
+                typeof(LoadingView),
+                Color.FromRgba(0, 0, 0, 0.2),
+                defaultBindingMode: BindingMode.OneWay
+            );
 
-        public LoadingView()
+        public Color OverlayColor
         {
-
+            get { return (Color)GetValue(OverlayColorProperty); }
+            set { SetValue(OverlayColorProperty, value); }
         }
 
     }

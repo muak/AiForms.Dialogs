@@ -42,14 +42,6 @@ namespace Sample.ViewModels
             var loadingFlg = false;
             LoadingCommand.Subscribe(async _ =>
             {
-                //Configurations.LoadingConfig.RegisterView<MyIndicatorView>(new
-                //{
-                //    Message = "Loading...",
-                //    VAlign = VAlign.Value,
-                //    HAlign = HAlign.Value,
-                //    OffsetX = OffsetX.Value,
-                //    OffsetY = OffsetY.Value,
-                //});
                 await Loading.Instance.StartAsync(async progress => {
                     progress.Report(0d);
                     for (var i = 0; i < 100; i++)

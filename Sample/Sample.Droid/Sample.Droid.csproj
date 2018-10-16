@@ -172,6 +172,12 @@
       <HintPath>..\packages\ReactiveProperty.5.1.1\lib\MonoAndroid\ReactiveProperty.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SettingsView">
+      <HintPath>..\packages\AiForms.SettingsView.0.4.0\lib\MonoAndroid\SettingsView.dll</HintPath>
+    </Reference>
+    <Reference Include="SettingsView.Droid">
+      <HintPath>..\packages\AiForms.SettingsView.0.4.0\lib\MonoAndroid\SettingsView.Droid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sample\Sample.csproj">

@@ -139,6 +139,10 @@
     <Compile Include="..\AiForms.Dialogs\CrossToast.cs">
       <Link>CrossToast.cs</Link>
     </Compile>
+    <Compile Include="LoadingDialogPayload.cs" />
+    <Compile Include="ExtraDialogPayload.cs" />
+    <Compile Include="LoadingBase.cs" />
+    <Compile Include="DefaultLoading.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

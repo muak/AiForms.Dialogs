@@ -57,16 +57,12 @@ namespace AiForms.Dialogs
             var dWidth = Context.FromPixels(size.X);
             var dHeight = Context.FromPixels(size.Y);
 
-            var fWidth = view.ViewWidth <= 1 ? dWidth * view.ViewWidth : view.ViewWidth;
-            var fHeight = view.ViewHeight <= 1 ? dHeight * view.ViewHeight : view.ViewHeight;
+            var fWidth = view.ProportionalWidth >= 0 ? dWidth * view.ProportionalWidth : dWidth;
+            var fHeight = view.ProportionalHeight >= 0 ? dHeight * view.ProportionalHeight : dHeight;
 
-            if(view.ViewWidth < 0 || view.ViewHeight < 0)
+            if (view.ProportionalWidth < 0 || view.ProportionalHeight < 0)
             {
-                var requestWidth = view.ViewWidth < 0 ? dWidth : fWidth;
-                var requestHeight = view.ViewHeight < 0 ? dHeight : fHeight;
-
-                var sizeRequest = view.Measure(requestWidth, requestHeight);
-
+                var sizeRequest = view.Measure(fWidth, fHeight);
                 return new XF.Size(sizeRequest.Request.Width, sizeRequest.Request.Height);
             }
 

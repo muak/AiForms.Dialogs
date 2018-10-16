@@ -9,13 +9,13 @@ namespace AiForms.Dialogs
     {
         LoadingConfig _config => Configurations.LoadingConfig;
 
-        ReusableLoading _loadingInstance;
-        ReusableLoading LoadingInstance
+        DefaultLoading _defaultInstance;
+        DefaultLoading DefaultInstance
         {
             get
             {
-                _loadingInstance = _loadingInstance ?? new ReusableLoading();
-                return _loadingInstance;
+                _defaultInstance = _defaultInstance ?? new DefaultLoading();
+                return _defaultInstance;
             }
         }
 
@@ -23,44 +23,59 @@ namespace AiForms.Dialogs
         {
         }
 
+
+        public IReusableLoading Create<TView>(object viewModel = null) where TView : LoadingView, new()
+        {
+            var view = new TView();
+            return Create(view, viewModel);
+        }
+
+        public IReusableLoading Create(LoadingView view, object viewModel = null)
+        {
+            view.BindingContext = viewModel;
+            return new ReusableLoading(view);
+        }
+
         public void Show(string message = null, bool isCurrentScope = false)
         {
-            if (LoadingInstance.IsRunning)
+            if (DefaultInstance.IsRunning)
             {
                 return;
             }
 
-            LoadingInstance.Show(message, isCurrentScope);
+            DefaultInstance.Show(message, isCurrentScope);
         }
 
         public async Task StartAsync(Func<IProgress<double>, Task> action, string message = null, bool isCurrentScope = false)
         {
-            if (LoadingInstance.IsRunning)
-            {
-                return;
-            }
-
-            await LoadingInstance.StartAsync(action, message, isCurrentScope);
+            await DefaultInstance.StartAsync(action, message, isCurrentScope);
             Hide();
         }
 
 
         public void Hide()
         {
-            LoadingInstance.Hide();
+            DefaultInstance.Hide();
             if (!_config.IsReusable)
             {
-                LoadingInstance.Dispose();
-                _loadingInstance = null;
+                _defaultInstance.Dispose();
+                _defaultInstance = null;
             }
         }
 
         public void SetMessage(string message)
         {
-            if (_loadingInstance != null)
+            if (_defaultInstance != null)
             {
-                _loadingInstance.SetMessage(message);
+                _defaultInstance.SetMessage(message);
             }
         }
+
+        public void Dispose()
+        {
+            _defaultInstance?.Dispose();
+            _defaultInstance = null;
+        }
+
     }
 }

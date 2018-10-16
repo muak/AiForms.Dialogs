@@ -12,11 +12,11 @@ namespace AiForms.Dialogs
 
         public static readonly string LoadingDialogTag = "LoadingDialog";
 
-        ReusableLoading _loadingInstance;
-        ReusableLoading LoadingInstance {
+        DefaultLoading _defaultInstance;
+        DefaultLoading DefaultInstance {
             get {
-                _loadingInstance = _loadingInstance ?? new ReusableLoading();
-                return _loadingInstance;
+                _defaultInstance = _defaultInstance ?? new DefaultLoading(LoadingDialog);
+                return _defaultInstance;
             }
         }
 
@@ -25,15 +25,32 @@ namespace AiForms.Dialogs
             LoadingDialog = new LoadingPlatformDialog();
         }
 
+        public IReusableLoading Create<TView>(object viewModel = null) where TView : LoadingView, new()
+        {
+            var view = new TView();
+            return Create(view, viewModel);
+        }
+
+        public IReusableLoading Create(LoadingView view, object viewModel = null)
+        {
+            view.BindingContext = viewModel;
+            return new ReusableLoading(view,LoadingDialog);
+        }
+
+        public void Dispose()
+        {
+            if(_defaultInstance != null)
+            {
+                _defaultInstance.Dispose();
+                _defaultInstance = null;
+            }
+        }
 
         public async Task StartAsync(Func<IProgress<double>, Task> action, string message = null, bool isCurrentScope = false)
         {
-            if (IsRunning())
-            {
-                return;
-            }
+            await WaitDialogDestroy();
 
-            await LoadingInstance.StartAsync(action, message, isCurrentScope);
+            await DefaultInstance.StartAsync(action, message, isCurrentScope);
             Hide();
         }
 
@@ -43,24 +60,24 @@ namespace AiForms.Dialogs
                 return;
             }
 
-            LoadingInstance.Show(message, isCurrentScope);
+            DefaultInstance.Show(message, isCurrentScope);
         }
 
         public void Hide()
         {
-            LoadingInstance.Hide();
+            DefaultInstance.Hide();
             if(!_config.IsReusable)
             {
-                LoadingInstance.Dispose();
-                _loadingInstance = null;
+                DefaultInstance.Dispose();
+                _defaultInstance = null;
             }
         }
 
         public void SetMessage(string message)
         {
-            if(_loadingInstance != null)
+            if(_defaultInstance != null)
             {
-                _loadingInstance.SetMessage(message);
+                _defaultInstance.SetMessage(message);
             }
         }
 
@@ -68,6 +85,18 @@ namespace AiForms.Dialogs
         {
             var dialog = Dialogs.FragmentManager.FindFragmentByTag<LoadingPlatformDialog>(LoadingDialogTag);
             return dialog != null;
+        }
+
+        async Task WaitDialogDestroy()
+        {
+            var dialog = Dialogs.FragmentManager.FindFragmentByTag<LoadingPlatformDialog>(LoadingImplementation.LoadingDialogTag);
+            if (dialog == null)
+            {
+                return;
+            }
+
+            await dialog.DestroyTcs.Task;
+            await Task.Delay(100);
         }
     }
 
