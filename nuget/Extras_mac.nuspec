@@ -2,20 +2,20 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>AiForms.Dialogs</id>
-        <version>0.2.0-pre</version>
+        <version>0.3.1-pre</version>
         <title>AiForms.Dialogs for Xamarin.Forms</title>
         <authors>kamu</authors>
         <owners>kamu</owners>
         <projectUrl>https://github.com/muak/AiForms.Dialogs</projectUrl>
         <licenseUrl>https://github.com/muak/AiForms.Dialogs/blob/master/LICENSE.txt</licenseUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>This is a collection of flexible dialogs (Loading, Toast, CustomDialog) which can be written by XAML for Xamarin.Forms.
+        <description>This is a collection of Custom Dialogs (Loading, Toast, CustomDialog) that can be defined with XAML for Xamarin.Forms (Android / iOS). This allows you to freely design the dialog content and arrange anywhere without custom renderer and effects.
         </description>
         <summary></summary>
         <releaseNotes>
 First Release.
         </releaseNotes>
-        <tags>Xamarin.Forms dialog toast loading popup xaml netstandard ios android</tags>
+        <tags>Xamarin.Forms dialog toast loading progress popup xaml netstandard ios android</tags>
         <language>en-US</language>
         <dependencies>
             <group targetFramework="netstandard2.0">
