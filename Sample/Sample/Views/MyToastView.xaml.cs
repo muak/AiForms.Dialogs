@@ -38,5 +38,10 @@ namespace Sample.Views
                 image.ScaleTo(3.0, 250)
             );
         }
+
+        public override void Destroy()
+        {
+            base.Destroy();
+        }
     }
 }

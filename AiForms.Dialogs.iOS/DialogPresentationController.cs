@@ -41,7 +41,7 @@ namespace AiForms.Dialogs
             }
 
             PresentingViewController.GetTransitionCoordinator()?.AnimateAlongsideTransition(
-                obj => _overlayView.Alpha = 1, obj => { }
+                obj => _overlayView.Alpha = 1f, obj => { }
             );
         }
 

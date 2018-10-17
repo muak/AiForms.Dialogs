@@ -21,7 +21,9 @@ namespace Sample.iOS
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			global::Xamarin.Forms.Forms.Init();
+            AiForms.Effects.iOS.Effects.Init();
             AiForms.Renderers.iOS.SettingsViewInit.Init();
+            AiForms.Dialogs.Dialogs.Init();
 
 			LoadApplication(new App(new iOSInitializer()));
             //Extras.Init();

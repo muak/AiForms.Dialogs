@@ -28,6 +28,11 @@ namespace Sample.Views
             container.Opacity = 1;
         }
 
+        public override void TearDown()
+        {
+            base.TearDown();
+        }
+
         public override async void RunPresentationAnimation()
         {
             await Task.WhenAll(
@@ -55,9 +60,19 @@ namespace Sample.Views
             );
         }
 
-        void Handle_Clicked(object sender, System.EventArgs e)
+        public override void Destroy()
+        {
+            base.Destroy();
+        }
+
+        void Handle_OK_Clicked(object sender, System.EventArgs e)
         {
             DialogNotifier.Complete();
+        }
+
+        void Handle_Cancel_Clicked(object sender, System.EventArgs e)
+        {
+            DialogNotifier.Cancel();
         }
     }
 }

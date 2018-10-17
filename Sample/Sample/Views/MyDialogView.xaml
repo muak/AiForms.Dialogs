@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:extra="clr-namespace:AiForms.Dialogs.Abstractions;assembly=AiForms.Dialogs.Abstractions"
     x:Class="Sample.Views.MyDialogView"
-    CornerRadius="10" OffsetX="0" OffsetY="-50" UseCurrentPageLocation="true"
-    VerticalLayoutAlignment="Start" HorizontalLayoutAlignment="Start"
+    CornerRadius="10" OffsetX="{Binding OffsetX}" OffsetY="{Binding OffsetY}" UseCurrentPageLocation="false"
+    VerticalLayoutAlignment="{Binding VAlign}" HorizontalLayoutAlignment="{Binding HAlign}"
     >
 
     <ContentView BackgroundColor="#CC9900" x:Name="container" Padding="20">
@@ -18,7 +18,8 @@
                 <Label Text="{Binding Description}" LineBreakMode="WordWrap" x:Name="desc"
                        TextColor="#666666" Margin="6" VerticalTextAlignment="Center" FlexLayout.Grow="1"  />
             </FlexLayout>
-            <Button Text="OK" Clicked="Handle_Clicked" />
+            <Button Text="Cancel" Clicked="Handle_Cancel_Clicked"/>
+            <Button Text="OK" Clicked="Handle_OK_Clicked" />
          </FlexLayout>
     </ContentView>
 </extra:DialogView>

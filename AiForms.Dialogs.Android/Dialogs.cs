@@ -43,7 +43,7 @@ namespace AiForms.Dialogs
 
             dialog.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Transparent));
             dialog.Window.SetLayout(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
-            
+
             return dialog;
         }
 
@@ -63,7 +63,11 @@ namespace AiForms.Dialogs
             if (view.ProportionalWidth < 0 || view.ProportionalHeight < 0)
             {
                 var sizeRequest = view.Measure(fWidth, fHeight);
-                return new XF.Size(sizeRequest.Request.Width, sizeRequest.Request.Height);
+
+                var reqWidth = view.ProportionalWidth >= 0 ? fWidth : sizeRequest.Request.Width;
+                var reqHeight = view.ProportionalHeight >= 0 ? fHeight : sizeRequest.Request.Height;
+
+                return new XF.Size(reqWidth, reqHeight);
             }
 
             return new XF.Size(fWidth, fHeight);
@@ -74,8 +78,24 @@ namespace AiForms.Dialogs
             var offsetX = (int)Context.ToPixels(view.OffsetX);
             var offsetY = (int)Context.ToPixels(view.OffsetY);
 
-            layoutParams.LeftMargin = offsetX;
-            layoutParams.TopMargin = offsetY;
+            // the offset direction is reversed when GravityFlags contains Left or Bottom.
+            if (view.HorizontalLayoutAlignment == XF.LayoutAlignment.End)
+            {
+                layoutParams.RightMargin = offsetX * -1;
+            }
+            else
+            {
+                layoutParams.LeftMargin = offsetX;
+            }
+
+            if (view.VerticalLayoutAlignment == XF.LayoutAlignment.End)
+            {
+                layoutParams.BottomMargin = offsetY * -1;
+            }
+            else
+            {
+                layoutParams.TopMargin = offsetY;
+            }
         }
 
         internal static void SetOffsetMargin(FrameLayout.LayoutParams layoutParams, int offsetX,int offsetY)

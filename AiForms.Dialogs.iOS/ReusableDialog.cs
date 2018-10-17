@@ -130,7 +130,7 @@ namespace AiForms.Dialogs
             {
                 _dlgView.DialogNotifier.Canceled -= cancel;
                 _dlgView.DialogNotifier.Completed -= complete;
-                _dlgView.TearDwon();
+                _dlgView.TearDown();
             }
         }
 

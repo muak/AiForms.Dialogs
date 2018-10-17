@@ -14,7 +14,7 @@ namespace AiForms.Dialogs.Abstractions
         public Color FontColor { get; set; } = Color.White;
 
         public Color OverlayColor { get; set; } = Color.FromRgb(0, 0, 0);
-        public double Opacity { get; set; } = 0.5;
+        public double Opacity { get; set; } = 0.6;
 
         public string DefaultMessage { get; set; }
         public string ProgressMessageFormat { get; set; } = "{0}\n{1:P0}"; // 0:message, 1:progress

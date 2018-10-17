@@ -53,6 +53,6 @@ namespace AiForms.Dialogs.Abstractions
         public DialogNotifier DialogNotifier { get; } = new DialogNotifier();
 
         public virtual void SetUp() {}
-        public virtual void TearDwon() {}
+        public virtual void TearDown() {}
     }
 }

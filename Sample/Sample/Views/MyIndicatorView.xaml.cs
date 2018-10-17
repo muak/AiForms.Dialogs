@@ -46,5 +46,7 @@ namespace Sample.Views
         {
             this.AbortAnimation("sample");
         }
+
+        public override void Destroy() {}
     }
 }

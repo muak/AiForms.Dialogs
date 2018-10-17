@@ -57,7 +57,11 @@ namespace AiForms.Dialogs
             if (view.ProportionalWidth < 0 || view.ProportionalHeight < 0)
             {
                 var sizeRequest = view.Measure(fWidth, fHeight);
-                return new Size(sizeRequest.Request.Width, sizeRequest.Request.Height);
+
+                var reqWidth = view.ProportionalWidth >= 0 ? fWidth : sizeRequest.Request.Width;
+                var reqHeight = view.ProportionalHeight >= 0 ? fHeight : sizeRequest.Request.Height;
+
+                return new Size(reqWidth,reqHeight);
             }
 
             // If both width and height are proportional, Measure is not called.

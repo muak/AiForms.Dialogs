@@ -68,7 +68,13 @@ namespace Sample.ViewModels
                 //var ret = await redlg.ShowAsync();
 
                 //dlg.Dispose();
-                var vmm = new { Title = "Title", Description = "Some description write here." };
+                var vmm = new { 
+                    Title = "Title", Description = "Some description write here.",
+                    VAlign = VAlign.Value,
+                    HAlign = HAlign.Value,
+                    OffsetX = OffsetX.Value,
+                    OffsetY = OffsetY.Value
+                };
 
                 var ret = await Dialog.Instance.ShowAsync<MyDialogView>(vmm);
                 //var ret = await Dialog.Instance.ShowAsync(page, vm);

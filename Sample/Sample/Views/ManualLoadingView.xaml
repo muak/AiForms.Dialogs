@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extra:LoadingView 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:extra="clr-namespace:AiForms.Dialogs.Abstractions;assembly=AiForms.Dialogs.Abstractions"
+    x:Class="Sample.Views.ManualLoadingView"
+    ProportionalWidth="{Binding ProportionalWidth}" ProportionalHeight="{Binding ProportionalHeight}"
+    VerticalLayoutAlignment="{Binding VerticalLayoutAlignment}"
+    HorizontalLayoutAlignment="{Binding HorizontalLayoutAlignment}"
+    OffsetX="{Binding OffsetX}" OffsetY="{Binding OffsetY}"
+    CornerRadius="{Binding CornerRadius}" BackgroundColor="#F2EFE6" Padding="10"
+    OverlayColor="{Binding OverlayColor}">
+    
+    <StackLayout WidthRequest="120" HeightRequest="{Binding HeightRequest}">
+        <Label Text="{Binding Description}" FontSize="Micro" />
+        <Label Text="{Binding Message}" FontSize="Small" />
+    </StackLayout>
+</extra:LoadingView>

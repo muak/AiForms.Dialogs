@@ -156,6 +156,12 @@
     <Reference Include="SettingsView.iOS">
       <HintPath>..\packages\AiForms.SettingsView.0.4.0\lib\Xamarin.iOS10\SettingsView.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="AiForms.Effects">
+      <HintPath>..\packages\AiForms.Effects.1.3.1\lib\Xamarin.iOS10\AiForms.Effects.dll</HintPath>
+    </Reference>
+    <Reference Include="AiForms.Effects.iOS">
+      <HintPath>..\packages\AiForms.Effects.1.3.1\lib\Xamarin.iOS10\AiForms.Effects.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sample\Sample.csproj">

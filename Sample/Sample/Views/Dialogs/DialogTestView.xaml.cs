@@ -22,7 +22,7 @@ namespace Sample.Views
             Assert.Add(seq++ == 1); // is first
         }
 
-        public override void TearDwon()
+        public override void TearDown()
         {
             Assert.Add(seq++ == 4);
         }

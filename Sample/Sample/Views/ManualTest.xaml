@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sv="clr-namespace:AiForms.Renderers;assembly=SettingsView"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms" 
+    prism:ViewModelLocator.AutowireViewModel="True"
+    x:Class="Sample.Views.ManualTest"
+    >
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="All" Command="{Binding AllCheckCommand}" />
+        <ToolbarItem Text="None" Command="{Binding NoneCheckCommand}" />
+        <ToolbarItem Text="Save" Command="{Binding SaveCommand}" />
+    </ContentPage.ToolbarItems>
+    
+    <sv:SettingsView>
+        <sv:Section>
+            <sv:ButtonCell Title="Run" Command="{Binding RunCommand}" />
+        </sv:Section>
+        <sv:Section Title="Common Test">
+            <sv:CheckboxCell Title="Size" Checked="{Binding CheckSize.Value}" />
+            <sv:CheckboxCell Title="Layout" Checked="{Binding CheckLayout.Value}" />
+            <sv:CheckboxCell Title="CornerRadius" Checked="{Binding CheckCorner.Value}" />
+        </sv:Section>
+        
+        <sv:Section Title="Toast Test">
+            <sv:CheckboxCell Title="Common" Checked="{Binding CheckToastCommon.Value}" />
+        </sv:Section>
+        
+        <sv:Section Title="Dialog Test">
+            <sv:CheckboxCell Title="Common" Checked="{Binding CheckDialogCommon.Value}" />
+            <sv:CheckboxCell Title="Individual" Checked="{Binding CheckDialog.Value}" />
+        </sv:Section>
+        
+        <sv:Section Title="Loading Test">
+            <sv:CheckboxCell Title="Common" Checked="{Binding CheckLoadingCommon.Value}" />
+            <sv:CheckboxCell Title="Individual" Checked="{Binding CheckLoading.Value}" />
+        </sv:Section>
+    </sv:SettingsView>
+    
+</ContentPage>
