@@ -149,7 +149,8 @@ public partial class MyDialogView : DialogView
 
 ### Show Dialog
 
-Once a DialogView defined, Dialog methods can be used from wherever.
+Once a DialogView defined, IDialog methods can be used from wherever.
+To show a dialog, you get an IDialog instance from AiForms.Dialogs.Dialog.Instance and call its ShowAsync method.
 
 ```csharp
 using AiForms.Dialogs;
@@ -217,7 +218,8 @@ public partial class MyToastView : ToastView
 
 ### Show Toast
 
-Once a ToastView is defined, Toast methods can be used from wherever.
+Once a ToastView is defined, IToast methods can be used from wherever.
+To show a Toast, you get an IToast instance from AiForms.Dialogs.Toast.Instance and call its Show method.
 
 ```csharp
 using AiForms.Dialogs;
@@ -237,6 +239,8 @@ LoadingView allows you to freely design the content and arrange anywhere.
 Both of these have the function that notifies progress to the view.
 
 ### Show default Loading Dialog
+
+To show a Default Loading Dialog, you get an ILoading instance from AiForms.Dialogs.Loading.Instance and call its StartAsync method.
 
 The following code describes how to use default Loading Dialog:
 
@@ -335,7 +339,7 @@ public partial class MyLoadingView : LoadingView
 
 ### Show a custom loading dialog
 
-Once a LoadingView is defined, Create method can create a IReusableLoading instance. Using the StartAsync method of the IReusableLoading instance can show a custom loading dialog.
+Once a LoadingView is defined, you can create an IReusableLoading instance using ILoading.Create method. Using the StartAsync method of the IReusableLoading instance can show a custom loading dialog.
 
 ```csharp
 using AiForms.Dialogs;
@@ -364,51 +368,87 @@ public async Task SomeMethod()
 
 ### Methods
 
-* Task`<bool>` ShowAsync`<T>`(object viewModel = null)
-* Task`<bool>` ShowAsync(DialogView view, object viewModel = null)
-    * A dialog is shown by specifying a Type or a view instance. Optionally, A view model can be passed to in order to bind.
-    * When the dialog is closed, all related resource automatically are disposed.
+#### Task`<bool>` ShowAsync`<T>`(object viewModel = null)
+#### Task`<bool>` ShowAsync(DialogView view, object viewModel = null)
+    
+* A dialog is shown by specifying a Type or a view instance. Optionally, A view model can be passed to in order to bind.
+* When the dialog is closed, all related resource automatically are disposed.
 
-* IReusableDialog Create`<TView>`(object viewModel = null) 
-* IReusableDialog Create(DialogView view, object viewModel = null)
-    * A IReusableDialog instance is created by specifying a Type or a view instance. Optionally, A view model can be passed to in order to bind.
+#### IReusableDialog Create`<TView>`(object viewModel = null) 
+#### IReusableDialog Create(DialogView view, object viewModel = null)
+
+* A IReusableDialog instance is created by specifying a Type or a view instance. Optionally, A view model can be passed to in order to bind.
 
 ## IReusableDialog
 
 ### Methods
 
-* Task`<bool>` ShowAsync()
-    * A dialog is shown.
-    * Even if the dialog is closed, disposing process is not executed.
-* Dispose()
+#### Task`<bool>` ShowAsync()
+
+* A dialog is shown.
+* Even if the dialog is closed, disposing process is not executed.
+
+#### Dispose()
 
 ## IToast
 
 ### Methods
 
-* void Show`<TView>`(object viewModel = null)
+#### void Show`<TView>`(object viewModel = null)
+
+* A toast is shown by specifying a Type. Optionally, A view model can be passed to in order to bind.
 
 ## ILoading
 
 ### Methods
 
-* void Show(string message = null, bool isCurrentScope = false)
-* void Hide()
-* void SetMessage(string message)
-* Task StartAsync(Func`<IProgress<double>, Task>` action, string message = null, bool isCurrentScope = false)
-* IReusableLoading Create`<TView>`(object viewModel = null)
-* IReusableLoading Create(LoadingView view, object viewModel = null)
+#### Task StartAsync(Func`<IProgress<double>, Task>` action, string message = null, bool isCurrentScope = false)
+
+* A loading dialog is shown and awaited a Task.
+* The action is a Func to do target process and return Task. This function has an IProgress instance as a parameter, it allows you to report the progress.
+* The message is any string to show below the loading indicator.
+* The isCurrentScope is a flag to change the dialog parent view. If true, the dialog parent changes from KeyWindow to current ViewController's view. This only works on iOS.
+
+#### void Show(string message = null, bool isCurrentScope = false)
+
+* A loading dialog is shown without awaiting.
+
+#### void Hide()
+
+* A loading dialog is hidden.
+
+#### void SetMessage(string message)
+
+* The message is changed.
+
+#### IReusableLoading Create`<TView>`(object viewModel = null)
+#### IReusableLoading Create(LoadingView view, object viewModel = null)
+
+* A IReusableLoading instance is created by specifying a Type or a view instance. Optionally, A view model can be passed to in order to bind.
 
 ## IReusableLoading
 
 ### Methods
 
-* void Show(bool isCurrentScope = false)
-* void Hide()
-* Task StartAsync(Func`<IProgress<double>, Task>` action, bool isCurrentScope = false)
+#### Task StartAsync(Func`<IProgress<double>, Task>` action, bool isCurrentScope = false)
+
+* A custom loading dialog is shown and awaited a Task.
+
+#### void Show(bool isCurrentScope = false)
+
+* A custom loading dialog is shown without awaiting.
+
+#### void Hide()
+
+* A custom loading dialog is hidden.
 
 
 ## LoadingConfig
+
+This is global default loading dialog settings.
+Once this instance is set to AiForms.Dialogs.Abstractions.Configurations static property, these will be enabled.
+
+> Note that these settings are not used when a custom loading is used.
 
 ### Properties
 
