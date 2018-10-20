@@ -74,6 +74,7 @@ namespace AiForms.Dialogs
             _dlgView.Destroy();
             _dlgView.Parent = null;
             Dialogs.DisposeModelAndChildrenRenderers(_dlgView);
+            _dlgView.BindingContext = null;
             _dlgView = null;
 
             var tapGesture = _overlayView.GestureRecognizers.FirstOrDefault();

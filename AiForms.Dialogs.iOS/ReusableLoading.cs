@@ -28,6 +28,7 @@ namespace AiForms.Dialogs
             _renderer = null;
         
             _loadingView.Destroy();
+            _loadingView.BindingContext = null;
             _loadingView = null;
 
             base.Dispose();

@@ -24,9 +24,9 @@ namespace AiForms.Dialogs
         }
 
 
-        public IReusableLoading Create<TView>(object viewModel = null) where TView : LoadingView, new()
+        public IReusableLoading Create<TView>(object viewModel = null) where TView : LoadingView
         {
-            var view = new TView();
+            var view = ExtraView.InstanceCreator<TView>.Create();
             return Create(view, viewModel);
         }
 

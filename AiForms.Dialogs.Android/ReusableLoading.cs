@@ -28,6 +28,7 @@ namespace AiForms.Dialogs
         public override void Dispose()
         {
             _loadingView.Destroy();
+            _loadingView.BindingContext = null;
             _loadingView.Parent = null;
             _loadingView = null;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using Xamarin.Forms;
 namespace AiForms.Dialogs.Abstractions
 {
@@ -112,5 +113,15 @@ namespace AiForms.Dialogs.Abstractions
         public virtual void RunPresentationAnimation() {}
         public virtual void RunDismissalAnimation() {}
         public virtual void Destroy() {}
+
+        internal static class InstanceCreator<TInstance>
+        {
+            public static Func<TInstance> Create { get; } = CreateInstance();
+
+            static Func<TInstance> CreateInstance()
+            {
+                return Expression.Lambda<Func<TInstance>>(Expression.New(typeof(TInstance))).Compile();
+            }
+        }
     }
 }

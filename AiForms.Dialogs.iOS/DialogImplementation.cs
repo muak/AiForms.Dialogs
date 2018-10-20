@@ -13,9 +13,9 @@ namespace AiForms.Dialogs
         {
         }
 
-        public IReusableDialog Create<TView>(object viewModel = null) where TView : DialogView, new()
+        public IReusableDialog Create<TView>(object viewModel = null) where TView : DialogView
         {
-            var view = new TView();
+            var view = ExtraView.InstanceCreator<TView>.Create();
             return Create(view, viewModel);
         }
 
@@ -25,7 +25,7 @@ namespace AiForms.Dialogs
             return new ReusableDialog(view);
         }
 
-        public async Task<bool> ShowAsync<TView>(object viewModel = null) where TView : DialogView, new()
+        public async Task<bool> ShowAsync<TView>(object viewModel = null) where TView : DialogView
         {
             using (var dlg = Create<TView>(viewModel))
             {

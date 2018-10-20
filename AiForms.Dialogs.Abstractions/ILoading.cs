@@ -5,7 +5,7 @@ namespace AiForms.Dialogs.Abstractions
 {
     public interface ILoading
     {
-        IReusableLoading Create<TView>(object viewModel = null) where TView : LoadingView, new();
+        IReusableLoading Create<TView>(object viewModel = null) where TView : LoadingView;
         IReusableLoading Create(LoadingView view, object viewModel = null);
 
         void Show(string message = null, bool isCurrentScope = false);

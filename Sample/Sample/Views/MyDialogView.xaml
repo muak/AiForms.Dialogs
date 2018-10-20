@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:extra="clr-namespace:AiForms.Dialogs.Abstractions;assembly=AiForms.Dialogs.Abstractions"
+    xmlns:sv="clr-namespace:AiForms.Renderers;assembly=SettingsView"
     x:Class="Sample.Views.MyDialogView"
     CornerRadius="10" OffsetX="{Binding OffsetX}" OffsetY="{Binding OffsetY}" UseCurrentPageLocation="false"
     VerticalLayoutAlignment="{Binding VAlign}" HorizontalLayoutAlignment="{Binding HAlign}"
@@ -22,4 +23,17 @@
             <Button Text="OK" Clicked="Handle_OK_Clicked" />
          </FlexLayout>
     </ContentView>
+    
+    <!--<sv:SettingsView x:Name="Settings" HeightRequest="240" HeaderHeight="30" RowHeight="40" HasUnevenRows="false"
+         >
+        <sv:Section Title="1行に表示する教材の数">
+            
+            <sv:RadioCell Title="Hoge" Value="1" />
+            <sv:RadioCell Title="Hoge" Value="2" />
+            <sv:RadioCell Title="Hoge" Value="3" />
+            <sv:RadioCell Title="Hoge" Value="4" />
+            <sv:RadioCell Title="Hoge" Value="5" />
+             
+        </sv:Section>
+    </sv:SettingsView>-->
 </extra:DialogView>

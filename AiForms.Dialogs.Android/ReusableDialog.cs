@@ -151,6 +151,7 @@ namespace AiForms.Dialogs
         {
             if(disposing) {
                 _dlgView.Destroy();
+                _dlgView.BindingContext = null;
                 _dlgView.Parent = null;
                 _dlgView = null;
 

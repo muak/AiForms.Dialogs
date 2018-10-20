@@ -13,9 +13,9 @@ namespace AiForms.Dialogs
         {
         }
 
-        public void Show<TView>(object viewModel = null) where TView : ToastView, new()
+        public void Show<TView>(object viewModel = null) where TView : ToastView
         {
-            var view = new TView();
+            var view = ExtraView.InstanceCreator<TView>.Create();
             Show(view, viewModel);
         }
 
@@ -58,6 +58,7 @@ namespace AiForms.Dialogs
                         Dialogs.DisposeModelAndChildrenRenderers(view);
                         renderer = null;
                         view.Destroy();
+                        view.BindingContext = null;
                         view = null;
                     }
                 );
