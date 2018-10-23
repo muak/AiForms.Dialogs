@@ -453,61 +453,126 @@ Once this instance is set to AiForms.Dialogs.Abstractions.Configurations static 
 ### Properties
 
 * OffsetX
+    * The adjustment relative value from the horizontal layout position. 
 * OffsetY
+    * The adjustment relative value from the vertical layout position.
 * IndicatorColor
+    * The icon color for Loading indicator.
 * FontSize
+    * The size for Loading description string.
 * FontColor
+    * The color for Loading description string.
 * OverlayColor
+    * The color of the dialog overlay view.
 * Opacity
+    * The entire opacity. (0-1)
 * DefaultMessage
+    * The default string for loading description.
 * ProgressMessageFormat
+    * The string format for loading description.
+    * e.g. ``{0}\n{1:P0}`` 0:message 1:progress
 * IsReusable
+    * The bool value whether loading view is reused. (default: false)
+    * Each time a dialog is closed, the instance is disposed of. But if this value turns true, the instance will be reused, even if a dialog is closed, it won't be disposed of.
 
 ## ExtraView
 
 This is base class of DialogView, ToastView, and LoadingView.
 
+This view is used to specify HorizontalLayoutAlignment, VerticalLayoutAlignment, OffsetX, OffsetX and determine itself position.
+This view can be set a VisualElement.
+
+Also, the animations the time a dialog appears and disappears, and the cleaning up process the time the dialog is destroyed can be written in virtual methods.
+
 ### Common Propoerties
 
 * ProportionalWidth
+    * The double value in proportion to the Device width. (0-1)
+    * In case not specified, the WidthRequest value or AutoSizing is used.
 * ProportionalHeight
+    * The double value in proportion to the Device height. (0-1)
+    * In case not specified, the HeightRequest value or AutoSizing is used.
 * VerticalLayoutAlignment
+    * The vertical position enumeration value (Start / Center / End / Fill) (default: Center)
 * HorizontalLayoutAlignment
+    * The horizontal position enumeration value (Start / Center / End / Fill) (default: Center)
 * OffsetX
+    * The adjustment relative value from the horizontal layout position. 
 * OffsetY
+    * The adjustment relative value from the vertical layout position.
 * CornerRadius
+    * The value of a dialog corner radius.
 
 ### Common Virtual Methods
 
 * RunPresentationAnimation
+    * Write the animation process the time a dialog appears.
 * RunDismissalAnimation
+    * Write the animation process the time a dialog disappears.
 * Destroy
+    * Write the process of cleaning up itself view, which is called when the dialog is destroyed. 
 
 ## DialogView
 
+This view is used in order that IDialog or IReusableDialog shows a dialog.
+This can be used All ExtraView properties and virtual methods and the following properties and virtual methods.
+
 ### Properties
+
 * IsCanceledOnTouchOutside
+    * The bool value of whether canceling when out of the dialog is touched.
 * OverlayColor
+    * The background color out of the dialog.
 * UseCurrentPageLocation
+    * The bool value of whether the base location of HorizontalLayoutAlignment and VerticalLayoutAlignment is the current page area or the window area.
+    * If it is true, each edge will be not window's edge but current page edge.
 * DialogNotifier
+    * The controller to notify cancelation or completion from the view to the IDialog instance.
+    * In the view, if tapping a button make the dialog complete or cancel, write as the follwing code:
+
+```csharp
+void Handle_OK_Clicked(object sender, System.EventArgs e)
+{
+    DialogNotifier.Complete();
+}
+
+void Handle_Cancel_Clicked(object sender, System.EventArgs e)
+{
+    DialogNotifier.Cancel();
+}
+```
 
 ### Virtual Methods
 
 * SetUp
+    * Write the process of preparing for itself, which is called just before each opening the dialog for IReusableDialog.
 * TearDown
+    * Write the process of preparing for the next time and cleaning up, which is called just after each closing the dialog for IReusableDialog.
 
 ## ToastView
+
+This view is used in order that IToast shows a toast.
+This can be used All ExtraView properties and virtual methods and the following properties.
+
+> Note that a toast can't go over each window edge using OffsetX and OffsetY properties on Android.
 
 ### Properties
 
 * Duration
+    * The millisecond value until disappearing a toast. (1-3500) (default:1500)
 
 ## LoadingView
+
+This view is used in order that IReusableLoading shows a loading dialog.
+This can be used All ExtraView properties and virtual methods and the following properties.
 
 ### Properties
 
 * Progress
+    * The value of type double for expressing progress.
+    * This value can be used to express the progress in your custom view.
 * OverlayColor
+    * The background color out of the dialog.
 
 ## License
 
