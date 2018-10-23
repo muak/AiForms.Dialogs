@@ -372,6 +372,7 @@ public async Task SomeMethod()
 #### Task`<bool>` ShowAsync(DialogView view, object viewModel = null)
     
 * A dialog is shown by specifying a Type or a view instance. Optionally, A view model can be passed to in order to bind.
+* If canceled, return is false; Otherwise true.
 * When the dialog is closed, all related resource automatically are disposed.
 
 #### IReusableDialog Create`<TView>`(object viewModel = null) 
@@ -386,6 +387,7 @@ public async Task SomeMethod()
 #### Task`<bool>` ShowAsync()
 
 * A dialog is shown.
+* If canceled, return is false; Otherwise true.
 * Even if the dialog is closed, disposing process is not executed.
 
 #### Dispose()
@@ -520,7 +522,7 @@ This can be used All ExtraView properties and virtual methods and the following 
 ### Properties
 
 * IsCanceledOnTouchOutside
-    * The bool value of whether canceling when out of the dialog is touched.
+    * The bool value of whether canceling when out of the dialog is touched. (default: ture)
 * OverlayColor
     * The background color out of the dialog.
 * UseCurrentPageLocation

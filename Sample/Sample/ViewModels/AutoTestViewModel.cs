@@ -81,7 +81,7 @@ namespace Sample.ViewModels
             });
         }
 
-        async void ExitDialog(DialogNotifier notifier,bool isCancel = false)
+        async void ExitDialog(IDialogNotifier notifier,bool isCancel = false)
         {
             await Task.Delay(1000);
             Device.BeginInvokeOnMainThread(() => {

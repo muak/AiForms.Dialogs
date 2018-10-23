@@ -1,7 +1,13 @@
 ﻿using System;
 namespace AiForms.Dialogs.Abstractions
 {
-    public class DialogNotifier
+    public interface IDialogNotifier
+    {
+        void Complete();
+        void Cancel();
+    }
+
+    public class DialogNotifier:IDialogNotifier
     {
         internal event EventHandler Completed;
         internal event EventHandler Canceled;
