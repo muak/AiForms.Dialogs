@@ -12,10 +12,7 @@ namespace Sample.Views
         public MyDialogView()
         {
             InitializeComponent();
-            OverlayColor = Color.FromRgba(1, 0, 0, 0.2);
-            //BackgroundColor = Color.Transparent;
-
-            //this.Scale = 0.3;
+            OverlayColor = Color.FromRgba(0, 0, 0, 0.2);
         }
 
         public override void SetUp()

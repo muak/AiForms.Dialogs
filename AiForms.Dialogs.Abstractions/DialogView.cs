@@ -50,11 +50,32 @@ namespace AiForms.Dialogs.Abstractions
             set { SetValue(UseCurrentPageLocationProperty, value); }
         }
 
-        public DialogNotifier DialogNotifier { get; } = new DialogNotifier();
-              
+        //public DialogNotifier DialogNotifier { get; } = new DialogNotifier();
+
+        public static BindableProperty DialogNotifierProperty =
+            BindableProperty.Create(
+                nameof(DialogNotifier),
+                typeof(IDialogNotifier),
+                typeof(DialogView),
+                default(IDialogNotifier),
+                defaultBindingMode: BindingMode.OneWayToSource
+            );
+
+        public IDialogNotifier DialogNotifier
+        {
+            get { return (IDialogNotifier)GetValue(DialogNotifierProperty); }
+            set { SetValue(DialogNotifierProperty, value); }
+        }
+
+        internal DialogNotifier DialogNotifierInternal => DialogNotifier as DialogNotifier;
 
         public virtual void SetUp() {}
         public virtual void TearDown() {}
+
+        public DialogView()
+        {
+            DialogNotifier = new DialogNotifier();
+        }
 
     }
 }

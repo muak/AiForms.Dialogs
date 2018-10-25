@@ -3,16 +3,17 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:extra="clr-namespace:AiForms.Dialogs.Abstractions;assembly=AiForms.Dialogs.Abstractions"
-    x:Class="Sample.Views.MyIndicatorView" x:Name="Me" OverlayColor="#2000FF00"
+    x:Class="Sample.Views.MyIndicatorView" x:Name="Me" OverlayColor="#60FFFFFF"
     VerticalLayoutAlignment="{Binding VAlign}" HorizontalLayoutAlignment="{Binding HAlign}"
     OffsetX="{Binding OffsetX}" OffsetY="{Binding OffsetY}"
     >
-    <StackLayout WidthRequest="60" HeightRequest="60" Spacing="0">
-        <Image x:Name="image" WidthRequest="36" HeightRequest="36" />
+    <StackLayout WidthRequest="250" Spacing="10">
+        <Image x:Name="image" WidthRequest="36" HeightRequest="36" HorizontalOptions="Center" />
         <Label Text="{Binding Message}" FontSize="Micro" TextColor="Black" 
-               VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+               HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
         <Label Text="{Binding Progress,Source={x:Reference Me},StringFormat='{0:P0}'}" FontSize="Micro" TextColor="Black" 
-               VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
-        
+               HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
+         <ProgressBar HorizontalOptions="FillAndExpand" ProgressColor="Blue" Progress="{Binding Progress,Source={x:Reference Me}}"  />
     </StackLayout>
+   
 </extra:LoadingView>

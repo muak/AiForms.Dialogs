@@ -89,13 +89,16 @@ namespace AiForms.Dialogs
 
             toast.Show();
 
-            var duration = Math.Max(Math.Min(view.Duration - 250, 3500),0);
+            var duration = Math.Max(Math.Min(view.Duration - 260, 3500),0); // give a bit millisecond margin 
 
             var handler = new Handler();
-            handler.PostDelayed(new Runnable(async () =>
+
+            handler.PostDelayed(new Runnable(view.RunDismissalAnimation),duration);
+
+            handler.PostDelayed(new Runnable(() =>
             {
-                view.RunDismissalAnimation();
-                await Task.Delay(250);
+                //view.RunDismissalAnimation();
+                //await Task.Delay(250);
                 toast?.Cancel();
 
                 view.Parent = null;
@@ -116,7 +119,7 @@ namespace AiForms.Dialogs
 
                 view.Destroy();
                 view.BindingContext = null;
-            }),duration);
+            }), view.Duration);
         }
     }
 }

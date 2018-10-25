@@ -172,17 +172,17 @@
       <HintPath>..\packages\ReactiveProperty.5.1.1\lib\MonoAndroid\ReactiveProperty.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SettingsView">
-      <HintPath>..\packages\AiForms.SettingsView.0.4.0\lib\MonoAndroid\SettingsView.dll</HintPath>
-    </Reference>
-    <Reference Include="SettingsView.Droid">
-      <HintPath>..\packages\AiForms.SettingsView.0.4.0\lib\MonoAndroid\SettingsView.Droid.dll</HintPath>
-    </Reference>
     <Reference Include="AiForms.Effects">
       <HintPath>..\packages\AiForms.Effects.1.3.1\lib\MonoAndroid\AiForms.Effects.dll</HintPath>
     </Reference>
     <Reference Include="AiForms.Effects.Droid">
       <HintPath>..\packages\AiForms.Effects.1.3.1\lib\MonoAndroid\AiForms.Effects.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="SettingsView">
+      <HintPath>..\packages\AiForms.SettingsView.0.4.1\lib\MonoAndroid\SettingsView.dll</HintPath>
+    </Reference>
+    <Reference Include="SettingsView.Droid">
+      <HintPath>..\packages\AiForms.SettingsView.0.4.1\lib\MonoAndroid\SettingsView.Droid.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -33,6 +33,10 @@ Android: version 5.1.1 (only FormsAppcompatActivity) / API22
 
 ## Demo
 
+<a href="https://www.youtube.com/watch?feature=player_embedded&v=-DzMvQCQU1Q
+" target="_blank"><img src="https://img.youtube.com/vi/-DzMvQCQU1Q/0.jpg" 
+alt="" width="480" height="360" border="0" /></a>
+
 # Get Started
 
 ## Nuget Installation
@@ -75,6 +79,8 @@ protected override void OnCreate(Bundle bundle)
 
 This is the dialog that can be defined with XAML or c# code.
 This dialog allows you to freely design the dialog content and arrange anywhere without custom renderer and effects.
+
+<img src="./images/dialog.png" width="600" />
 
 ### Create a DialogView
 
@@ -178,6 +184,8 @@ public async Task SomeMethod()
 This is the dialog that disappears after some second, which is similar to Android Native Toast Control.
 This can be defined with XAML or c# code and allows you to freely design the content and arrange anywhere.
 
+<img src="./images/toast.png" width="600" />
+
 ### Create a ToastView
 
 It is necessary for Toast to create the dedicated ToastView derived from ConentView as the following:
@@ -237,6 +245,11 @@ This is the dialog that can't be close by a user, which is appropriate for the n
 This has two modes, one is default built-in dialog, the other is custom dialog using LoadingView the same as Dialog or Toast.
 LoadingView allows you to freely design the content and arrange anywhere.
 Both of these have the function that notifies progress to the view.
+
+
+<img src="./images/loading.png" width="600" />
+
+<img src="./images/customloading.png" width="600" />
 
 ### Show default Loading Dialog
 
@@ -514,6 +527,8 @@ Also, the animations the time a dialog appears and disappears, and the cleaning 
 * Destroy
     * Write the process of cleaning up itself view, which is called when the dialog is destroyed. 
 
+> Note that animation duration is assumed for 250ms. If it is set larger than the time, the animation may be aborted.
+
 ## DialogView
 
 This view is used in order that IDialog or IReusableDialog shows a dialog.
@@ -528,9 +543,11 @@ This can be used All ExtraView properties and virtual methods and the following 
 * UseCurrentPageLocation
     * The bool value of whether the base location of HorizontalLayoutAlignment and VerticalLayoutAlignment is the current page area or the window area.
     * If it is true, each edge will be not window's edge but current page edge.
-* DialogNotifier
-    * The controller to notify cancelation or completion from the view to the IDialog instance.
-    * In the view, if tapping a button make the dialog complete or cancel, write as the follwing code:
+
+#### DialogNotifier
+
+* The controller to notify cancelation or completion from the view to the IDialog instance.
+* In the view, if tapping a button make the dialog complete or cancel, write as the follwing code:
 
 ```csharp
 void Handle_OK_Clicked(object sender, System.EventArgs e)
@@ -541,6 +558,30 @@ void Handle_OK_Clicked(object sender, System.EventArgs e)
 void Handle_Cancel_Clicked(object sender, System.EventArgs e)
 {
     DialogNotifier.Cancel();
+}
+```
+
+Altenatively, you can use it in a ViewModel.
+
+```Xml
+<ex:DialogView DialogNotifier="{Binding Notifier}">
+```
+
+```csharp
+public IDialogNotifier Notifier { get; set; }
+
+async void Show()
+{
+    await Dialog.Instance.ShowAsync<MyDialogView>(this);
+}
+
+void Complete()
+{
+    Notifier.Complete();
+}
+void Cancel()
+{
+    Notifier.Cancel();
 }
 ```
 

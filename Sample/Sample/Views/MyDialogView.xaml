@@ -9,31 +9,17 @@
     VerticalLayoutAlignment="{Binding VAlign}" HorizontalLayoutAlignment="{Binding HAlign}"
     >
 
-    <ContentView BackgroundColor="#CC9900" x:Name="container" Padding="20">
-        <FlexLayout Direction="Column" AlignItems="Stretch" WidthRequest="200" HeightRequest="300"
-                    JustifyContent="SpaceBetween" BackgroundColor="White" 
-                    >
+    <ContentView BackgroundColor="#CC9900" x:Name="container" Padding="12">
+        <StackLayout WidthRequest="200" BackgroundColor="White" >
             <Label Text="{Binding Title}" TextColor="#FFBF00" HorizontalTextAlignment="Center" Margin="6" x:Name="title" />
-            <FlexLayout Direction="Row" AlignItems="Stretch" JustifyContent="Center" 
-                        FlexLayout.Grow="1" >
-                <Label Text="{Binding Description}" LineBreakMode="WordWrap" x:Name="desc"
-                       TextColor="#666666" Margin="6" VerticalTextAlignment="Center" FlexLayout.Grow="1"  />
-            </FlexLayout>
-            <Button Text="Cancel" Clicked="Handle_Cancel_Clicked"/>
-            <Button Text="OK" Clicked="Handle_OK_Clicked" />
-         </FlexLayout>
+            <Label Text="{Binding Description}" LineBreakMode="WordWrap" x:Name="desc"
+                       TextColor="#666666" Margin="6" VerticalTextAlignment="Center"   />
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Cancel" Clicked="Handle_Cancel_Clicked" TextColor="#FFBF00"
+                        Padding="0" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand"/>
+                <Button Text="OK" Clicked="Handle_OK_Clicked" TextColor="#FFBF00"
+                        Padding="0" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+         </StackLayout>
     </ContentView>
-    
-    <!--<sv:SettingsView x:Name="Settings" HeightRequest="240" HeaderHeight="30" RowHeight="40" HasUnevenRows="false"
-         >
-        <sv:Section Title="1行に表示する教材の数">
-            
-            <sv:RadioCell Title="Hoge" Value="1" />
-            <sv:RadioCell Title="Hoge" Value="2" />
-            <sv:RadioCell Title="Hoge" Value="3" />
-            <sv:RadioCell Title="Hoge" Value="4" />
-            <sv:RadioCell Title="Hoge" Value="5" />
-             
-        </sv:Section>
-    </sv:SettingsView>-->
 </extra:DialogView>

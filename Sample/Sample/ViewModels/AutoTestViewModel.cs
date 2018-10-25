@@ -14,6 +14,7 @@ namespace Sample.ViewModels
     public class AutoTestViewModel
     {
         public ReactiveCommand StartCommand { get; } = new ReactiveCommand();
+        public IDialogNotifier Notifier { get; set; }
         public List<TestItem> TestResults { get; } = new List<TestItem>();
 
         public AutoTestViewModel(INavigationService navigationService)
@@ -79,6 +80,25 @@ namespace Sample.ViewModels
                 Detail = string.Join(", ", dialog.Assert.Select((x, index) => new { index, result = x })
                                      .Where(x => !x.result).Select(x => x.index + 1))
             });
+
+
+            dialog = new DialogTestView();
+            reusable = Dialog.Instance.Create(dialog, this);
+
+            ExitDialog(Notifier, false);
+            var notifierRetOk = await reusable.ShowAsync();
+
+            await Task.Delay(250);
+
+            ExitDialog(Notifier, true);
+            var notifierRetNg = await reusable.ShowAsync();
+
+            TestResults.Add(new TestItem
+            {
+                Name = "Dialog Send cancel or complete from VM",
+                Result = notifierRetOk && !notifierRetNg,
+            });
+
         }
 
         async void ExitDialog(IDialogNotifier notifier,bool isCancel = false)
@@ -225,7 +245,7 @@ namespace Sample.ViewModels
             {
                 Name = "Loading Custom Reuse",
                 // 2回目は前回のインスタンスを使用している
-                Result = loading.Assert.Count == 6 && loading.seq == 5 && loading.progressCnt == 8,
+                Result = loading.Assert.Count == 6 && loading.seq == 5 && loading.progressCnt == 6,
             });
 
             reusable.Dispose();
@@ -233,7 +253,7 @@ namespace Sample.ViewModels
             TestResults.Add(new TestItem
             {
                 Name = "Loading Custom Dispose",
-                Result = loading.Assert.Count == 7 && loading.seq == 6 && loading.progressCnt == 8
+                Result = loading.Assert.Count == 7 && loading.seq == 6 && loading.progressCnt == 6
             });
         }
     }

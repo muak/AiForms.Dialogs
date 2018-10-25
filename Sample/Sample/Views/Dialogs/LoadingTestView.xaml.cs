@@ -30,7 +30,7 @@ namespace Sample.Views
         public override void RunDismissalAnimation()
         {
             Assert.Add(seq++ == 2); // is second
-            Assert.Add(progressCnt == 4); // called four times(system call 1)
+            Assert.Add(progressCnt == 3);
         }
 
         public override void Destroy()

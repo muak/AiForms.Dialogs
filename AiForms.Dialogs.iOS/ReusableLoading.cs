@@ -84,7 +84,7 @@ namespace AiForms.Dialogs
                 Progress = null;
                 if (_loadingView != null)
                 {
-                    _loadingView.Progress = 0d;
+                    //_loadingView.Progress = 0d;
                 }
             }
 

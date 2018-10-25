@@ -1,19 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
 	xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms" 
+    xmlns:sv="clr-namespace:AiForms.Renderers;assembly=SettingsView"
 	prism:ViewModelLocator.AutowireViewModel="True"
 	x:Class="Sample.Views.MainPage" Title="MainPage" BackgroundColor="White">
-	<StackLayout HorizontalOptions="Center">
-        <ContentView VerticalOptions="FillAndExpand" />
-        <Entry Text="{Binding OffsetX.Value,Mode=TwoWay}" Placeholder="OffsetX" />
-        <Entry Text="{Binding OffsetY.Value,Mode=TwoWay}" Placeholder="OffsetY" />
-        <Picker ItemsSource="{Binding VAligns}" SelectedIndex="0" SelectedItem="{Binding VAlign.Value}" Title="Vertical" />
-        <Picker ItemsSource="{Binding HAligns}" SelectedIndex="0" SelectedItem="{Binding HAlign.Value}" Title="Horizontal" />
-		<Button Text="LoadingStart" Command="{Binding LoadingCommand}" VerticalOptions="End" />
-        <Button Text="DialogStart" Command="{Binding DialogCommand}" VerticalOptions="End" />
-        <Button Text="ToastStart" Command="{Binding ToastCommand}" VerticalOptions="End" />
-	</StackLayout>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Start" Command="{Binding StartCommand}" />
+    </ContentPage.ToolbarItems>
+    
+	<sv:SettingsView HeaderHeight="20" HeaderPadding="10,2,2,2" RowHeight="32" BackgroundColor="#EFEFEF" CellBackgroundColor="White">
+        <sv:Section HeaderHeight="10">
+            <sv:ButtonCell Title="Loading" Command="{Binding LoadingCommand}" />
+            <sv:ButtonCell Title="CustomLoading" Command="{Binding CustomLoadingCommand}" />
+            <sv:ButtonCell Title="Dialog" Command="{Binding DialogCommand}" />
+            <sv:ButtonCell Title="Toast" Command="{Binding ToastCommand}" />
+        </sv:Section>
+        
+        <sv:Section Title="HorizontalAlignment" sv:RadioCell.SelectedValue="{Binding HAlign.Value}" ItemsSource="{Binding HAligns}">
+            <sv:Section.ItemTemplate>
+                <DataTemplate>
+                    <sv:RadioCell Title="{Binding}" Value="{Binding}" />
+                </DataTemplate>
+            </sv:Section.ItemTemplate>
+        </sv:Section>
+        
+        <sv:Section Title="VerticalAlignment" sv:RadioCell.SelectedValue="{Binding VAlign.Value}" ItemsSource="{Binding VAligns}">
+            <sv:Section.ItemTemplate>
+                <DataTemplate>
+                    <sv:RadioCell Title="{Binding}" Value="{Binding}" />
+                </DataTemplate>
+            </sv:Section.ItemTemplate>
+        </sv:Section>
+        
+        <sv:Section Title="Offset">
+            <sv:EntryCell Title="OffsetX" ValueText="{Binding OffsetX.Value,Mode=TwoWay}" Keyboard="Numeric" ValueTextFontSize="Small" />
+            <sv:EntryCell Title="OffsetY" ValueText="{Binding OffsetY.Value,Mode=TwoWay}" Keyboard="Numeric" ValueTextFontSize="Small" />
+        </sv:Section>
+	</sv:SettingsView>
+    
 </ContentPage>
  

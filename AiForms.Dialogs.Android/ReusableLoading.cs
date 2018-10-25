@@ -83,7 +83,7 @@ namespace AiForms.Dialogs
             {
                 Progress.ProgressChanged -= ProgressAction;
                 Progress = null;
-                _loadingView.Progress = 0d;
+                //_loadingView.Progress = 0d;
             }
 
             var anim = new AlphaAnimation(ContentView.Alpha, 0.0f);
@@ -109,6 +109,7 @@ namespace AiForms.Dialogs
 
             ContentView.SetBackgroundColor(_loadingView.OverlayColor.ToAndroid());
             ContentView.Alpha = 1f;
+            ContentView.SetPadding(0, (int)Dialogs.Context.ToPixels(24), 0, 0); // Statusbar
 
             _loadingView.Parent = XF.Application.Current.MainPage;
 

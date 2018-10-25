@@ -108,7 +108,6 @@ namespace AiForms.Dialogs
                 _dlgView.RunDismissalAnimation();
                 await _viewController.DismissViewControllerAsync(true);
                 tcs.SetResult(false);
-
             }
             async void complete(object sender, EventArgs e)
             {
@@ -117,8 +116,8 @@ namespace AiForms.Dialogs
                 tcs.SetResult(true);
             };
 
-            _dlgView.DialogNotifier.Canceled += cancel;
-            _dlgView.DialogNotifier.Completed += complete;
+            _dlgView.DialogNotifierInternal.Canceled += cancel;
+            _dlgView.DialogNotifierInternal.Completed += complete;
 
             _dlgView.RunPresentationAnimation();
             await _viewController.PresentViewControllerAsync(_contentViewController, true);
@@ -129,8 +128,8 @@ namespace AiForms.Dialogs
             }
             finally
             {
-                _dlgView.DialogNotifier.Canceled -= cancel;
-                _dlgView.DialogNotifier.Completed -= complete;
+                _dlgView.DialogNotifierInternal.Canceled -= cancel;
+                _dlgView.DialogNotifierInternal.Completed -= complete;
                 _dlgView.TearDown();
             }
         }
@@ -139,7 +138,7 @@ namespace AiForms.Dialogs
         {
             if (_dlgView.IsCanceledOnTouchOutside)
             {
-                _dlgView.DialogNotifier.Cancel();
+                _dlgView.DialogNotifierInternal.Cancel();
             }
         }
 

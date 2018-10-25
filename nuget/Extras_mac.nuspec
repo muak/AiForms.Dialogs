@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>AiForms.Dialogs</id>
-        <version>0.3.1-pre</version>
+        <version>0.3.2-pre</version>
         <title>AiForms.Dialogs for Xamarin.Forms</title>
         <authors>kamu</authors>
         <owners>kamu</owners>
@@ -15,7 +15,7 @@
         <releaseNotes>
 First Release.
         </releaseNotes>
-        <tags>Xamarin.Forms dialog toast loading progress popup xaml netstandard ios android</tags>
+        <tags>Xamarin.Forms Xamarin dialog toast loading progress popup xaml netstandard ios android</tags>
         <language>en-US</language>
         <dependencies>
             <group targetFramework="netstandard2.0">

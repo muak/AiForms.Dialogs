@@ -4,12 +4,13 @@
              xmlns:extra="clr-namespace:AiForms.Dialogs.Abstractions;assembly=AiForms.Dialogs.Abstractions"
              x:Class="Sample.Views.MyToastView"
              HorizontalLayoutAlignment="{Binding HAlign}" VerticalLayoutAlignment="{Binding VAlign}"
-             OffsetX="{Binding OffsetX}" OffsetY="{Binding OffsetY}"
+             OffsetX="{Binding OffsetX}" OffsetY="{Binding OffsetY}" 
              >
-    <ContentView.Content>
-        <StackLayout WidthRequest="150" Spacing="0" BackgroundColor="Olive">
-            <Image x:Name="image" HorizontalOptions="Start" HeightRequest="25" WidthRequest="25" BackgroundColor="Blue" Aspect="AspectFit" />
-            <Label Text="HogeHoge" />
-        </StackLayout>
-    </ContentView.Content>
+    
+    <StackLayout x:Name="container" Spacing="0" Padding="10" WidthRequest="124" HeightRequest="124">
+        <Image x:Name="image" WidthRequest="70" HeightRequest="70" Margin="0,0,0,10" />
+        <Label Text="Hello" HorizontalTextAlignment="Center" x:Name="label"
+               TextColor="#444444" FontSize="Medium"
+               VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+    </StackLayout>
 </extra:ToastView>

@@ -69,6 +69,10 @@ namespace AiForms.Dialogs
                 var padding = Dialogs.CalcWindowPadding();
                 _contentView.SetPadding(0, padding.top, 0, padding.bottom);
             }
+            else
+            {
+                _contentView.SetPadding(0, (int)Dialogs.Context.ToPixels(24), 0, 0); // Statusbar
+            }
 
             _contentView.SetBackgroundColor(_dlgView.OverlayColor.ToAndroid());
             _contentView.SetClipChildren(false);
@@ -123,8 +127,8 @@ namespace AiForms.Dialogs
                 tcs.SetResult(true);
             };
 
-            _dlgView.DialogNotifier.Canceled += cancel;
-            _dlgView.DialogNotifier.Completed += complete;
+            _dlgView.DialogNotifierInternal.Canceled += cancel;
+            _dlgView.DialogNotifierInternal.Completed += complete;
 
 
             var payload = new ExtraDialogPayload(_dlgView,_contentView);
@@ -139,8 +143,8 @@ namespace AiForms.Dialogs
             }
             finally
             {
-                _dlgView.DialogNotifier.Canceled -= cancel;
-                _dlgView.DialogNotifier.Completed -= complete;
+                _dlgView.DialogNotifierInternal.Canceled -= cancel;
+                _dlgView.DialogNotifierInternal.Completed -= complete;
                 _dlgView.TearDown();
                 payload.Dispose();
                 bundle.Dispose();
@@ -190,7 +194,7 @@ namespace AiForms.Dialogs
 
             if (!rect.Contains((int)e.Event.GetX(), (int)e.Event.GetY()))
             {
-                _dlgView.DialogNotifier.Cancel();
+                _dlgView.DialogNotifierInternal.Cancel();
                 return;
             }
 
@@ -201,7 +205,7 @@ namespace AiForms.Dialogs
         {
             if (keyCode == Keycode.Back && e.Action == KeyEventActions.Up)
             {
-                _dlgView.DialogNotifier.Cancel();
+                _dlgView.DialogNotifierInternal.Cancel();
                 return true;
             }
 

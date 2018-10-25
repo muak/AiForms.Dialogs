@@ -30,6 +30,10 @@ Android: version 5.1.1 (only FormsAppcompatActivity) / API22
 
 ## Demo
 
+<a href="https://www.youtube.com/watch?feature=player_embedded&v=-DzMvQCQU1Q
+" target="_blank"><img src="https://img.youtube.com/vi/-DzMvQCQU1Q/0.jpg" 
+alt="" width="480" height="360" border="0" /></a>
+
 # Get Started
 
 ## Nuget Installation
@@ -72,6 +76,8 @@ protected override void OnCreate(Bundle bundle)
 
 XAML や c# コードで定義したダイアログを呼び出す機能です。
 このダイアログを使えば、Custom Renderer や Effects を使わずにダイアログを自由にデザインし好きな場所に配置することができます。
+
+<img src="./images/dialog.png" width="600" />
 
 ### DialogView の定義
 
@@ -175,6 +181,8 @@ public async Task SomeMethod()
 これは、Androidのネイティブの トースト によく似た（というかAndroid実装はToastそのもの）、数秒で消えるダイアログを表示する機能です。
 この機能を使えば、Toast の内容を XAML や c# コードで自由にデザインし、好きな場所に配置することができます。
 
+<img src="./images/toast.png" width="600" />
+
 ### ToastView の定義
 
 Toast を利用するには、ContentViewを継承した専用の ToastView を定義する必要があります。
@@ -234,6 +242,10 @@ public async Task SomeMethod()
 これには2つのモードがあり、ひとつは、デフォルトの組み込みダイアログで、もうひとつは、DialogやToastと同じような LoadingView を使ったカスタムダイアログです。
 LoadingView によるカスタムダイアログを利用すると、自由に内容をデザインして好きな位置に配置することが可能です。
 どちらのモードもViewに進捗を通知する機能を持っています。
+
+<img src="./images/loading.png" width="600" />
+
+<img src="./images/customloading.png" width="600" />
 
 ### デフォルトの Loading Dialog の表示
 
@@ -514,6 +526,8 @@ ContentViewを継承しているので任意の VisualElement を配置できま
 * Destroy
     * 自身のクリーンアップする処理などを記述します。ダイアログが破棄された時に呼ばれます。
 
+> アニメーション の時間は現在のところ 250ms を想定して設計されていますので、これ以上長い時間を設定するとアニメーションが途中で中止される可能性があります。
+
 ## DialogView
 
 この View は、IDialog または IReusableDialog が表示するダイアログの中身を定義するものです。
@@ -528,9 +542,11 @@ ContentViewを継承しているので任意の VisualElement を配置できま
 * UseCurrentPageLocation
     * HorizontalLayoutAlignment と VerticalLayoutAlignment で配置する位置の基準をWindowエリアにするか現在のページのエリアにするかの値。
     * Trueにすると、各辺はページ内に限定されます。ステータスバー、ナビゲーションバー、タブバーなどを含まない範囲になります。
-* DialogNotifier
-    * DialogView から IDialog インスタンスへ キャンセルか完了の通知を送るためのオブジェクト。
-    * DialogView内でボタンをタップした時にダイアログを完了させたりキャンセルさせたりするには以下のコードのようにします。
+
+#### DialogNotifier
+
+* DialogView から IDialog インスタンスへ キャンセルか完了の通知を送るためのオブジェクト。
+* DialogView内でボタンをタップした時にダイアログを完了させたりキャンセルさせたりするには以下のコードのようにします。
 
 ```csharp
 void Handle_OK_Clicked(object sender, System.EventArgs e)
@@ -541,6 +557,30 @@ void Handle_OK_Clicked(object sender, System.EventArgs e)
 void Handle_Cancel_Clicked(object sender, System.EventArgs e)
 {
     DialogNotifier.Cancel();
+}
+```
+
+また ViewModelからバインディングを通じて使用することもできます。
+
+```Xml
+<ex:DialogView DialogNotifier="{Binding Notifier}">
+```
+
+```csharp
+public IDialogNotifier Notifier { get; set; }
+
+async void Show()
+{
+    await Dialog.Instance.ShowAsync<MyDialogView>(this);
+}
+
+void Complete()
+{
+    Notifier.Complete();
+}
+void Cancel()
+{
+    Notifier.Cancel();
 }
 ```
 

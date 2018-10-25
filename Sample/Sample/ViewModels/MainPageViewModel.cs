@@ -17,8 +17,10 @@ namespace Sample.ViewModels
 	public class MainPageViewModel : BindableBase, INavigationAware
 	{
         public ReactiveCommand LoadingCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand CustomLoadingCommand { get; set; } = new ReactiveCommand();
         public ReactiveCommand DialogCommand { get; } = new ReactiveCommand();
         public ReactiveCommand ToastCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand StartCommand { get; set; } = new ReactiveCommand();
 
         public List<LayoutAlignment> VAligns { get; set; } = new List<LayoutAlignment>();
         public List<LayoutAlignment> HAligns { get; set; } = new List<LayoutAlignment>();
@@ -39,6 +41,11 @@ namespace Sample.ViewModels
             HAligns.Add(LayoutAlignment.Center);
             HAligns.Add(LayoutAlignment.End);
 
+            VAlign.Value = VAligns[1];
+            HAlign.Value = HAligns[1];
+
+            Configurations.LoadingConfig = new LoadingConfig{DefaultMessage = "Loading..."};
+
             var loadingFlg = false;
             LoadingCommand.Subscribe(async _ =>
             {
@@ -58,6 +65,28 @@ namespace Sample.ViewModels
                 loadingFlg = !loadingFlg;
             });
 
+
+            CustomLoadingCommand.Subscribe(async _ =>
+            {
+                var customLoading = Loading.Instance.Create<MyIndicatorView>(new
+                {
+                    Message = "Loading...",
+                    VAlign = VAlign.Value,
+                    HAlign = HAlign.Value,
+                    OffsetX = OffsetX.Value,
+                    OffsetY = OffsetY.Value
+                });
+                await customLoading.StartAsync(async p =>
+                {
+                    p.Report(0d);
+                    for (var i = 0; i < 100; i++)
+                    {
+                        await Task.Delay(50);
+                        p.Report((i + 1) * 0.01d);
+                    }
+                });
+            });
+
             var dlgPage = new MyDialogView();
 
 
@@ -69,7 +98,7 @@ namespace Sample.ViewModels
 
                 //dlg.Dispose();
                 var vmm = new { 
-                    Title = "Title", Description = "Some description write here.",
+                    Title = "Title", Description = "This is a forms view.",
                     VAlign = VAlign.Value,
                     HAlign = HAlign.Value,
                     OffsetX = OffsetX.Value,
@@ -86,6 +115,7 @@ namespace Sample.ViewModels
                     VAlign = VAlign.Value, HAlign = HAlign.Value,OffsetX = OffsetX.Value, OffsetY = OffsetY.Value 
                 });
             });
+
 		}
 
 		public void OnNavigatedFrom(NavigationParameters parameters)
