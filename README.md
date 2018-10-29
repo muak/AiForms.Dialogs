@@ -4,6 +4,8 @@ This is a collection of Custom Dialogs that can be defined with XAML for Xamarin
 
 [Japanese](./README-ja.md)
 
+![Build status](https://kamusoft.visualstudio.com/NugetCI/_apis/build/status/AiForms.Dialogs)
+
 ## Available Features
 
 * [Dialog](#dialog)

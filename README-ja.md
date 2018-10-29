@@ -2,6 +2,8 @@
 
 AiForms.Dialogs は Xamarin.Forms で カスタムダイアログを XAML を使って簡単に作成して自由な位置に表示できるライブラリです。Android と iOS に対応しています。
 
+![Build status](https://kamusoft.visualstudio.com/NugetCI/_apis/build/status/AiForms.Dialogs)
+
 ## 機能
 
 * [Dialog](#dialog)

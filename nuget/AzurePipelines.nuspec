@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>AiForms.Dialogs</id>
+        <version>0.3.2-pre</version>
+        <title>AiForms.Dialogs for Xamarin.Forms</title>
+        <authors>kamu</authors>
+        <owners>kamu</owners>
+        <projectUrl>https://github.com/muak/AiForms.Dialogs</projectUrl>
+        <licenseUrl>https://github.com/muak/AiForms.Dialogs/blob/master/LICENSE.txt</licenseUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>This is a collection of Custom Dialogs (Loading, Toast, CustomDialog) that can be defined with XAML for Xamarin.Forms (Android / iOS). This allows you to freely design the dialog content and arrange anywhere without custom renderer and effects.
+        </description>
+        <summary></summary>
+        <releaseNotes>
+First Release.
+        </releaseNotes>
+        <tags>Xamarin.Forms Xamarin dialog toast loading progress popup xaml netstandard ios android</tags>
+        <language>en-US</language>
+        <dependencies>
+            <group targetFramework="netstandard2.0">
+                <dependency id="Xamarin.Forms" version="3.0.0.482510" />
+            </group>
+            <group targetFramework="MonoAndroid">
+                <dependency id="Xamarin.Forms" version="3.0.0.482510" />
+            </group>
+            <group targetFramework="MonoTouch">
+                <dependency id="Xamarin.Forms" version="3.0.0.482510" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <!-- .net standard 2.0 -->
+        <file src="netstandard/AiForms.Dialogs.dll" target="lib/netstandard2.0" />
+        <file src="netstandard/AiForms.Dialogs.xml" target="lib/netstandard2.0" />
+        <file src="netstandard/AiForms.Dialogs.pdb" target="lib/netstandard2.0" />
+		
+		<file src="netstandard/AiForms.Dialogs.Abstractions.dll" target="lib/netstandard2.0" />
+        <file src="netstandard/AiForms.Dialogs.Abstractions.xml" target="lib/netstandard2.0" />
+        <file src="netstandard/AiForms.Dialogs.Abstractions.pdb" target="lib/netstandard2.0" />
+
+        <!-- Mono.Android -->
+        <file src="netstandard/AiForms.Dialogs.Abstractions.dll" target="lib/MonoAndroid" />
+        <file src="netstandard/AiForms.Dialogs.Abstractions.xml" target="lib/MonoAndroid" />
+        <file src="netstandard/AiForms.Dialogs.Abstractions.pdb" target="lib/MonoAndroid" />
+        <file src="android/AiForms.Dialogs.dll" target="lib/MonoAndroid" />
+        <file src="android/AiForms.Dialogs.xml" target="lib/MonoAndroid" />
+        <file src="android/AiForms.Dialogs.pdb" target="lib/MonoAndroid" />
+
+        <!-- Mono.Touch -->
+        <file src="netstandard/AiForms.Dialogs.Abstractions.dll" target="lib/MonoTouch" />
+        <file src="netstandard/AiForms.Dialogs.Abstractions.xml" target="lib/MonoTouch" />
+        <file src="netstandard/AiForms.Dialogs.Abstractions.pdb" target="lib/MonoTouch" />
+        <file src="iOS/AiForms.Dialogs.dll" target="lib/MonoTouch" />
+        <file src="iOS/AiForms.Dialogs.xml" target="lib/MonoTouch" />
+        <file src="iOS/AiForms.Dialogs.pdb" target="lib/MonoTouch" />
+
+        <!-- Xamarin.iOS10 -->
+        <file src="netstandard/AiForms.Dialogs.Abstractions.dll" target="lib/Xamarin.iOS10" />
+        <file src="netstandard/AiForms.Dialogs.Abstractions.xml" target="lib/Xamarin.iOS10" />
+        <file src="netstandard/AiForms.Dialogs.Abstractions.pdb" target="lib/Xamarin.iOS10" />
+        <file src="iOS/AiForms.Dialogs.dll" target="lib/Xamarin.iOS10" />
+        <file src="iOS/AiForms.Dialogs.xml" target="lib/Xamarin.iOS10" />
+        <file src="iOS/AiForms.Dialogs.pdb" target="lib/Xamarin.iOS10" />
+    </files>
+</package>
