@@ -74,25 +74,19 @@
     <Compile Include="ReusableDialog.cs" />
     <Compile Include="DialogPresentationController.cs" />
     <Compile Include="ReusableLoading.cs" />
-    <Compile Include="..\AiForms.Dialogs\CrossDialog.cs">
-      <Link>CrossDialog.cs</Link>
-    </Compile>
-    <Compile Include="..\AiForms.Dialogs\CrossLoading.cs">
-      <Link>CrossLoading.cs</Link>
-    </Compile>
-    <Compile Include="..\AiForms.Dialogs\CrossToast.cs">
-      <Link>CrossToast.cs</Link>
-    </Compile>
     <Compile Include="TouchBeginGestureRecognizer.cs" />
     <Compile Include="LoadingBase.cs" />
     <Compile Include="DefaultLoading.cs" />
+    <Compile Include="CrossDialog.cs" />
+    <Compile Include="CrossLoading.cs" />
+    <Compile Include="CrossToast.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AiForms.Dialogs.Abstractions\AiForms.Dialogs.Abstractions.csproj">
-      <Project>{0BDF7090-FE73-49E6-B554-B2DA240768BB}</Project>
+      <Project>{7FAEA2AA-1832-4CAF-B0BA-4501F377269D}</Project>
       <Name>AiForms.Dialogs.Abstractions</Name>
     </ProjectReference>
   </ItemGroup>
