@@ -134,9 +134,15 @@
     <Compile Include="ExtraDialogPayload.cs" />
     <Compile Include="LoadingBase.cs" />
     <Compile Include="DefaultLoading.cs" />
-    <Compile Include="CrossDialog.cs" />
-    <Compile Include="CrossLoading.cs" />
-    <Compile Include="CrossToast.cs" />
+    <Compile Include="..\AiForms.Dialogs\CrossDialog.cs">
+      <Link>CrossDialog.cs</Link>
+    </Compile>
+    <Compile Include="..\AiForms.Dialogs\CrossLoading.cs">
+      <Link>CrossLoading.cs</Link>
+    </Compile>
+    <Compile Include="..\AiForms.Dialogs\CrossToast.cs">
+      <Link>CrossToast.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
