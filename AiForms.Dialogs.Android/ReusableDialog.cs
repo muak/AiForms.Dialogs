@@ -64,14 +64,15 @@ namespace AiForms.Dialogs
                 _contentView.LayoutParameters = param;
             }
 
+            var fixPaddingTop = _dlgView.OverlayColor.IsTransparentOrDefault() ? (int)Dialogs.Context.ToPixels(24) : 0;
             if (_dlgView.UseCurrentPageLocation)
             {
                 var padding = Dialogs.CalcWindowPadding();
-                _contentView.SetPadding(0, padding.top, 0, padding.bottom);
+                _contentView.SetPadding(0, padding.top - fixPaddingTop, 0, padding.bottom);
             }
             else
             {
-                _contentView.SetPadding(0, (int)Dialogs.Context.ToPixels(24), 0, 0); // Statusbar
+                _contentView.SetPadding(0, (int)Dialogs.Context.ToPixels(24) - fixPaddingTop, 0, 0); // Statusbar
             }
 
             _contentView.SetBackgroundColor(_dlgView.OverlayColor.ToAndroid());

@@ -6,8 +6,8 @@
     xmlns:sv="clr-namespace:AiForms.Renderers;assembly=SettingsView"
     x:Class="Sample.Views.MyDialogView"
     CornerRadius="10" OffsetX="{Binding OffsetX}" OffsetY="{Binding OffsetY}" UseCurrentPageLocation="false"
-    VerticalLayoutAlignment="{Binding VAlign}" HorizontalLayoutAlignment="{Binding HAlign}"
-    >
+    VerticalLayoutAlignment="{Binding VAlign}" HorizontalLayoutAlignment="{Binding HAlign}" >
+    <!-- HeightRequest="{Binding VisibleContentHeight,Source={x:Reference Settings}}" -->
 
     <ContentView BackgroundColor="#CC9900" x:Name="container" Padding="12">
         <StackLayout WidthRequest="200" BackgroundColor="White" >
