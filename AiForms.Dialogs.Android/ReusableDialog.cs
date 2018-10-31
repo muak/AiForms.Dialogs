@@ -97,6 +97,24 @@ namespace AiForms.Dialogs
                 _contentView.AddView(_renderer.View, 0, param);
             };
 
+            // For now, Dynamic resizing is gaven to only Dialog.
+            _dlgView.LayoutNative = () =>
+            {
+                if (_renderer == null || _renderer.View.IsDisposed()) return;
+
+                var p = _renderer.View.LayoutParameters as FrameLayout.LayoutParams;
+                var w = (int)Dialogs.Context.ToPixels(_dlgView.Bounds.Width);
+                var h = (int)Dialogs.Context.ToPixels(_dlgView.Bounds.Height);
+
+                _renderer.View.LayoutParameters = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent)
+                {
+                    Width = w,
+                    Height = h,
+                    Gravity = p.Gravity
+                };
+            };
+
             OnceInitializeAction = null;
         }
 
@@ -155,6 +173,7 @@ namespace AiForms.Dialogs
         {
             if(disposing) {
                 _dlgView.Destroy();
+                _dlgView.LayoutNative = null;
                 _dlgView.BindingContext = null;
                 _dlgView.Parent = null;
                 _dlgView = null;
