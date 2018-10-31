@@ -106,12 +106,16 @@ namespace AiForms.Dialogs
                 var w = (int)Dialogs.Context.ToPixels(_dlgView.Bounds.Width);
                 var h = (int)Dialogs.Context.ToPixels(_dlgView.Bounds.Height);
 
-                _renderer.View.LayoutParameters = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent)
+
+                using (var param = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent)
                 {
                     Width = w,
                     Height = h,
                     Gravity = p.Gravity
+                })
+                {
+                    Dialogs.SetOffsetMargin(param, _dlgView);
+                    _renderer.View.LayoutParameters = param;
                 };
             };
 
