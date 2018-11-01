@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
     <JavaMaximumHeapSize>3G</JavaMaximumHeapSize>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -190,13 +191,13 @@
       <Project>{2DB58246-77D5-4190-B0A0-F125B538309B}</Project>
       <Name>Sample</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\AiForms.Dialogs.Android\AiForms.Dialogs.Android.csproj">
-      <Project>{3E6C5F16-98AD-45F8-B2F3-06876EB939CD}</Project>
-      <Name>AiForms.Dialogs.Android</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\AiForms.Dialogs.Abstractions\AiForms.Dialogs.Abstractions.csproj">
       <Project>{0BDF7090-FE73-49E6-B554-B2DA240768BB}</Project>
       <Name>AiForms.Dialogs.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AiForms.Dialogs.Android\AiForms.Dialogs.Android.csproj">
+      <Project>{3E6C5F16-98AD-45F8-B2F3-06876EB939CD}</Project>
+      <Name>AiForms.Dialogs.Android</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

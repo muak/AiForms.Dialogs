@@ -5,7 +5,7 @@
     xmlns:extra="clr-namespace:AiForms.Dialogs.Abstractions;assembly=AiForms.Dialogs.Abstractions"
     xmlns:sv="clr-namespace:AiForms.Renderers;assembly=SettingsView"
     x:Class="Sample.Views.MyDialogView"
-    CornerRadius="10" OffsetX="{Binding OffsetX}" OffsetY="{Binding OffsetY}" UseCurrentPageLocation="false"
+    CornerRadius="10" OffsetX="{Binding OffsetX}" OffsetY="{Binding OffsetY}" UseCurrentPageLocation="true"
     VerticalLayoutAlignment="{Binding VAlign}" HorizontalLayoutAlignment="{Binding HAlign}" >
     <!-- HeightRequest="{Binding VisibleContentHeight,Source={x:Reference Settings}}" -->
 

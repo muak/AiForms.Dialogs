@@ -168,13 +168,13 @@
       <Project>{2DB58246-77D5-4190-B0A0-F125B538309B}</Project>
       <Name>Sample</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\AiForms.Dialogs.iOS\AiForms.Dialogs.iOS.csproj">
-      <Project>{1B8AA416-F075-4839-BA40-0A59CC1F0D37}</Project>
-      <Name>AiForms.Dialogs.iOS</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\AiForms.Dialogs.Abstractions\AiForms.Dialogs.Abstractions.csproj">
       <Project>{0BDF7090-FE73-49E6-B554-B2DA240768BB}</Project>
       <Name>AiForms.Dialogs.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AiForms.Dialogs.iOS\AiForms.Dialogs.iOS.csproj">
+      <Project>{1B8AA416-F075-4839-BA40-0A59CC1F0D37}</Project>
+      <Name>AiForms.Dialogs.iOS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

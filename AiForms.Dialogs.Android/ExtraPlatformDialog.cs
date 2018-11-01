@@ -32,11 +32,11 @@ namespace AiForms.Dialogs
             // Because it avoids the status bar color turning dark.
             if (_dialogView.OverlayColor.IsTransparentOrDefault())
             {
-                Display display = (Context as Activity).WindowManager.DefaultDisplay;
+                Display display = (Dialogs.Context as Activity).WindowManager.DefaultDisplay;
                 Point size = new Point();
                 display.GetSize(size);
 
-                var height = size.Y - (int)Context.ToPixels(24);
+                var height = size.Y - (int)Dialogs.Context.ToPixels(24);
 
                 dialog.Window.SetGravity(GravityFlags.CenterHorizontal | GravityFlags.Bottom);
                 dialog.Window.SetLayout(ViewGroup.LayoutParams.MatchParent, height);
