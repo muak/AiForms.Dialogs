@@ -110,7 +110,10 @@ namespace AiForms.Dialogs
                 }
 
                 layout.Dispose();
-                toast.View = null;
+
+                // I coudn't reproduce https://github.com/muak/AiForms.Dialogs/issues/2.
+                // But I let this code disabled because it has no influent even if it is disabled.
+                //toast.View = null; 
 
                 renderer.Dispose();
                 renderer = null;
