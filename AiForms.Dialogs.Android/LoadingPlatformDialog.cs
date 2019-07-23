@@ -23,7 +23,7 @@ namespace AiForms.Dialogs
             _loadingView = payload.LoadingView;
             _contentView = payload.ContentView;
 
-            payload.Dispose();
+            //payload.Dispose(); // TODO: a exception occurs on some devices. 
 
             var dialog = Dialogs.CreateFullScreenTransparentDialog(_contentView);
 
