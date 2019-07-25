@@ -157,11 +157,15 @@ namespace Sample.ViewModels
             await Task.Delay(100);
             Loading.Instance.Hide();
 
+            await Task.Delay(100);
+
             await Loading.Instance.StartAsync(async p =>
             {
                 Debug.WriteLine("Default1");
                 await Task.Delay(250);
             });
+
+            await Task.Delay(100);
 
             await Loading.Instance.StartAsync(async p =>
             {
@@ -169,6 +173,7 @@ namespace Sample.ViewModels
                 await Task.Delay(250);
             },"hoge",true);
 
+            await Task.Delay(100);
 
             Loading.Instance.Dispose();
 
@@ -178,17 +183,23 @@ namespace Sample.ViewModels
             await Task.Delay(100);
             Loading.Instance.Hide();
 
+            await Task.Delay(100);
+
             await Loading.Instance.StartAsync(async p =>
             {
                 Debug.WriteLine("Default3");
                 await Task.Delay(250);
             });
 
+            await Task.Delay(100);
+
             await Loading.Instance.StartAsync(async p =>
             {
                 Debug.WriteLine("Default4");
                 await Task.Delay(250);
             }, "hoge", true);
+
+            await Task.Delay(100);
 
             // 通過テスト 通過できればOKとする
             var result = new TestItem

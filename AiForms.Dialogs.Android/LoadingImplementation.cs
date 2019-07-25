@@ -40,7 +40,7 @@ namespace AiForms.Dialogs
         public void Dispose()
         {
             if(_defaultInstance != null)
-            {
+            { 
                 _defaultInstance.Dispose();
                 _defaultInstance = null;
             }
@@ -48,7 +48,7 @@ namespace AiForms.Dialogs
 
         public async Task StartAsync(Func<IProgress<double>, Task> action, string message = null, bool isCurrentScope = false)
         {
-            await WaitDialogDestroy();
+            await WaitDialogDestroy().ConfigureAwait(false);
 
             await DefaultInstance.StartAsync(action, message, isCurrentScope);
             Hide();
@@ -68,7 +68,9 @@ namespace AiForms.Dialogs
             DefaultInstance.Hide();
             if(!_config.IsReusable)
             {
-                DefaultInstance.Dispose();
+                // _defaultInstance is dispoded by not here but the DefaultLoading.
+                // Because null exception occurs when the dialog set this contentview.
+                //_defaultInstance.Dispose();
                 _defaultInstance = null;
             }
         }
@@ -95,7 +97,7 @@ namespace AiForms.Dialogs
                 return;
             }
 
-            await dialog.DestroyTcs.Task;
+            await dialog.DestroyTcs.Task.ConfigureAwait(false);
             await Task.Delay(100);
         }
     }

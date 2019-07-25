@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Views;
 using Xamarin.Forms.Platform.Android;
 using System.Threading.Tasks;
+using System;
 
 namespace AiForms.Dialogs
 {
@@ -18,13 +19,15 @@ namespace AiForms.Dialogs
         {
             base.OnCreateDialog(savedInstanceState);
 
+            System.Diagnostics.Debug.WriteLine("OnCreateDialog");
+
             var payload = Arguments.GetSerializable(LoadingDialogPayload.PayloadKey) as LoadingDialogPayload;
 
             _loadingView = payload.LoadingView;
             _contentView = payload.ContentView;
 
-            //payload.Dispose(); // TODO: a exception occurs on some devices. 
-
+            payload.Dispose();
+           
             var dialog = Dialogs.CreateFullScreenTransparentDialog(_contentView);
 
             Cancelable = false;
@@ -52,6 +55,8 @@ namespace AiForms.Dialogs
             Dialog?.Dispose();
             DestroyTcs.SetResult(true);
             DestroyTcs = null;
+
+            System.Diagnostics.Debug.WriteLine("OnDestroyView");
         }
     }
 }

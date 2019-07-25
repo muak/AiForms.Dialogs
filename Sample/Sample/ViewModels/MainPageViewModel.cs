@@ -16,8 +16,8 @@ namespace Sample.ViewModels
 {
 	public class MainPageViewModel : BindableBase, INavigationAware
 	{
-        public ReactiveCommand LoadingCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand CustomLoadingCommand { get; set; } = new ReactiveCommand();
+        public AsyncReactiveCommand LoadingCommand { get; } = new AsyncReactiveCommand();
+        public AsyncReactiveCommand CustomLoadingCommand { get; set; } = new AsyncReactiveCommand();
         public ReactiveCommand DialogCommand { get; } = new ReactiveCommand();
         public ReactiveCommand ToastCommand { get; } = new ReactiveCommand();
         public ReactiveCommand StartCommand { get; set; } = new ReactiveCommand();
@@ -44,23 +44,28 @@ namespace Sample.ViewModels
             VAlign.Value = VAligns[1];
             HAlign.Value = HAligns[1];
 
-            Configurations.LoadingConfig = new LoadingConfig{DefaultMessage = "Loading..."};
+            Configurations.LoadingConfig = new LoadingConfig{DefaultMessage = "Loading...",IsReusable = true};
 
             var loadingFlg = false;
             LoadingCommand.Subscribe(async _ =>
             {
-                await Loading.Instance.StartAsync(async progress => {
-                    progress.Report(0d);
-                    for (var i = 0; i < 100; i++)
-                    {
-                        if (i == 50)
-                        {
-                            Loading.Instance.SetMessage("Soon...");
-                        }
-                        await Task.Delay(50);
-                        progress.Report((i + 1) * 0.01d);
-                    }
-                },null,loadingFlg);
+                Loading.Instance.Show();
+                await Task.Delay(1);
+                Loading.Instance.Hide();
+
+                //await Loading.Instance.StartAsync(async progress => {
+                //    //await Task.Delay(1);
+                //    progress.Report(0d);
+                //    for (var i = 0; i < 100; i++)
+                //    {
+                //        if (i == 50)
+                //        {
+                //            Loading.Instance.SetMessage("Soon...");
+                //        }
+                //        await Task.Delay(50);
+                //        progress.Report((i + 1) * 0.01d);
+                //    }
+                //},null,loadingFlg).ConfigureAwait(false);
 
                 loadingFlg = !loadingFlg;
             });
@@ -78,6 +83,7 @@ namespace Sample.ViewModels
                 });
                 await customLoading.StartAsync(async p =>
                 {
+                    //await Task.Delay(1);
                     p.Report(0d);
                     for (var i = 0; i < 100; i++)
                     {
