@@ -17,4 +17,9 @@
   <ItemGroup>
     <ProjectReference Include="..\AiForms.Dialogs.Abstractions\AiForms.Dialogs.Abstractions.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\nuget\AzurePipelines.nuspec">
+      <Link>AzurePipelines.nuspec</Link>
+    </None>
+  </ItemGroup>
 </Project>

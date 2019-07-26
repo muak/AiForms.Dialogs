@@ -8,6 +8,7 @@
         <owners>kamu</owners>
         <projectUrl>https://github.com/muak/AiForms.Dialogs</projectUrl>
         <licenseUrl>https://github.com/muak/AiForms.Dialogs/blob/master/LICENSE.txt</licenseUrl>
+        <iconUrl>https://raw.githubusercontent.com/muak/AiForms.Dialogs/master/images/icon.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>This is a collection of Custom Dialogs (Loading, Toast, CustomDialog) that can be defined with XAML for Xamarin.Forms (Android / iOS). This allows you to freely design the dialog content and arrange anywhere without custom renderer and effects.
         </description>
