@@ -3,6 +3,7 @@ using Android.App;
 using Android.Views;
 using Android.Widget;
 using System.Threading.Tasks;
+using Xamarin.Forms.Platform.Android;
 
 namespace AiForms.Dialogs
 {
@@ -32,7 +33,8 @@ namespace AiForms.Dialogs
 
         public virtual void Dispose()
         {
-            ContentView.Dispose();
+            ContentView.RemoveFromParent();
+            ContentView.Dispose(); 
             ContentView = null;
 
             OnceInitializeAction = null;

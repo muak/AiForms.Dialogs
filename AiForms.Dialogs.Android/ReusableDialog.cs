@@ -64,14 +64,15 @@ namespace AiForms.Dialogs
                 _contentView.LayoutParameters = param;
             }
 
+            var fixPaddingTop = _dlgView.OverlayColor.IsTransparentOrDefault() ? (int)Dialogs.Context.ToPixels(24) : 0;
             if (_dlgView.UseCurrentPageLocation)
             {
                 var padding = Dialogs.CalcWindowPadding();
-                _contentView.SetPadding(0, padding.top, 0, padding.bottom);
+                _contentView.SetPadding(0, padding.top - fixPaddingTop, 0, padding.bottom);
             }
             else
             {
-                _contentView.SetPadding(0, (int)Dialogs.Context.ToPixels(24), 0, 0); // Statusbar
+                _contentView.SetPadding(0, (int)Dialogs.Context.ToPixels(24) - fixPaddingTop, 0, 0); // Statusbar
             }
 
             _contentView.SetBackgroundColor(_dlgView.OverlayColor.ToAndroid());
@@ -95,6 +96,28 @@ namespace AiForms.Dialogs
             {
                 Dialogs.SetOffsetMargin(param, _dlgView);
                 _contentView.AddView(_renderer.View, 0, param);
+            };
+
+            // For now, Dynamic resizing is gaven to only Dialog.
+            _dlgView.LayoutNative = () =>
+            {
+                if (_renderer == null || _renderer.View.IsDisposed()) return;
+
+                var p = _renderer.View.LayoutParameters as FrameLayout.LayoutParams;
+                var w = (int)Dialogs.Context.ToPixels(_dlgView.Bounds.Width);
+                var h = (int)Dialogs.Context.ToPixels(_dlgView.Bounds.Height);
+
+
+                using (var param = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent)
+                {
+                    Width = w,
+                    Height = h,
+                    Gravity = p.Gravity
+                })
+                {
+                    Dialogs.SetOffsetMargin(param, _dlgView);
+                    _renderer.View.LayoutParameters = param;
+                };
             };
 
             OnceInitializeAction = null;
@@ -155,6 +178,7 @@ namespace AiForms.Dialogs
         {
             if(disposing) {
                 _dlgView.Destroy();
+                _dlgView.LayoutNative = null;
                 _dlgView.BindingContext = null;
                 _dlgView.Parent = null;
                 _dlgView = null;

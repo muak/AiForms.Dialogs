@@ -50,16 +50,16 @@
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
     <Reference Include="Xamarin.Forms.Core">
-      <HintPath>..\..\thoth\packages\Xamarin.Forms.3.2.0.839982\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Forms.3.2.0.839982\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform">
-      <HintPath>..\..\thoth\packages\Xamarin.Forms.3.2.0.839982\lib\Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Forms.3.2.0.839982\lib\Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform.iOS">
-      <HintPath>..\..\thoth\packages\Xamarin.Forms.3.2.0.839982\lib\Xamarin.iOS10\Xamarin.Forms.Platform.iOS.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Forms.3.2.0.839982\lib\Xamarin.iOS10\Xamarin.Forms.Platform.iOS.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Xaml">
-      <HintPath>..\..\thoth\packages\Xamarin.Forms.3.2.0.839982\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Forms.3.2.0.839982\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +74,9 @@
     <Compile Include="ReusableDialog.cs" />
     <Compile Include="DialogPresentationController.cs" />
     <Compile Include="ReusableLoading.cs" />
+    <Compile Include="TouchBeginGestureRecognizer.cs" />
+    <Compile Include="LoadingBase.cs" />
+    <Compile Include="DefaultLoading.cs" />
     <Compile Include="..\AiForms.Dialogs\CrossDialog.cs">
       <Link>CrossDialog.cs</Link>
     </Compile>
@@ -83,16 +86,13 @@
     <Compile Include="..\AiForms.Dialogs\CrossToast.cs">
       <Link>CrossToast.cs</Link>
     </Compile>
-    <Compile Include="TouchBeginGestureRecognizer.cs" />
-    <Compile Include="LoadingBase.cs" />
-    <Compile Include="DefaultLoading.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AiForms.Dialogs.Abstractions\AiForms.Dialogs.Abstractions.csproj">
-      <Project>{0BDF7090-FE73-49E6-B554-B2DA240768BB}</Project>
+      <Project>{7FAEA2AA-1832-4CAF-B0BA-4501F377269D}</Project>
       <Name>AiForms.Dialogs.Abstractions</Name>
     </ProjectReference>
   </ItemGroup>

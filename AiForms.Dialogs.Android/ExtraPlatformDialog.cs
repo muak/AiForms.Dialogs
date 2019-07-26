@@ -7,6 +7,7 @@ using Xamarin.Forms.Platform.Android;
 using Android.Runtime;
 using Android.Views;
 using Android.Views.Animations;
+using Android.Graphics;
 
 namespace AiForms.Dialogs
 {
@@ -24,14 +25,29 @@ namespace AiForms.Dialogs
 
             _dialogView = payload.DialogView;
             _contentView = payload.ContentView;
+             
+            var dialog = Dialogs.CreateFullScreenTransparentDialog(_contentView);
 
-            return Dialogs.CreateFullScreenTransparentDialog(_contentView);
+            // If the OverlayColor is default or transparent, the top padding of the Dialog is set.
+            // Because it avoids the status bar color turning dark.
+            if (_dialogView.OverlayColor.IsTransparentOrDefault())
+            {
+                Display display = (Dialogs.Context as Activity).WindowManager.DefaultDisplay;
+                Point size = new Point();
+                display.GetSize(size);
+
+                var height = size.Y - (int)Dialogs.Context.ToPixels(24);
+
+                dialog.Window.SetGravity(GravityFlags.CenterHorizontal | GravityFlags.Bottom);
+                dialog.Window.SetLayout(ViewGroup.LayoutParams.MatchParent, height);
+            }
+
+            return dialog;
         }
 
         public override void OnStart()
         {
             base.OnStart();
-
             _dialogView.RunPresentationAnimation();
         }
 

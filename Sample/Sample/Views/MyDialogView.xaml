@@ -5,9 +5,9 @@
     xmlns:extra="clr-namespace:AiForms.Dialogs.Abstractions;assembly=AiForms.Dialogs.Abstractions"
     xmlns:sv="clr-namespace:AiForms.Renderers;assembly=SettingsView"
     x:Class="Sample.Views.MyDialogView"
-    CornerRadius="10" OffsetX="{Binding OffsetX}" OffsetY="{Binding OffsetY}" UseCurrentPageLocation="false"
-    VerticalLayoutAlignment="{Binding VAlign}" HorizontalLayoutAlignment="{Binding HAlign}"
-    >
+    CornerRadius="10" OffsetX="{Binding OffsetX}" OffsetY="{Binding OffsetY}" UseCurrentPageLocation="true"
+    VerticalLayoutAlignment="{Binding VAlign}" HorizontalLayoutAlignment="{Binding HAlign}" >
+    <!-- HeightRequest="{Binding VisibleContentHeight,Source={x:Reference Settings}}" -->
 
     <ContentView BackgroundColor="#CC9900" x:Name="container" Padding="12">
         <StackLayout WidthRequest="200" BackgroundColor="White" >
@@ -22,4 +22,12 @@
             </StackLayout>
          </StackLayout>
     </ContentView>
+    <!--<sv:SettingsView x:Name="Settings" WidthRequest="200"  HeaderHeight="30" RowHeight="40" HasUnevenRows="false"
+         BackgroundColor="#EFEFEF" CellBackgroundColor="White">
+        <sv:Section Title="1行に表示する教材の数" sv:RadioCell.SelectedValue="1">
+            <sv:RadioCell Title="A" Value="1" />
+            <sv:RadioCell Title="B" Value="2" />
+            <sv:RadioCell Title="B" Value="3" />
+        </sv:Section>
+    </sv:SettingsView>-->
 </extra:DialogView>

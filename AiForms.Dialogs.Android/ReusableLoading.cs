@@ -93,9 +93,15 @@ namespace AiForms.Dialogs
 
             _loadingView?.RunDismissalAnimation();
 
-            var dialog = FragmentManager.FindFragmentByTag<LoadingPlatformDialog>(LoadingImplementation.LoadingDialogTag);
-            dialog?.Dismiss();
-            ContentView.RemoveFromParent();
+            Task.Run(async () =>
+            {
+                // Wait a bit for ensuring that the dialog is created. 
+                // Because it sometimes crashes or freezes when executing a very short process.
+                await Task.Delay(50);
+                var dialog = FragmentManager.FindFragmentByTag<LoadingPlatformDialog>(LoadingImplementation.LoadingDialogTag);
+                dialog?.Dismiss();
+                ContentView.RemoveFromParent();
+            });
         }
 
         void ProgressAction(object sender, double progress)

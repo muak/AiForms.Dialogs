@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 namespace AiForms.Dialogs.Abstractions
 {
@@ -113,6 +114,21 @@ namespace AiForms.Dialogs.Abstractions
         public virtual void RunPresentationAnimation() {}
         public virtual void RunDismissalAnimation() {}
         public virtual void Destroy() {}
+        internal Action LayoutNative { get; set; }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+            if(propertyName == HeightRequestProperty.PropertyName ||
+               propertyName == WidthRequestProperty.PropertyName)
+            {
+                var width = WidthRequest < 0 ? Width : WidthRequest;
+                var height = HeightRequest < 0 ? Height : HeightRequest;
+
+                Layout(new Rectangle(X, Y, width, height));
+                LayoutNative?.Invoke();
+            }
+        }
 
         internal static class InstanceCreator<TInstance>
         {
