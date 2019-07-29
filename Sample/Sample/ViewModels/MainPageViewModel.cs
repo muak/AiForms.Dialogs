@@ -83,13 +83,13 @@ namespace Sample.ViewModels
                 });
                 await customLoading.StartAsync(async p =>
                 {
-                    //await Task.Delay(1);
-                    p.Report(0d);
-                    for (var i = 0; i < 100; i++)
-                    {
-                        await Task.Delay(50);
-                        p.Report((i + 1) * 0.01d);
-                    }
+                    await Task.Delay(1);
+                    //p.Report(0d);
+                    //for (var i = 0; i < 100; i++)
+                    //{
+                    //    await Task.Delay(50);
+                    //    p.Report((i + 1) * 0.01d);
+                    //}
                 });
             });
 

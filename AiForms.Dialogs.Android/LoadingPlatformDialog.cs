@@ -25,6 +25,7 @@ namespace AiForms.Dialogs
 
             _loadingView = payload.LoadingView;
             _contentView = payload.ContentView;
+            var isShowTcs = payload.IsShownTcs;
 
             payload.Dispose();
            
@@ -36,7 +37,15 @@ namespace AiForms.Dialogs
 
             DestroyTcs = new TaskCompletionSource<bool>();
 
-            return dialog;
+            try
+            {
+
+                return dialog;
+            }
+            finally
+            {
+                isShowTcs.SetResult(true);
+            }
         }
 
         public override void OnStart()
