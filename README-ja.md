@@ -98,7 +98,7 @@ public partial class MyDialogView : DialogView
         // ダイアログがオープンする度に最初に呼び出されます
     }
 
-    public override void TearDwon()
+    public override void TearDown()
     {
         // ダイアログがクローズする度に呼び出されます
     }
