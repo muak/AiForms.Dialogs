@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>Sample</string>
+	<string>Dialogs</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -39,8 +39,8 @@
 	<key>XSAppIconAssets</key>
 	<string>Resources/Images.xcassets/AppIcons.appiconset</string>
 	<key>CFBundleName</key>
-	<string>Sample</string>
+	<string>Dialogs</string>
 	<key>CFBundleIdentifier</key>
-	<string>jp.kamusoft.sample</string>
+	<string>jp.kamusoft.dialogs</string>
 </dict>
 </plist>

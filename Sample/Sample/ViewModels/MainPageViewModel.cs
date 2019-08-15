@@ -49,23 +49,23 @@ namespace Sample.ViewModels
             var loadingFlg = false;
             LoadingCommand.Subscribe(async _ =>
             {
-                Loading.Instance.Show();
-                await Task.Delay(1);
-                Loading.Instance.Hide();
+                //Loading.Instance.Show();
+                //await Task.Delay(1);
+                //Loading.Instance.Hide();
 
-                //await Loading.Instance.StartAsync(async progress => {
-                //    //await Task.Delay(1);
-                //    progress.Report(0d);
-                //    for (var i = 0; i < 100; i++)
-                //    {
-                //        if (i == 50)
-                //        {
-                //            Loading.Instance.SetMessage("Soon...");
-                //        }
-                //        await Task.Delay(50);
-                //        progress.Report((i + 1) * 0.01d);
-                //    }
-                //},null,loadingFlg).ConfigureAwait(false);
+                await Loading.Instance.StartAsync(async progress => {
+                    //await Task.Delay(1);
+                    progress.Report(0d);
+                    for (var i = 0; i < 100; i++)
+                    {
+                        if (i == 50)
+                        {
+                            Loading.Instance.SetMessage("Soon...");
+                        }
+                        await Task.Delay(25);
+                        progress.Report((i + 1) * 0.01d);
+                    }
+                },null,loadingFlg).ConfigureAwait(false);
 
                 loadingFlg = !loadingFlg;
             });
@@ -84,12 +84,12 @@ namespace Sample.ViewModels
                 await customLoading.StartAsync(async p =>
                 {
                     await Task.Delay(1);
-                    //p.Report(0d);
-                    //for (var i = 0; i < 100; i++)
-                    //{
-                    //    await Task.Delay(50);
-                    //    p.Report((i + 1) * 0.01d);
-                    //}
+                    p.Report(0d);
+                    for (var i = 0; i < 100; i++)
+                    {
+                        await Task.Delay(25);
+                        p.Report((i + 1) * 0.01d);
+                    }
                 });
             });
 
