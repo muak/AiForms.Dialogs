@@ -14,7 +14,9 @@
         </description>
         <summary></summary>
         <releaseNotes>
-First Release.
+## Changes
+
+* [Dialog][Android] Nested dialogs are now supported. #8
         </releaseNotes>
         <tags>Xamarin.Forms Xamarin dialog toast loading progress popup xaml netstandard ios android</tags>
         <language>en-US</language>
