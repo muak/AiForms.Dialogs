@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AiForms.Dialogs.Abstractions;
 using Android.App;
@@ -16,18 +17,18 @@ namespace AiForms.Dialogs
     [Android.Runtime.Preserve(AllMembers = true)]
     public class ReusableDialog:Java.Lang.Object, IReusableDialog, View.IOnKeyListener
     {
-        DialogImplementation _extraDialog;
-        ExtraPlatformDialog _platformDialog => _extraDialog.ExtraDialog;
+        ExtraPlatformDialog _platformDialog;
         FragmentManager FragmentManager => Dialogs.FragmentManager;
         DialogView _dlgView;
         IVisualElementRenderer _renderer;
         ViewGroup _contentView;
         Action OnceInitializeAction;
+        Guid _guid;
 
         public ReusableDialog(DialogView view)
         {
-            _dlgView = view;
-            _extraDialog = Dialog.Instance as DialogImplementation;
+            _dlgView = view;            
+            _guid = Guid.NewGuid();
 
             // Because the process can't be executed until application completely loads,
             // set the action here to execute later on.
@@ -125,7 +126,7 @@ namespace AiForms.Dialogs
 
         public async Task<bool> ShowAsync()
         {
-            var dialog = FragmentManager.FindFragmentByTag<ExtraPlatformDialog>(DialogImplementation.ExtraDialogTag);
+            var dialog = FragmentManager.FindFragmentByTag<ExtraPlatformDialog>(_guid.ToString());
             if (dialog != null)
             {
                 return false;
@@ -148,7 +149,7 @@ namespace AiForms.Dialogs
                 _dlgView.RunDismissalAnimation();
                 await Dismiss();
                 tcs.SetResult(true);
-            };
+            }
 
             _dlgView.DialogNotifierInternal.Canceled += cancel;
             _dlgView.DialogNotifierInternal.Completed += complete;
@@ -157,8 +158,9 @@ namespace AiForms.Dialogs
             var payload = new ExtraDialogPayload(_dlgView,_contentView);
             var bundle = new Bundle();
             bundle.PutSerializable("extraDialogPayload", payload);
+            _platformDialog = new ExtraPlatformDialog();
             _platformDialog.Arguments = bundle;
-            _platformDialog.Show(FragmentManager, DialogImplementation.ExtraDialogTag);
+            _platformDialog.Show(FragmentManager, _guid.ToString());
 
             try
             {
@@ -171,6 +173,7 @@ namespace AiForms.Dialogs
                 _dlgView.TearDown();
                 payload.Dispose();
                 bundle.Dispose();
+
             }
         }
 
@@ -190,15 +193,13 @@ namespace AiForms.Dialogs
                 if (!_renderer.View.IsDisposed())
                 {
                     _renderer.View.Dispose();
-                }
+                }                
 
                 _contentView.Dispose();
                 _contentView = null;
 
                 _renderer.Dispose();
                 _renderer = null;
-
-                _extraDialog = null;
 
                 OnceInitializeAction = null;
             }
@@ -256,9 +257,11 @@ namespace AiForms.Dialogs
             await tcs.Task;
             anim.AnimationEnd -= handler;
 
-            var dialog = FragmentManager.FindFragmentByTag<ExtraPlatformDialog>(DialogImplementation.ExtraDialogTag);
+            var dialog = FragmentManager.FindFragmentByTag<ExtraPlatformDialog>(_guid.ToString());
             dialog.Dismiss();
             _contentView.RemoveFromParent();
+            _platformDialog.Dispose();
+            _platformDialog = null;
 
             await Task.Delay(250); // wait for a bit time until the dialog is completely released.
         }

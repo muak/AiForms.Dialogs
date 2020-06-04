@@ -76,7 +76,7 @@ namespace Sample.ViewModels
 
         string GetVAlignString()
         {
-            switch (HorizontalLayoutAlignment)
+            switch (VerticalLayoutAlignment)
             {
                 case LayoutAlignment.Start:
                     return "Top";
