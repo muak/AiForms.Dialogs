@@ -16,6 +16,8 @@ namespace AiForms.Dialogs
 
         protected ViewGroup ContentView;
 
+        protected TaskCompletionSource<bool> IsDialogShownTcs;
+
         public LoadingBase(LoadingPlatformDialog loadingDialog)
         {
             PlatformDialog = loadingDialog;

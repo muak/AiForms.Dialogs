@@ -10,5 +10,6 @@
         <Button Text="AutoTest" Command="{Binding GoToTest}"  CommandParameter="AutoTest" />
         <Button Text="ManualTest" Command="{Binding GoToTest}"  CommandParameter="ManualTest" />
         <Button Text="MainPage" Command="{Binding GoToTest}"  CommandParameter="MainPage" />
+        <Button Text="SurveyPage" Command="{Binding GoToTest}" CommandParameter="SurveyPage" />
     </StackLayout>
 </ContentPage>

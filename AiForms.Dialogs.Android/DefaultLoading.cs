@@ -41,9 +41,10 @@ namespace AiForms.Dialogs
 
         public void Show(string message = null, bool isCurrentScope = false)
         {
+            IsDialogShownTcs = new TaskCompletionSource<bool>();
             OnceInitializeAction?.Invoke();
 
-            var payload = new LoadingDialogPayload(ContentView);
+            var payload = new LoadingDialogPayload(ContentView,IsDialogShownTcs);
 
             var bundle = new Bundle();
             bundle.PutSerializable(LoadingDialogPayload.PayloadKey, payload);
@@ -56,7 +57,8 @@ namespace AiForms.Dialogs
         }
 
         public void Hide()
-        {
+        {           
+
             if (Progress != null)
             {
                 Progress.ProgressChanged -= ProgressAction;
@@ -70,9 +72,9 @@ namespace AiForms.Dialogs
 
             Task.Run(async () =>
             {
-                // Wait a bit for ensuring that the dialog is created. 
+                // Wait for ensuring that the dialog is created. 
                 // Because it sometimes crashes or freezes when executing a very short process.
-                await Task.Delay(50); 
+                await IsDialogShownTcs.Task;
                 var dialog = FragmentManager.FindFragmentByTag<LoadingPlatformDialog>(LoadingImplementation.LoadingDialogTag);
                 dialog?.Dismiss();
                 ContentView.RemoveFromParent();

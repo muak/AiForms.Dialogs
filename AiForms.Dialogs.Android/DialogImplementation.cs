@@ -7,13 +7,8 @@ namespace AiForms.Dialogs
     [Android.Runtime.Preserve(AllMembers = true)]
     public class DialogImplementation : IDialog
     {
-        public static readonly string ExtraDialogTag = "ExtraDialog";
-        internal ExtraPlatformDialog ExtraDialog;
-        FragmentManager FragmentManager => Dialogs.FragmentManager;
-
         public DialogImplementation()
         {
-            ExtraDialog = new ExtraPlatformDialog();
         }
 
         public IReusableDialog Create<TView>(object viewModel = null) where TView : DialogView
@@ -30,8 +25,6 @@ namespace AiForms.Dialogs
 
         public async Task<bool> ShowAsync<TView>(object viewModel = null) where TView : DialogView
         {
-            if (IsRunning()) return false;
-
             using (var dlg = Create<TView>(viewModel))
             {
                 return await dlg.ShowAsync();
@@ -40,19 +33,10 @@ namespace AiForms.Dialogs
 
         public async Task<bool> ShowAsync(DialogView view, object viewModel = null)
         {
-            if (IsRunning()) return false;
-
             using (var dlg = Create(view, viewModel))
             {
                 return await dlg.ShowAsync();
             }
         }
-
-        bool IsRunning()
-        {
-            var dialog = Dialogs.FragmentManager.FindFragmentByTag<ExtraPlatformDialog>(DialogImplementation.ExtraDialogTag);
-            return dialog != null;
-        }
-
     }
 }

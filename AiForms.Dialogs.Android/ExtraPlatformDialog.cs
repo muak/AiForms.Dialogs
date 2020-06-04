@@ -17,6 +17,11 @@ namespace AiForms.Dialogs
         DialogView _dialogView;
         ViewGroup _contentView;
 
+        public ExtraPlatformDialog() { }
+
+        // System Required!
+        public ExtraPlatformDialog(IntPtr handle, JniHandleOwnership transfer) :base(handle,transfer) { }
+
         public override Android.App.Dialog OnCreateDialog(Bundle savedInstanceState)
         {
             base.OnCreateDialog(savedInstanceState);
