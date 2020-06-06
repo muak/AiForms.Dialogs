@@ -32,7 +32,10 @@ namespace AiForms.Dialogs
 
         public IReusableLoading Create(LoadingView view, object viewModel = null)
         {
-            view.BindingContext = viewModel;
+            if(viewModel != null)
+            {
+                view.BindingContext = viewModel;
+            }           
             return new ReusableLoading(view);
         }
 
