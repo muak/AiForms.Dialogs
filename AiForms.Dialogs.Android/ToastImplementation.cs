@@ -26,7 +26,10 @@ namespace AiForms.Dialogs
         public void Show(ToastView view, object viewModel = null)
         {
             view.Parent = XF.Application.Current.MainPage;
-            view.BindingContext = viewModel;
+            if(viewModel != null)
+            {
+                view.BindingContext = viewModel;
+            }            
 
             var toast = new Android.Widget.Toast(Dialogs.Context);
 
