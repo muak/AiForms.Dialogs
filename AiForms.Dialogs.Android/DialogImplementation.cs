@@ -19,7 +19,10 @@ namespace AiForms.Dialogs
 
         public IReusableDialog Create(DialogView view, object viewModel = null)
         {
-            view.BindingContext = viewModel;
+            if (viewModel != null)
+            {
+                view.BindingContext = viewModel;
+            }            
             return new ReusableDialog(view);
         }
 

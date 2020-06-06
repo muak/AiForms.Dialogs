@@ -21,7 +21,10 @@ namespace AiForms.Dialogs
 
         public void Show(ToastView view, object viewModel = null)
         {
-            view.BindingContext = viewModel;
+            if(viewModel != null)
+            {
+                view.BindingContext = viewModel;
+            }            
             view.Parent = Application.Current.MainPage;
 
             var renderer = Dialogs.CreateNativeView(view);

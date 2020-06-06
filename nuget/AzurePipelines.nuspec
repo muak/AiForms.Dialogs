@@ -16,6 +16,7 @@
         <releaseNotes>
 ## Changes
 
+* [All] If a ViewModel is specified to null, View's BindingContext is not now overwritten.
 * [Dialog][Android] Nested dialogs are now supported. #8
         </releaseNotes>
         <tags>Xamarin.Forms Xamarin dialog toast loading progress popup xaml netstandard ios android</tags>
