@@ -92,7 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AiForms.Dialogs.Abstractions\AiForms.Dialogs.Abstractions.csproj">
-      <Project>{7FAEA2AA-1832-4CAF-B0BA-4501F377269D}</Project>
+      <Project>{0BDF7090-FE73-49E6-B554-B2DA240768BB}</Project>
       <Name>AiForms.Dialogs.Abstractions</Name>
     </ProjectReference>
   </ItemGroup>

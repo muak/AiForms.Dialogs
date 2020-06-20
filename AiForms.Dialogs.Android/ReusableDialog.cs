@@ -65,7 +65,7 @@ namespace AiForms.Dialogs
                 _contentView.LayoutParameters = param;
             }
 
-            var fixPaddingTop = _dlgView.OverlayColor.IsTransparentOrDefault() ? (int)Dialogs.Context.ToPixels(24) : 0;
+            var fixPaddingTop = _dlgView.OverlayColor.IsTransparentOrDefault() ? Dialogs.StatusBarHeight : 0;
             if (_dlgView.UseCurrentPageLocation)
             {
                 var padding = Dialogs.CalcWindowPadding();
@@ -73,7 +73,7 @@ namespace AiForms.Dialogs
             }
             else
             {
-                _contentView.SetPadding(0, (int)Dialogs.Context.ToPixels(24) - fixPaddingTop, 0, 0); // Statusbar
+                _contentView.SetPadding(0, Dialogs.StatusBarHeight - fixPaddingTop, 0, 0); 
             }
 
             _contentView.SetBackgroundColor(_dlgView.OverlayColor.ToAndroid());

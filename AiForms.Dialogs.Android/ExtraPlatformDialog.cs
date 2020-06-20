@@ -1,13 +1,8 @@
 ﻿using System;
 using AiForms.Dialogs.Abstractions;
-using Android.App;
 using Android.OS;
-using Android.Widget;
-using Xamarin.Forms.Platform.Android;
 using Android.Runtime;
 using Android.Views;
-using Android.Views.Animations;
-using Android.Graphics;
 
 namespace AiForms.Dialogs
 {
@@ -37,11 +32,7 @@ namespace AiForms.Dialogs
             // Because it avoids the status bar color turning dark.
             if (_dialogView.OverlayColor.IsTransparentOrDefault())
             {
-                Display display = (Dialogs.Context as Activity).WindowManager.DefaultDisplay;
-                Point size = new Point();
-                display.GetSize(size);
-
-                var height = size.Y - (int)Dialogs.Context.ToPixels(24);
+                var height = Dialogs.ContentSize.Height;
 
                 dialog.Window.SetGravity(GravityFlags.CenterHorizontal | GravityFlags.Bottom);
                 dialog.Window.SetLayout(ViewGroup.LayoutParams.MatchParent, height);

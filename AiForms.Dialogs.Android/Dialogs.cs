@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using AiForms.Dialogs.Abstractions;
 using Android.App;
 using Android.Content;
@@ -21,6 +22,33 @@ namespace AiForms.Dialogs
         }
 
         internal static FragmentManager FragmentManager => (Context as Activity)?.FragmentManager;
+
+        static int? _statusbarHeight;
+        internal static int StatusBarHeight => _statusbarHeight ??=
+            Context.Resources.GetDimensionPixelSize(Context.Resources.GetIdentifier("status_bar_height", "dimen", "android"));
+
+        static int? _navigationBarHeight;
+        internal static int NavigationBarHeight => _navigationBarHeight ??=
+            Context.Resources.GetDimensionPixelSize(Context.Resources.GetIdentifier("navigation_bar_height", "dimen", "android"));
+
+        static Size? _contentSize;
+        internal static Size ContentSize
+        {
+            get
+            {
+                if(_contentSize != null)
+                {
+                    return _contentSize.Value;
+                }
+
+                Rect contentSize = new Rect();
+                (Context as Activity)?.Window.DecorView.GetWindowVisibleDisplayFrame(contentSize);
+                _contentSize = new Size(contentSize.Width(), contentSize.Height());
+                return _contentSize.Value;
+            }
+        }
+
+        internal static int DisplayHeight => StatusBarHeight + ContentSize.Height;
 
         internal static IVisualElementRenderer CreateNativeView(XF.View view)
         {
@@ -49,13 +77,8 @@ namespace AiForms.Dialogs
 
         internal static Xamarin.Forms.Size Measure(ExtraView view)
         {
-            var display = (Context as Activity)?.WindowManager.DefaultDisplay;
-
-            Point size = new Point();
-            display.GetSize(size);
-
-            var dWidth = Context.FromPixels(size.X);
-            var dHeight = Context.FromPixels(size.Y);
+            var dWidth = Context.FromPixels(ContentSize.Width);
+            var dHeight = Context.FromPixels(ContentSize.Height);
 
             var fWidth = view.ProportionalWidth >= 0 ? dWidth * view.ProportionalWidth : dWidth;
             var fHeight = view.ProportionalHeight >= 0 ? dHeight * view.ProportionalHeight : dHeight;
@@ -138,20 +161,13 @@ namespace AiForms.Dialogs
 
         internal static (int top, int bottom) CalcWindowPadding()
         {
-            var display = (Context as Activity)?.WindowManager.DefaultDisplay;
-
-            Point size = new Point();
-            display.GetSize(size);
-
             var activePage = XF.Application.Current.MainPage.GetActivePage();
             var activeRenderer = Platform.GetRenderer(activePage);
 
             var rect = new Rect();
             activeRenderer.View.GetGlobalVisibleRect(rect);
 
-            activeRenderer = null;
-
-            return (rect.Top, size.Y - rect.Bottom);
+            return (rect.Top, DisplayHeight - rect.Bottom);
         }
     }
 }
