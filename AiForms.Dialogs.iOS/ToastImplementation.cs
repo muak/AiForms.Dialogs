@@ -38,6 +38,11 @@ namespace AiForms.Dialogs
                 renderer.NativeView.Layer.CornerRadius = view.CornerRadius;
                 renderer.NativeView.Layer.MasksToBounds = true;
             }
+            if (view.BorderWidth > 0)
+            {
+                renderer.NativeView.Layer.BorderWidth = (float)view.BorderWidth;
+                renderer.NativeView.Layer.BorderColor = view.BorderColor.ToCGColor();
+            }
 
             SetView(view,renderer.NativeView,renderer);
 

@@ -111,6 +111,34 @@ namespace AiForms.Dialogs.Abstractions
             set { SetValue(CornerRadiusProperty, value); }
         }
 
+        public static BindableProperty BorderColorProperty = BindableProperty.Create(
+            nameof(BorderColor),
+            typeof(Color),
+            typeof(ExtraView),
+            default(Color),
+            defaultBindingMode: BindingMode.OneWay
+        );
+
+        public Color BorderColor
+        {
+            get { return (Color)GetValue(BorderColorProperty); }
+            set { SetValue(BorderColorProperty, value); }
+        }
+
+        public static BindableProperty BorderWidthProperty = BindableProperty.Create(
+            nameof(BorderWidth),
+            typeof(double),
+            typeof(ExtraView),
+            default(double),
+            defaultBindingMode: BindingMode.OneWay
+        );
+
+        public double BorderWidth
+        {
+            get { return (double)GetValue(BorderWidthProperty); }
+            set { SetValue(BorderWidthProperty, value); }
+        }
+
         public virtual void RunPresentationAnimation() {}
         public virtual void RunDismissalAnimation() {}
         public virtual void Destroy() {}

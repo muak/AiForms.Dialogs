@@ -1,5 +1,6 @@
 ﻿using System;
 using AiForms.Dialogs.Abstractions;
+using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -7,7 +8,7 @@ using Android.Views;
 namespace AiForms.Dialogs
 {
     [Android.Runtime.Preserve(AllMembers = true)]
-    public class ExtraPlatformDialog : Android.App.DialogFragment
+    public class ExtraPlatformDialog : Android.App.DialogFragment, IDialogInterfaceOnKeyListener
     {
         DialogView _dialogView;
         ViewGroup _contentView;
@@ -38,6 +39,8 @@ namespace AiForms.Dialogs
                 dialog.Window.SetLayout(ViewGroup.LayoutParams.MatchParent, height);
             }
 
+            dialog.SetOnKeyListener(this);
+            
             return dialog;
         }
 
@@ -50,10 +53,21 @@ namespace AiForms.Dialogs
         public override void OnDestroyView()
         {
             base.OnDestroyView();
-
+            
             _contentView = null;
             _dialogView = null;
-            Dialog?.Dispose();
+        }
+
+        public bool OnKey(IDialogInterface dialog, [GeneratedEnum] Keycode keyCode, KeyEvent e)
+        {
+            // Back Button handling
+            if (keyCode == Keycode.Back && e.Action == KeyEventActions.Up)
+            {
+                _dialogView.DialogNotifierInternal.Cancel();
+                return true;
+            }
+
+            return false;
         }
     }
 }

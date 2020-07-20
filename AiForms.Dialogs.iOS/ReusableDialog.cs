@@ -54,6 +54,12 @@ namespace AiForms.Dialogs
                 _renderer.NativeView.Layer.MasksToBounds = true;
             }
 
+            if (_dlgView.BorderWidth > 0)
+            {
+                _renderer.NativeView.Layer.BorderWidth = (float)_dlgView.BorderWidth;
+                _renderer.NativeView.Layer.BorderColor = _dlgView.BorderColor.ToCGColor();
+            }
+
             var measure = Dialogs.Measure(_dlgView);
             _renderer.SetElementSize(measure);
 

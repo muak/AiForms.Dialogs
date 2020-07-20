@@ -5,6 +5,7 @@ using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Xamarin.Forms.Platform.Android;
@@ -80,12 +81,46 @@ namespace AiForms.Dialogs
             var dWidth = Context.FromPixels(ContentSize.Width);
             var dHeight = Context.FromPixels(ContentSize.Height);
 
-            var fWidth = view.ProportionalWidth >= 0 ? dWidth * view.ProportionalWidth : dWidth;
-            var fHeight = view.ProportionalHeight >= 0 ? dHeight * view.ProportionalHeight : dHeight;
+            double fWidth = dWidth;
+            if (view.ProportionalWidth >= 0)
+            {
+                fWidth = dWidth * view.ProportionalWidth;
+            }
+            else if (view.HorizontalLayoutAlignment == XF.LayoutAlignment.Fill)
+            {
+                fWidth = dWidth;
+            }
+            else if (view.WidthRequest == -1)
+            {
+                fWidth = double.PositiveInfinity;
+            }
+            else if (view.WidthRequest >= 0)
+            {
+                fWidth = view.WidthRequest;
+            }
+
+            double fHeight = dHeight;
+            if (view.ProportionalHeight >= 0)
+            {
+                fHeight = dHeight * view.ProportionalHeight;
+            }
+            else if (view.VerticalLayoutAlignment == XF.LayoutAlignment.Fill)
+            {
+                fHeight = dHeight;
+            }
+            else if (view.HeightRequest == -1)
+            {
+                fHeight = double.PositiveInfinity;
+            }
+            else if (view.HeightRequest >= 0)
+            {
+                fHeight = view.HeightRequest;
+            }
+
 
             if (view.ProportionalWidth < 0 || view.ProportionalHeight < 0)
             {
-                var sizeRequest = view.Measure(fWidth, fHeight);
+                var sizeRequest = view.Measure(fWidth, fHeight, XF.MeasureFlags.IncludeMargins);
 
                 var reqWidth = view.ProportionalWidth >= 0 ? fWidth : sizeRequest.Request.Width;
                 var reqHeight = view.ProportionalHeight >= 0 ? fHeight : sizeRequest.Request.Height;
@@ -125,6 +160,60 @@ namespace AiForms.Dialogs
         {
             layoutParams.LeftMargin = (int)Context.ToPixels(offsetX);
             layoutParams.TopMargin = (int)Context.ToPixels(offsetY);
+        }
+
+        internal static ViewGroup SetViewAppearance(ExtraView formsView,ViewGroup nativeView)
+        {            
+            if (formsView.CornerRadius > 0 && formsView.BorderWidth > 0)
+            {
+                var wrapper = new CardView(Context);
+                wrapper.Radius = Context.ToPixels(formsView.CornerRadius);
+                wrapper.SetCardBackgroundColor(formsView.BorderColor.ToAndroid());
+                wrapper.CardElevation = 0;
+                var borderW = (int)Context.ToPixels(formsView.BorderWidth);
+                wrapper.SetContentPadding(borderW, borderW, borderW, borderW);
+                wrapper.SetClipChildren(true);
+
+                var inner = nativeView;
+                var border = new GradientDrawable();
+                var innerRadius = Math.Max(formsView.CornerRadius - formsView.BorderWidth, 0);
+                border.SetCornerRadius(Context.ToPixels(innerRadius));
+                if (!formsView.BackgroundColor.IsDefault)
+                {
+                    border.SetColor(formsView.BackgroundColor.ToAndroid());
+                }
+
+                inner.SetBackground(border);
+                inner.ClipToOutline = true;
+
+                wrapper.AddView(inner);
+                return wrapper;
+            }
+
+            if(formsView.CornerRadius > 0 || formsView.BorderWidth > 0)
+            {
+                var border = new GradientDrawable();
+                if (formsView.CornerRadius > 0)
+                {
+                    border.SetCornerRadius(Context.ToPixels(formsView.CornerRadius));
+                }
+                if (!formsView.BackgroundColor.IsDefault)
+                {
+                    border.SetColor(formsView.BackgroundColor.ToAndroid());
+                }
+
+                if (formsView.BorderWidth > 0)
+                {
+                    var borderW = (int)Context.ToPixels(formsView.BorderWidth);
+                    border.SetStroke(borderW, formsView.BorderColor.ToAndroid());
+                    nativeView.SetPadding(borderW, borderW, borderW, borderW);
+                }
+
+                nativeView.SetBackground(border);
+                nativeView.ClipToOutline = true;
+            }
+
+            return nativeView;
         }
 
         internal static GravityFlags GetGravity(ExtraView view)

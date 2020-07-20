@@ -14,8 +14,13 @@
         </description>
         <summary></summary>
         <releaseNotes>
+## New features
+
+* [Dialog] BorderColor and BorderWidth property.
+
 ## Bug fixes
 
+* [Dialog][Android] Back button doesn't work. #16 #18
 * [Dialog][Android] On the devices which have the notch, the dialog location is not correct.
 
 ## Changes
