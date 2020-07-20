@@ -29,6 +29,7 @@ namespace Sample.ViewModels
         public ReactivePropertySlim<int> OffsetY { get; } = new ReactivePropertySlim<int>();
         public ReactivePropertySlim<LayoutAlignment> VAlign { get; } = new ReactivePropertySlim<LayoutAlignment>();
         public ReactivePropertySlim<LayoutAlignment> HAlign { get; } = new ReactivePropertySlim<LayoutAlignment>();
+        public ReactivePropertySlim<bool> UseCurrentPageLocation { get; } = new ReactivePropertySlim<bool>(false);
 
         public MainPageViewModel(MyIndicatorView myIndicatorView)
 		{
@@ -108,7 +109,8 @@ namespace Sample.ViewModels
                     VAlign = VAlign.Value,
                     HAlign = HAlign.Value,
                     OffsetX = OffsetX.Value,
-                    OffsetY = OffsetY.Value
+                    OffsetY = OffsetY.Value,
+                    IsPageLocation = UseCurrentPageLocation.Value,
                 };
 
                 var ret = await Dialog.Instance.ShowAsync<MyDialogView>(vmm);

@@ -51,12 +51,45 @@ namespace AiForms.Dialogs
             var dWidth = window.Bounds.Width;
             var dHeight = window.Bounds.Height;
 
-            var fWidth = view.ProportionalWidth >= 0 ? dWidth * view.ProportionalWidth : dWidth;
-            var fHeight = view.ProportionalHeight >= 0 ? dHeight * view.ProportionalHeight : dHeight;
+            double fWidth = dWidth;
+            if(view.ProportionalWidth >= 0)
+            {
+                fWidth = dWidth * view.ProportionalWidth;
+            }
+            else if (view.HorizontalLayoutAlignment == LayoutAlignment.Fill)
+            {
+                fWidth = dWidth;
+            }
+            else if(view.WidthRequest == -1)
+            {
+                fWidth = double.PositiveInfinity;
+            }
+            else if(view.WidthRequest >= 0)
+            {
+                fWidth = view.WidthRequest;
+            }
+
+            double fHeight = dHeight;
+            if(view.ProportionalHeight >= 0)
+            {
+                fHeight = dHeight * view.ProportionalHeight;
+            }
+            else if (view.VerticalLayoutAlignment == LayoutAlignment.Fill)
+            {
+                fHeight = dHeight;
+            }
+            else if(view.HeightRequest == -1)
+            {
+                fHeight = double.PositiveInfinity;
+            }
+            else if (view.HeightRequest >= 0)
+            {
+                fHeight = view.HeightRequest;
+            }
 
             if (view.ProportionalWidth < 0 || view.ProportionalHeight < 0)
             {
-                var sizeRequest = view.Measure(fWidth, fHeight);
+                var sizeRequest = view.Measure(fWidth, fHeight, MeasureFlags.IncludeMargins);
 
                 var reqWidth = view.ProportionalWidth >= 0 ? fWidth : sizeRequest.Request.Width;
                 var reqHeight = view.ProportionalHeight >= 0 ? fHeight : sizeRequest.Request.Height;

@@ -3,9 +3,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using AiForms.Dialogs.Abstractions;
 using Android.App;
+using Android.Content;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
@@ -15,13 +17,14 @@ using XF = Xamarin.Forms;
 namespace AiForms.Dialogs
 {
     [Android.Runtime.Preserve(AllMembers = true)]
-    public class ReusableDialog:Java.Lang.Object, IReusableDialog, View.IOnKeyListener
+    public class ReusableDialog:Java.Lang.Object, IReusableDialog
     {
         ExtraPlatformDialog _platformDialog;
         FragmentManager FragmentManager => Dialogs.FragmentManager;
         DialogView _dlgView;
         IVisualElementRenderer _renderer;
         ViewGroup _contentView;
+        ViewGroup _container;
         Action OnceInitializeAction;
         Guid _guid;
 
@@ -45,27 +48,15 @@ namespace AiForms.Dialogs
 
             _dlgView.Layout(new XF.Rectangle(0, 0, measure.Width, measure.Height));
 
-            if (_dlgView.CornerRadius > 0)
-            {
-                var nativeView = _renderer.View as ViewGroup;
-                var border = new GradientDrawable();
-                border.SetCornerRadius(Dialogs.Context.ToPixels(_dlgView.CornerRadius));
-                if (!_dlgView.BackgroundColor.IsDefault)
-                {
-                    border.SetColor(_dlgView.BackgroundColor.ToAndroid());
-                }
-                nativeView.ClipToOutline = true;
-                nativeView.SetBackground(border);
-            }
-
-
+            _container = Dialogs.SetViewAppearance(_dlgView, _renderer.View as ViewGroup);           
+            
             _contentView = new FrameLayout(Dialogs.Context);
             using (var param = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent))
             {
                 _contentView.LayoutParameters = param;
             }
 
-            var fixPaddingTop = _dlgView.OverlayColor.IsTransparentOrDefault() ? (int)Dialogs.Context.ToPixels(24) : 0;
+            var fixPaddingTop = _dlgView.OverlayColor.IsTransparentOrDefault() ? Dialogs.StatusBarHeight : 0;
             if (_dlgView.UseCurrentPageLocation)
             {
                 var padding = Dialogs.CalcWindowPadding();
@@ -73,14 +64,13 @@ namespace AiForms.Dialogs
             }
             else
             {
-                _contentView.SetPadding(0, (int)Dialogs.Context.ToPixels(24) - fixPaddingTop, 0, 0); // Statusbar
+                _contentView.SetPadding(0, Dialogs.StatusBarHeight - fixPaddingTop, 0, 0); 
             }
 
             _contentView.SetBackgroundColor(_dlgView.OverlayColor.ToAndroid());
             _contentView.SetClipChildren(false);
             _contentView.SetClipToPadding(false);
 
-            _contentView.SetOnKeyListener(this);
             _contentView.FocusableInTouchMode = true;
             _contentView.Touch += _contentView_Touch;
 
@@ -96,7 +86,7 @@ namespace AiForms.Dialogs
             })
             {
                 Dialogs.SetOffsetMargin(param, _dlgView);
-                _contentView.AddView(_renderer.View, 0, param);
+                _contentView.AddView(_container, 0, param);
             };
 
             // For now, Dynamic resizing is gaven to only Dialog.
@@ -153,13 +143,13 @@ namespace AiForms.Dialogs
 
             _dlgView.DialogNotifierInternal.Canceled += cancel;
             _dlgView.DialogNotifierInternal.Completed += complete;
-
+            
 
             var payload = new ExtraDialogPayload(_dlgView,_contentView);
             var bundle = new Bundle();
             bundle.PutSerializable("extraDialogPayload", payload);
             _platformDialog = new ExtraPlatformDialog();
-            _platformDialog.Arguments = bundle;
+            _platformDialog.Arguments = bundle;            
             _platformDialog.Show(FragmentManager, _guid.ToString());
 
             try
@@ -187,8 +177,9 @@ namespace AiForms.Dialogs
                 _dlgView = null;
 
                 _contentView.Touch -= _contentView_Touch;
-                _contentView.SetOnKeyListener(null);
 
+                _container?.Dispose();
+                _container = null;
 
                 if (!_renderer.View.IsDisposed())
                 {
@@ -226,17 +217,6 @@ namespace AiForms.Dialogs
             e.Handled = false;
         }
 
-        public bool OnKey(View v, [GeneratedEnum] Keycode keyCode, KeyEvent e)
-        {
-            if (keyCode == Keycode.Back && e.Action == KeyEventActions.Up)
-            {
-                _dlgView.DialogNotifierInternal.Cancel();
-                return true;
-            }
-
-            return false;
-        }
-
         async Task Dismiss()
         {
             var tcs = new TaskCompletionSource<bool>();
@@ -264,6 +244,6 @@ namespace AiForms.Dialogs
             _platformDialog = null;
 
             await Task.Delay(250); // wait for a bit time until the dialog is completely released.
-        }
+        }        
     }
 }

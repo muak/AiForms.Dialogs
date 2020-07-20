@@ -127,6 +127,11 @@ namespace AiForms.Dialogs
                 _renderer.NativeView.Layer.CornerRadius = _loadingView.CornerRadius;
                 _renderer.NativeView.Layer.MasksToBounds = true;
             }
+            if (_loadingView.BorderWidth > 0)
+            {
+                _renderer.NativeView.Layer.BorderWidth = (float)_loadingView.BorderWidth;
+                _renderer.NativeView.Layer.BorderColor = _loadingView.BorderColor.ToCGColor();
+            }
 
             var measure = Dialogs.Measure(_loadingView);
             _renderer.SetElementSize(measure);

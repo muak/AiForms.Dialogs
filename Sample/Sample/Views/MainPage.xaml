@@ -39,6 +39,10 @@
             <sv:EntryCell Title="OffsetX" ValueText="{Binding OffsetX.Value,Mode=TwoWay}" Keyboard="Numeric" ValueTextFontSize="Small" />
             <sv:EntryCell Title="OffsetY" ValueText="{Binding OffsetY.Value,Mode=TwoWay}" Keyboard="Numeric" ValueTextFontSize="Small" />
         </sv:Section>
+
+         <sv:Section Title="Options">
+            <sv:SwitchCell Title="UseCurrentPageLocation" On="{Binding UseCurrentPageLocation.Value}" />
+        </sv:Section>
 	</sv:SettingsView>
     
 </ContentPage>
