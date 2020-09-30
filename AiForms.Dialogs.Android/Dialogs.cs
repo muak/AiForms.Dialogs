@@ -5,9 +5,9 @@ using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
-using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using AndroidX.CardView.Widget;
 using Xamarin.Forms.Platform.Android;
 using XF = Xamarin.Forms;
 
@@ -22,7 +22,7 @@ namespace AiForms.Dialogs
             Context = context;
         }
 
-        internal static FragmentManager FragmentManager => (Context as Activity)?.FragmentManager;
+        internal static AndroidX.Fragment.App.FragmentManager FragmentManager => (Context as Activity)?.GetFragmentManager();
 
         static int? _statusbarHeight;
         internal static int StatusBarHeight => _statusbarHeight ??=
