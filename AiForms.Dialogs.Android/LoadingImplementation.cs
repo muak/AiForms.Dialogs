@@ -88,13 +88,13 @@ namespace AiForms.Dialogs
 
         bool IsRunning()
         {
-            var dialog = Dialogs.FragmentManager.FindFragmentByTag<LoadingPlatformDialog>(LoadingDialogTag);
+            var dialog = Dialogs.FragmentManager.FindFragmentByTag(LoadingDialogTag) as LoadingPlatformDialog;
             return dialog != null;
         }
 
         async Task WaitDialogDestroy()
         {
-            var dialog = Dialogs.FragmentManager.FindFragmentByTag<LoadingPlatformDialog>(LoadingImplementation.LoadingDialogTag);
+            var dialog = Dialogs.FragmentManager.FindFragmentByTag(LoadingImplementation.LoadingDialogTag) as LoadingPlatformDialog;
             if (dialog == null)
             {
                 return;

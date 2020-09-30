@@ -7,10 +7,10 @@ using Android.Content;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
+using AndroidX.Fragment.App;
 using Xamarin.Forms.Platform.Android;
 using XF = Xamarin.Forms;
 
@@ -20,7 +20,7 @@ namespace AiForms.Dialogs
     public class ReusableDialog:Java.Lang.Object, IReusableDialog
     {
         ExtraPlatformDialog _platformDialog;
-        FragmentManager FragmentManager => Dialogs.FragmentManager;
+        AndroidX.Fragment.App.FragmentManager FragmentManager => Dialogs.FragmentManager;
         DialogView _dlgView;
         IVisualElementRenderer _renderer;
         ViewGroup _contentView;
@@ -116,7 +116,7 @@ namespace AiForms.Dialogs
 
         public async Task<bool> ShowAsync()
         {
-            var dialog = FragmentManager.FindFragmentByTag<ExtraPlatformDialog>(_guid.ToString());
+            var dialog = FragmentManager.FindFragmentByTag(_guid.ToString()) as ExtraPlatformDialog;
             if (dialog != null)
             {
                 return false;
@@ -237,7 +237,8 @@ namespace AiForms.Dialogs
             await tcs.Task;
             anim.AnimationEnd -= handler;
 
-            var dialog = FragmentManager.FindFragmentByTag<ExtraPlatformDialog>(_guid.ToString());
+            var dialog = FragmentManager.FindFragmentByTag(_guid.ToString()) as ExtraPlatformDialog;
+            dialog.Clear();
             dialog.Dismiss();
             _contentView.RemoveFromParent();
             _platformDialog.Dispose();

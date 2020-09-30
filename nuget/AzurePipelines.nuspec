@@ -14,12 +14,17 @@
         </description>
         <summary></summary>
         <releaseNotes>
+## News
+
+* Corresponded to AndroidX
+
 ## New features
 
 * [Dialog] BorderColor and BorderWidth property.
 
 ## Bug fixes
 
+* [Dialog][Android] Back button closes the dialog even if showing the keyboard. #14
 * [Dialog][Android] Back button doesn't work. #16 #18
 * [Dialog][Android] On the devices which have the notch, the dialog location is not correct.
 

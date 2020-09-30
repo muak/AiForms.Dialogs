@@ -9,7 +9,7 @@ namespace AiForms.Dialogs
 {
     public class LoadingBase:IDisposable
     {
-        protected FragmentManager FragmentManager => Dialogs.FragmentManager;
+        protected AndroidX.Fragment.App.FragmentManager FragmentManager => Dialogs.FragmentManager;
         protected LoadingPlatformDialog PlatformDialog;
         protected Action OnceInitializeAction;
         protected Progress<double> Progress;
@@ -45,13 +45,13 @@ namespace AiForms.Dialogs
 
         protected bool IsRunning()
         {
-            var dialog = Dialogs.FragmentManager.FindFragmentByTag<LoadingPlatformDialog>(LoadingImplementation.LoadingDialogTag);
+            var dialog = Dialogs.FragmentManager.FindFragmentByTag(LoadingImplementation.LoadingDialogTag) as LoadingPlatformDialog;
             return dialog != null;
         }
 
         protected async Task WaitDialogDestroy()
         {
-            var dialog = Dialogs.FragmentManager.FindFragmentByTag<LoadingPlatformDialog>(LoadingImplementation.LoadingDialogTag);
+            var dialog = Dialogs.FragmentManager.FindFragmentByTag(LoadingImplementation.LoadingDialogTag) as LoadingPlatformDialog;
             if(dialog == null)
             {
                 return;

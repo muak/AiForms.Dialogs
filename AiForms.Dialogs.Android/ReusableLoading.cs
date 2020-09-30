@@ -99,7 +99,7 @@ namespace AiForms.Dialogs
                 // Wait for ensuring that the dialog is created. 
                 // Because it sometimes crashes or freezes when executing a very short process.
                 await IsDialogShownTcs.Task;
-                var dialog = FragmentManager.FindFragmentByTag<LoadingPlatformDialog>(LoadingImplementation.LoadingDialogTag);
+                var dialog = FragmentManager.FindFragmentByTag(LoadingImplementation.LoadingDialogTag) as LoadingPlatformDialog;
                 dialog?.Dismiss();
                 ContentView.RemoveFromParent();
             });

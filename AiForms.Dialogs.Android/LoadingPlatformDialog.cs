@@ -9,7 +9,7 @@ using System;
 namespace AiForms.Dialogs
 {
     [Android.Runtime.Preserve(AllMembers = true)]
-    public class LoadingPlatformDialog : DialogFragment
+    public class LoadingPlatformDialog : AndroidX.Fragment.App.DialogFragment
     {
         LoadingView _loadingView;
         ViewGroup _contentView;
