@@ -134,7 +134,10 @@ namespace AiForms.Dialogs
                 // Delay as OnKey event timing adjustment. 
                 new Handler().PostDelayed(() =>
                 {
-                    _dialog._isKeyboardOpen = _alreadyOpen;
+                    if(_dialog != null)
+                    {
+                        _dialog._isKeyboardOpen = _alreadyOpen;
+                    }                    
                 }, 1000);                
             }
         }
