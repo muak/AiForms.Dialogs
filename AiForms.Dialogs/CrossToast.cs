@@ -23,10 +23,12 @@ namespace AiForms.Dialogs
 
         static IToast CreateToast()
         {
-#if NETSTANDARD2_0
-            return null;
-#else
+#if XAMARIN_IOS
             return new ToastImplementation();
+#elif MONOANDROID
+            return new ToastImplementation();
+#else
+            return null;
 #endif
         }
 

@@ -29,6 +29,7 @@
     <AndroidLinkMode>None</AndroidLinkMode>
     <JavaMaximumHeapSize>3G</JavaMaximumHeapSize>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidSupportedAbis>armeabi-v7a;arm64-v8a;x86;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,13 +69,9 @@
       <Project>{2DB58246-77D5-4190-B0A0-F125B538309B}</Project>
       <Name>Sample</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\AiForms.Dialogs.Abstractions\AiForms.Dialogs.Abstractions.csproj">
-      <Project>{0BDF7090-FE73-49E6-B554-B2DA240768BB}</Project>
-      <Name>AiForms.Dialogs.Abstractions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\AiForms.Dialogs.Android\AiForms.Dialogs.Android.csproj">
-      <Project>{3E6C5F16-98AD-45F8-B2F3-06876EB939CD}</Project>
-      <Name>AiForms.Dialogs.Android</Name>
+    <ProjectReference Include="..\..\AiForms.Dialogs\AiForms.Dialogs.csproj">
+      <Project>{3E584881-BEC7-4444-883A-028EAEA8B141}</Project>
+      <Name>AiForms.Dialogs</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -101,9 +98,9 @@
     <AndroidResource Include="Resources\values\styles.xml" />
   </ItemGroup>
    <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="AiForms.SettingsView">
-      <Version>1.2.26-pre</Version>
+      <Version>1.3.18</Version>
     </PackageReference>
     <PackageReference Include="AiForms.Effects" Version="1.6.9" />
     <PackageReference Include="Prism.Unity.Forms" Version="7.0.0.396" />
