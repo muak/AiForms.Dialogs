@@ -49,37 +49,24 @@
         </dependencies>
     </metadata>
     <files>
-        <!-- .net standard 2.0 -->
-        <file src="netstandard/AiForms.Dialogs.dll" target="lib/netstandard2.0" />
-        <file src="netstandard/AiForms.Dialogs.xml" target="lib/netstandard2.0" />
-        <file src="netstandard/AiForms.Dialogs.pdb" target="lib/netstandard2.0" />
+        <!-- .net standard 2.1 -->
+        <file src="artifacts/netstandard2.1/AiForms.Dialogs.dll" target="lib/netstandard2.1" />
+        <file src="artifacts/netstandard2.1/AiForms.Dialogs.xml" target="lib/netstandard2.1" />
+        <file src="artifacts/netstandard2.1/AiForms.Dialogs.pdb" target="lib/netstandard2.1" />
 		
-		<file src="netstandard/AiForms.Dialogs.Abstractions.dll" target="lib/netstandard2.0" />
-        <file src="netstandard/AiForms.Dialogs.Abstractions.xml" target="lib/netstandard2.0" />
-        <file src="netstandard/AiForms.Dialogs.Abstractions.pdb" target="lib/netstandard2.0" />
+		<!-- .net standard 2.1 -->
+        <file src="artifacts/netstandard2.0/AiForms.Dialogs.dll" target="lib/netstandard2.0" />
+        <file src="artifacts/netstandard2.0/AiForms.Dialogs.xml" target="lib/netstandard2.0" />
+        <file src="artifacts/netstandard2.0/AiForms.Dialogs.pdb" target="lib/netstandard2.0" />
 
         <!-- Mono.Android -->
-        <file src="netstandard/AiForms.Dialogs.Abstractions.dll" target="lib/MonoAndroid" />
-        <file src="netstandard/AiForms.Dialogs.Abstractions.xml" target="lib/MonoAndroid" />
-        <file src="netstandard/AiForms.Dialogs.Abstractions.pdb" target="lib/MonoAndroid" />
-        <file src="android/AiForms.Dialogs.dll" target="lib/MonoAndroid" />
-        <file src="android/AiForms.Dialogs.xml" target="lib/MonoAndroid" />
-        <file src="android/AiForms.Dialogs.pdb" target="lib/MonoAndroid" />
+        <file src="artifacts/monoandroid10.0/AiForms.Dialogs.dll" target="lib/MonoAndroid" />
+        <file src="artifacts/monoandroid10.0/AiForms.Dialogs.xml" target="lib/MonoAndroid" />
+        <file src="artifacts/monoandroid10.0/AiForms.Dialogs.pdb" target="lib/MonoAndroid" />
 
-        <!-- Mono.Touch -->
-        <file src="netstandard/AiForms.Dialogs.Abstractions.dll" target="lib/MonoTouch" />
-        <file src="netstandard/AiForms.Dialogs.Abstractions.xml" target="lib/MonoTouch" />
-        <file src="netstandard/AiForms.Dialogs.Abstractions.pdb" target="lib/MonoTouch" />
-        <file src="iOS/AiForms.Dialogs.dll" target="lib/MonoTouch" />
-        <file src="iOS/AiForms.Dialogs.xml" target="lib/MonoTouch" />
-        <file src="iOS/AiForms.Dialogs.pdb" target="lib/MonoTouch" />
-
-        <!-- Xamarin.iOS10 -->
-        <file src="netstandard/AiForms.Dialogs.Abstractions.dll" target="lib/Xamarin.iOS10" />
-        <file src="netstandard/AiForms.Dialogs.Abstractions.xml" target="lib/Xamarin.iOS10" />
-        <file src="netstandard/AiForms.Dialogs.Abstractions.pdb" target="lib/Xamarin.iOS10" />
-        <file src="iOS/AiForms.Dialogs.dll" target="lib/Xamarin.iOS10" />
-        <file src="iOS/AiForms.Dialogs.xml" target="lib/Xamarin.iOS10" />
-        <file src="iOS/AiForms.Dialogs.pdb" target="lib/Xamarin.iOS10" />
+        <!-- Xamarin.iOS -->
+        <file src="artifacts/xamarin.ios10/AiForms.Dialogs.dll" target="lib/Xamarin.iOS10" />
+        <file src="artifacts/xamarin.ios10/AiForms.Dialogs.xml" target="lib/Xamarin.iOS10" />
+        <file src="artifacts/xamarin.ios10/AiForms.Dialogs.pdb" target="lib/Xamarin.iOS10" />
     </files>
 </package>

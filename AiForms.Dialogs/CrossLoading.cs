@@ -23,10 +23,12 @@ namespace AiForms.Dialogs
 
         static ILoading CreateLoading()
         {
-#if NETSTANDARD2_0
-        return null;
-#else
+#if XAMARIN_IOS
             return new LoadingImplementation();
+#elif MONOANDROID
+            return new LoadingImplementation();
+#else
+            return null;
 #endif
         }
 
