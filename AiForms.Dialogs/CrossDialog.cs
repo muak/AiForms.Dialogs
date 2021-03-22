@@ -23,10 +23,12 @@ namespace AiForms.Dialogs
 
         static IDialog CreateDialog()
         {
-#if NETSTANDARD2_0
-            return null;
-#else
+#if XAMARIN_IOS
             return new DialogImplementation();
+#elif MONOANDROID
+            return new DialogImplementation();
+#else
+            return null;
 #endif
         }
 
