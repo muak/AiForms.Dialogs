@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1;xamarin.ios10;monoandroid10.0</TargetFrameworks>
     <Configurations>Release;Debug</Configurations>
+    <ReleaseVersion>1.08</ReleaseVersion>
   </PropertyGroup>
 
   <ItemGroup>
