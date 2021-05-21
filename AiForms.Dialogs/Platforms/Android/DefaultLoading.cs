@@ -101,6 +101,10 @@ namespace AiForms.Dialogs
 
             XF.Device.BeginInvokeOnMainThread(() =>
             {
+                if(_messageLabel is null)
+                {
+                    return;
+                }
                 if (progress >= 0)
                 {
                     _messageLabel.Text = string.Format(_config.ProgressMessageFormat, _message, progress);
