@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AiForms.Dialogs.Abstractions;
+using Android.Runtime;
 using Android.Views;
 using Java.IO;
 
@@ -18,6 +20,10 @@ namespace AiForms.Dialogs
             LoadingView = loadingView;
             ContentView = contentView;
             IsShownTcs = tcs;
+        }
+
+        public LoadingDialogPayload(IntPtr handle, JniHandleOwnership transfer) : base(handle, transfer)
+        {
         }
 
         protected override void Dispose(bool disposing)

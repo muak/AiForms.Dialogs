@@ -45,7 +45,7 @@ namespace AiForms.Dialogs
             Progress = new Progress<double>();
             Progress.ProgressChanged += ProgressAction;
             await action(Progress);
-            Hide();
+            await Hide();
         }
 
         public void Show(bool isCurrentScope = false)
@@ -75,7 +75,7 @@ namespace AiForms.Dialogs
             UIView.Animate(0.25, () => OverlayView.Alpha = 1f, () => { });
         }
 
-        public void Hide()
+        public async Task Hide()
         {
 
             if (Progress != null)
@@ -88,15 +88,13 @@ namespace AiForms.Dialogs
                 }
             }
 
-            UIView.Animate(
+            await UIView.AnimateAsync(
                 0.25, // duration
-                () => { OverlayView.Alpha = 0; },
-                () =>
-                {
-                    _loadingView?.RunDismissalAnimation();
-                    IsRunning = false;
-                }
+                () => { OverlayView.Alpha = 0; }
             );
+
+            _loadingView?.RunDismissalAnimation();
+            IsRunning = false;
         }
 
 
