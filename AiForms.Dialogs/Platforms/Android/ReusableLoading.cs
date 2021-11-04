@@ -32,12 +32,12 @@ namespace AiForms.Dialogs
             _loadingView.Parent = null;
             _loadingView = null;
 
-
             if (_renderer != null)
             {
+                
                 if (!_renderer.View.IsDisposed())
-                {
-                    _renderer.View.Dispose();
+                {                    
+                    _renderer.View.Dispose();                  
                 }
                 _renderer?.Dispose();
                 _renderer = null;
@@ -61,7 +61,7 @@ namespace AiForms.Dialogs
             Progress = new Progress<double>();
             Progress.ProgressChanged += ProgressAction;
             await action(Progress);
-            Hide();
+            await Hide();            
         }
 
         void ShowInner()
@@ -78,7 +78,7 @@ namespace AiForms.Dialogs
             PlatformDialog.Show(FragmentManager, LoadingImplementation.LoadingDialogTag);
         }
 
-        public void Hide()
+        public async Task Hide()
         {
             if (Progress != null)
             {
@@ -90,19 +90,25 @@ namespace AiForms.Dialogs
             var anim = new AlphaAnimation(ContentView.Alpha, 0.0f);
             anim.Duration = 250;
             anim.FillAfter = true;
+            
             ContentView.StartAnimation(anim);
-
             _loadingView?.RunDismissalAnimation();
+           
 
-            Task.Run(async () =>
+            _ = Task.Run(async () =>
             {
                 // Wait for ensuring that the dialog is created. 
                 // Because it sometimes crashes or freezes when executing a very short process.
                 await IsDialogShownTcs.Task;
                 var dialog = FragmentManager.FindFragmentByTag(LoadingImplementation.LoadingDialogTag) as LoadingPlatformDialog;
-                dialog?.Dismiss();
-                ContentView.RemoveFromParent();
+                Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                {
+                    dialog?.Dismiss();
+                    ContentView.RemoveFromParent();
+                });                
             });
+
+            await Task.Delay(250); // wait for animation
         }
 
         void ProgressAction(object sender, double progress)

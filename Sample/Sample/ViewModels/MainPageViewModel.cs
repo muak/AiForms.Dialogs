@@ -74,7 +74,7 @@ namespace Sample.ViewModels
 
             CustomLoadingCommand.Subscribe(async _ =>
             {
-                var customLoading = Loading.Instance.Create<MyIndicatorView>(new
+                using var customLoading = Loading.Instance.Create<MyIndicatorView>(new
                 {
                     Message = "Loading...",
                     VAlign = VAlign.Value,
@@ -91,7 +91,7 @@ namespace Sample.ViewModels
                         await Task.Delay(25);
                         p.Report((i + 1) * 0.01d);
                     }
-                });
+                });                
             });
 
             var dlgPage = new MyDialogView();
