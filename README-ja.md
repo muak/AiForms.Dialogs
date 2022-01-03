@@ -518,6 +518,9 @@ ContentViewを継承しているので任意の VisualElement を配置できま
     * LayoutAlignmentからの垂直方向の調整位置を相対値で指定します。
 * CornerRadius
     * ダイアログの角を丸める場合の値。
+* AutoRotateForIOS
+    * iOSで画面回転を有効にするかどうか。(default: true)
+    * 向きを固定にしている場合はこの値は無効です。
 
 ### 共通 Virtual Methods
 
