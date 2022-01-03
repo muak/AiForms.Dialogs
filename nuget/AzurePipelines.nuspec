@@ -20,6 +20,7 @@
 
 ## New features
 
+* [Dialog] AutoRotateForIOS property.
 * [Dialog] BorderColor and BorderWidth property.
 
 ## Bug fixes

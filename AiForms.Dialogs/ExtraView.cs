@@ -139,6 +139,19 @@ namespace AiForms.Dialogs.Abstractions
             set { SetValue(BorderWidthProperty, value); }
         }
 
+        public static BindableProperty AutoRotateForIOSProperty = BindableProperty.Create(
+            nameof(AutoRotateForIOS),
+            typeof(bool),
+            typeof(ExtraView),
+            true,
+            defaultBindingMode: BindingMode.OneWay
+        );
+
+        public bool AutoRotateForIOS{
+            get { return (bool)GetValue(AutoRotateForIOSProperty); }
+            set { SetValue(AutoRotateForIOSProperty, value); }
+        }
+
         public virtual void RunPresentationAnimation() {}
         public virtual void RunDismissalAnimation() {}
         public virtual void Destroy() {}
