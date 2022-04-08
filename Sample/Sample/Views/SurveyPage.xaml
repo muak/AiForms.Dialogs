@@ -3,5 +3,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="Sample.Views.SurveyPage">
-    <Button Text="Show" Command="{Binding ShowDialogCommand}" />
+    <StackLayout>
+        <Button Text="Show" Command="{Binding ShowDialogCommand}"
+                VerticalOptions="Center" HorizontalOptions="Center"/>
+    </StackLayout>
+    
 </ContentPage>

@@ -31,7 +31,7 @@ namespace Sample.ViewModels
         public ReactivePropertySlim<LayoutAlignment> HAlign { get; } = new ReactivePropertySlim<LayoutAlignment>();
         public ReactivePropertySlim<bool> UseCurrentPageLocation { get; } = new ReactivePropertySlim<bool>(false);
 
-        public MainPageViewModel(MyIndicatorView myIndicatorView)
+        public MainPageViewModel()
 		{
 
             VAligns.Add(LayoutAlignment.Start);

@@ -2,7 +2,7 @@
 <extra:DialogView 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    xmlns:extra="clr-namespace:AiForms.Dialogs.Abstractions;assembly=AiForms.Dialogs.Abstractions"
+    xmlns:extra="clr-namespace:AiForms.Dialogs.Abstractions;assembly=AiForms.Dialogs"
     x:Class="Sample.Views.ManualDialogView"
     ProportionalWidth="{Binding ProportionalWidth}" ProportionalHeight="{Binding ProportionalHeight}"
     VerticalLayoutAlignment="{Binding VerticalLayoutAlignment}"

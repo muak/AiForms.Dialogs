@@ -52,17 +52,25 @@ namespace AiForms.Dialogs
             var dHeight = window.Bounds.Height;
 
             double fWidth = dWidth;
-            if(view.ProportionalWidth >= 0)
+            bool isFixWidth = true;
+            bool isFixHeight = true;
+            var marginTop = view.Margin.Top;
+            var marginLeft = view.Margin.Left;
+            var marginBottom = view.Margin.Bottom;
+            var marginRight = view.Margin.Right;
+
+            if (view.ProportionalWidth >= 0)
             {
                 fWidth = dWidth * view.ProportionalWidth;
             }
             else if (view.HorizontalLayoutAlignment == LayoutAlignment.Fill)
             {
-                fWidth = dWidth;
+                fWidth = dWidth - marginLeft - marginRight;
             }
             else if(view.WidthRequest == -1)
             {
                 fWidth = double.PositiveInfinity;
+                isFixWidth = false;
             }
             else if(view.WidthRequest >= 0)
             {
@@ -76,23 +84,24 @@ namespace AiForms.Dialogs
             }
             else if (view.VerticalLayoutAlignment == LayoutAlignment.Fill)
             {
-                fHeight = dHeight;
+                fHeight = dHeight - marginTop - marginBottom;
             }
             else if(view.HeightRequest == -1)
             {
                 fHeight = double.PositiveInfinity;
+                isFixHeight = false;
             }
             else if (view.HeightRequest >= 0)
             {
                 fHeight = view.HeightRequest;
             }
 
-            if (view.ProportionalWidth < 0 || view.ProportionalHeight < 0)
-            {
-                var sizeRequest = view.Measure(fWidth, fHeight, MeasureFlags.IncludeMargins);
+            if (!isFixWidth || !isFixHeight)
+            {                
+                var sizeRequest = view.Measure(fWidth, fHeight, MeasureFlags.None);
 
-                var reqWidth = view.ProportionalWidth >= 0 ? fWidth : sizeRequest.Request.Width;
-                var reqHeight = view.ProportionalHeight >= 0 ? fHeight : sizeRequest.Request.Height;
+                var reqWidth = isFixWidth ? fWidth : sizeRequest.Request.Width;
+                var reqHeight = isFixHeight ? fHeight : sizeRequest.Request.Height;
 
                 return new Size(reqWidth,reqHeight);
             }

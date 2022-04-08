@@ -62,7 +62,8 @@ namespace AiForms.Dialogs
             }
 
             var measure = Dialogs.Measure(_dlgView);
-            _renderer.SetElementSize(measure);
+            //_renderer.SetElementSize(measure); // <- There is diff about margin when use this method.
+            _dlgView.Layout(new Xamarin.Forms.Rectangle(0, 0, measure.Width, measure.Height));
 
             _contentViewController = new ContentViewController(_dlgView.AutoRotateForIOS)
             {
