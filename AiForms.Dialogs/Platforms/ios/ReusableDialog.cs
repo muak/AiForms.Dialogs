@@ -6,6 +6,7 @@ using UIKit;
 using System.Linq;
 using Xamarin.Forms;
 using System.Reflection;
+using AiForms.Dialogs.Platforms.ios;
 
 namespace AiForms.Dialogs
 {
@@ -16,7 +17,7 @@ namespace AiForms.Dialogs
         DialogView _dlgView;
         IVisualElementRenderer _renderer;
         UIView _overlayView;
-        UIViewController _contentViewController;
+        ContentViewController _contentViewController;
         DialogPresentationController _dialogController;
         Action OnceInitializeAction;
 
@@ -61,9 +62,10 @@ namespace AiForms.Dialogs
             }
 
             var measure = Dialogs.Measure(_dlgView);
-            _renderer.SetElementSize(measure);
+            //_renderer.SetElementSize(measure); // <- There is diff about margin when use this method.
+            _dlgView.Layout(new Xamarin.Forms.Rectangle(0, 0, measure.Width, measure.Height));
 
-            _contentViewController = new UIViewController
+            _contentViewController = new ContentViewController(_dlgView.AutoRotateForIOS)
             {
                 View = _renderer.NativeView
             };
