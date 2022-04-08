@@ -25,6 +25,7 @@
 
 ## Bug fixes
 
+* [Dialog] Fix issue about position and margin.
 * [Dialog][Android] Back button null exception.
 * [Dialog][Android] Back button closes the dialog even if showing the keyboard. #14
 * [Dialog][Android] Back button doesn't work. #16 #18

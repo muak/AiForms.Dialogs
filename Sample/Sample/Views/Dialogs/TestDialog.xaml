@@ -2,11 +2,19 @@
 <extra:DialogView
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:extra="clr-namespace:AiForms.Dialogs.Abstractions;assembly=AiForms.Dialogs.Abstractions"
-    x:Class="Sample.Views.Dialogs.TestDialog" ProportionalHeight="0.5" ProportionalWidth="1"
-    AutoRotateForIOS="false">
-    <StackLayout>
-        <Editor HeightRequest="60" />
+    xmlns:extra="clr-namespace:AiForms.Dialogs.Abstractions;assembly=AiForms.Dialogs"
+    x:Class="Sample.Views.Dialogs.TestDialog"
+    HorizontalLayoutAlignment="Center"
+    VerticalLayoutAlignment="Center"
+    BackgroundColor="AliceBlue"
+    UseCurrentPageLocation="False"
+    Margin="16"
+    Padding="10"
+    CornerRadius="16"
+    OverlayColor="#80000000"
+    >
+    <StackLayout BackgroundColor="Blue">
+        <Label Text="Hoge" FontSize="Medium" />
         <Button Text="OK" Clicked="Button_Clicked" />
     </StackLayout>
 

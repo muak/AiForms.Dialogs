@@ -77,11 +77,12 @@
     <MtouchFastDev>true</MtouchFastDev>
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchLink>None</MtouchLink>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
     <LangVersion>latestmajor</LangVersion>
+    <MtouchInterpreter>-all</MtouchInterpreter>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -131,8 +132,8 @@
     <Compile Include="AppDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AiForms.Effects" Version="1.6.9" />
-    <PackageReference Include="AiForms.SettingsView" Version="1.3.18" />
+    <PackageReference Include="AiForms.Effects" Version="1.6.11" />
+    <PackageReference Include="AiForms.SettingsView" Version="1.3.30" />
     <PackageReference Include="Prism.Core" Version="7.0.0.396" />
     <PackageReference Include="Prism.Forms" Version="7.0.0.396" />
     <PackageReference Include="Prism.Unity.Forms" Version="7.0.0.396" />
@@ -146,7 +147,7 @@
     <PackageReference Include="System.Runtime" Version="4.3.0" />
     <PackageReference Include="System.Runtime.InteropServices.WindowsRuntime" Version="4.3.0" />
     <PackageReference Include="Unity" Version="5.5.5" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />

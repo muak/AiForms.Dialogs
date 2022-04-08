@@ -45,7 +45,7 @@ namespace AiForms.Dialogs
             _renderer = Dialogs.CreateNativeView(_dlgView);
 
             var measure = Dialogs.Measure(_dlgView);
-
+                        
             _dlgView.Layout(new XF.Rectangle(0, 0, measure.Width, measure.Height));
 
             _container = Dialogs.SetViewAppearance(_dlgView, _renderer.View as ViewGroup);           
@@ -56,7 +56,8 @@ namespace AiForms.Dialogs
                 _contentView.LayoutParameters = param;
             }
 
-            var fixPaddingTop = _dlgView.OverlayColor.IsTransparentOrDefault() ? Dialogs.StatusBarHeight : 0;
+            var fixPaddingTop = _dlgView.OverlayColor.IsTransparentOrDefault() ? Dialogs.StatusBarHeightInContent : 0;           
+
             if (_dlgView.UseCurrentPageLocation)
             {
                 var padding = Dialogs.CalcWindowPadding();
@@ -64,7 +65,7 @@ namespace AiForms.Dialogs
             }
             else
             {
-                _contentView.SetPadding(0, Dialogs.StatusBarHeight - fixPaddingTop, 0, 0); 
+                _contentView.SetPadding(0, Dialogs.StatusBarHeightInContent - fixPaddingTop, 0, 0); 
             }
 
             _contentView.SetBackgroundColor(_dlgView.OverlayColor.ToAndroid());

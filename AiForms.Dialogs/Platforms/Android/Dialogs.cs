@@ -45,7 +45,27 @@ namespace AiForms.Dialogs
                 Rect contentSize = new Rect();
                 (Context as Activity)?.Window.DecorView.GetWindowVisibleDisplayFrame(contentSize);
                 _contentSize = new Size(contentSize.Width(), contentSize.Height());
+
+                int availableHeight = Context.Resources.DisplayMetrics.HeightPixels;
+
+                _statusBarHeightInContent = availableHeight - contentSize.Height();
+
                 return _contentSize.Value;
+            }
+        }
+
+        // Height of status bar included in content area
+        static int? _statusBarHeightInContent;
+        internal static int StatusBarHeightInContent
+        {
+            get
+            {
+                if (!_contentSize.HasValue)
+                {
+                    _ = ContentSize;
+                }
+                
+                return _statusBarHeightInContent.Value;
             }
         }
 
@@ -81,6 +101,13 @@ namespace AiForms.Dialogs
             var dWidth = Context.FromPixels(ContentSize.Width);
             var dHeight = Context.FromPixels(ContentSize.Height);
 
+            bool isFixWidth = true;
+            bool isFixHeight = true;
+            var marginTop = view.Margin.Top;
+            var marginLeft = view.Margin.Left;
+            var marginBottom = view.Margin.Bottom;
+            var marginRight = view.Margin.Right;
+
             double fWidth = dWidth;
             if (view.ProportionalWidth >= 0)
             {
@@ -88,11 +115,12 @@ namespace AiForms.Dialogs
             }
             else if (view.HorizontalLayoutAlignment == XF.LayoutAlignment.Fill)
             {
-                fWidth = dWidth;
+                fWidth = dWidth - marginLeft - marginRight;
             }
             else if (view.WidthRequest == -1)
             {
                 fWidth = double.PositiveInfinity;
+                isFixWidth = false;
             }
             else if (view.WidthRequest >= 0)
             {
@@ -106,11 +134,12 @@ namespace AiForms.Dialogs
             }
             else if (view.VerticalLayoutAlignment == XF.LayoutAlignment.Fill)
             {
-                fHeight = dHeight;
+                fHeight = dHeight - marginTop - marginBottom;
             }
             else if (view.HeightRequest == -1)
             {
                 fHeight = double.PositiveInfinity;
+                isFixHeight = false;
             }
             else if (view.HeightRequest >= 0)
             {
@@ -118,12 +147,12 @@ namespace AiForms.Dialogs
             }
 
 
-            if (view.ProportionalWidth < 0 || view.ProportionalHeight < 0)
+            if (!isFixWidth || !isFixHeight)
             {
-                var sizeRequest = view.Measure(fWidth, fHeight, XF.MeasureFlags.IncludeMargins);
+                var sizeRequest = view.Measure(fWidth, fHeight, XF.MeasureFlags.None);
 
-                var reqWidth = view.ProportionalWidth >= 0 ? fWidth : sizeRequest.Request.Width;
-                var reqHeight = view.ProportionalHeight >= 0 ? fHeight : sizeRequest.Request.Height;
+                var reqWidth = isFixWidth ? fWidth : sizeRequest.Request.Width;
+                var reqHeight = isFixHeight ? fHeight : sizeRequest.Request.Height;
 
                 return new XF.Size(reqWidth, reqHeight);
             }
