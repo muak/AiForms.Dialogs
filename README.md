@@ -1,5 +1,8 @@
 # AiForms.Dialogs for  Xamarin.Forms
 
+
+**[For .NET MAUI](https://github.com/muak/AiForms.Maui.Dialogs)**
+
 This is a collection of Custom Dialogs that can be defined with XAML for Xamarin.Forms (Android / iOS).
 
 [Japanese](./README-ja.md)
